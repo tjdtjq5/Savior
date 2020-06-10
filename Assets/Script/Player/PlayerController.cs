@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [Header("체력 이미지")]
     public Image hp_image;
     [Header("대쉬, 장애물, 스킬아이템 버튼")]
+    public GameObject tel_obj;
     public GameObject dash_btn;
     public GameObject treasure_btn;
     public GameObject skill_item_btn;
@@ -365,61 +366,38 @@ public class PlayerController : MonoBehaviour
 
         GameManager.instance.audioManager.EnvironVolume_Play(dash_AudioSource);
 
-        if (joystic_localpos.x > 45)
-            this.transform.DOMoveX(this.transform.position.x + dash_move, 0.1f).SetEase(Ease.Linear);
-        if (joystic_localpos.x < -45)
-            this.transform.DOMoveX(this.transform.position.x - dash_move, 0.1f).SetEase(Ease.Linear);
-        if (joystic_localpos.y > 45)
-            this.transform.DOMoveY(this.transform.position.y + dash_move, 0.1f).SetEase(Ease.Linear);
-        if (joystic_localpos.y < -45)
-            this.transform.DOMoveY(this.transform.position.y - dash_move, 0.1f).SetEase(Ease.Linear);
-
-        GameObject player_dash = null;
-
-
-        for (int i = 0; i < 5; i++)
+        switch (currentAniName)
         {
-
-            if (idle_down.transform.localPosition.x == 0)
-            {
-                player_dash = ObjectPoolingManager.instance.GetQueue(ObjectKind.idle_down);
-                player_dash.transform.rotation = idle_down.transform.rotation;
-            }
-            if (down_ver.transform.localPosition.x == 0)
-            {
-                player_dash = ObjectPoolingManager.instance.GetQueue(ObjectKind.down_ver);
-                player_dash.transform.rotation = down_ver.transform.rotation;
-                player_dash.GetComponent<SkeletonAnimation>().Skeleton.SetSkin(currentSkinName);
-                player_dash.GetComponent<SkeletonAnimation>().skeleton.SetSlotsToSetupPose();
-                player_dash.GetComponent<SkeletonAnimation>().LateUpdate();
-            }
-            if (ver.transform.localPosition.x == 0)
-            {
-                player_dash = ObjectPoolingManager.instance.GetQueue(ObjectKind.ver);
-                player_dash.transform.rotation = ver.transform.rotation;
-                player_dash.GetComponent<SkeletonAnimation>().Skeleton.SetSkin(currentSkinName);
-                player_dash.GetComponent<SkeletonAnimation>().skeleton.SetSlotsToSetupPose();
-                player_dash.GetComponent<SkeletonAnimation>().LateUpdate();
-            }
-            if (up.transform.localPosition.x == 0)
-            {
-                player_dash = ObjectPoolingManager.instance.GetQueue(ObjectKind.up);
-                player_dash.transform.rotation = up.transform.rotation;
-            }
-            if (up_ver.transform.localPosition.x == 0)
-            {
-                player_dash = ObjectPoolingManager.instance.GetQueue(ObjectKind.up_ver);
-                player_dash.transform.rotation = up_ver.transform.rotation;
-                player_dash.GetComponent<SkeletonAnimation>().Skeleton.SetSkin(currentSkinName);
-                player_dash.GetComponent<SkeletonAnimation>().skeleton.SetSlotsToSetupPose();
-                player_dash.GetComponent<SkeletonAnimation>().LateUpdate();
-            }
-
-            player_dash.transform.position = this.transform.Find("Spine_Ani").position;
-            yield return new WaitForSeconds(0.1f / 5);
-
+            case "character001_move_up":
+                this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + dash_move);
+                break;
+            case "character001_move_upL":
+                this.transform.position = new Vector2(this.transform.position.x - dash_move, this.transform.position.y + dash_move);
+                break;
+            case "character001_move_upR":
+                this.transform.position = new Vector2(this.transform.position.x + dash_move, this.transform.position.y + dash_move);
+                break;
+            case "character001_move_left":
+                this.transform.position = new Vector2(this.transform.position.x - dash_move, this.transform.position.y);
+                break;
+            case "character001_move_right":
+                this.transform.position = new Vector2(this.transform.position.x + dash_move, this.transform.position.y);
+                break;
+            case "character001_move_down":
+                this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - dash_move);
+                break;
+            case "character001_move_downright":
+                this.transform.position = new Vector2(this.transform.position.x - dash_move, this.transform.position.y - dash_move);
+                break;
+            case "character001_move_downleft":
+                this.transform.position = new Vector2(this.transform.position.x + dash_move, this.transform.position.y - dash_move);
+                break;
+            default:
+                break;
         }
+        yield return null;
 
+        Instantiate(tel_obj, new Vector2(this.transform.position.x , this.transform.position.y + 0.25f), Quaternion.identity, this.transform);
         dash_flag = false;
 
     }
