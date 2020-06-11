@@ -42,6 +42,9 @@ public class Boss_Skillinfo : MonoBehaviour
 
     private void Update()
     {
+        if (TimeManager.instance.GetTime())
+            return;
+
         if (randomshot)
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(randx,randy), 3.0f);

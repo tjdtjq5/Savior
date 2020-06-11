@@ -137,7 +137,6 @@ public class Boss : MonoBehaviour
 
     public void Phase_01()
     {
-        Debug.Log("찍힘");
         if (TimeManager.instance.GetTime())
         {
             return;
