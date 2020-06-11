@@ -13,6 +13,13 @@ public class ActiveSkill : MonoBehaviour
 
     [HideInInspector] public PlayerController playerInfo;
 
+    [Header("스킬사운드")]
+    public AudioSource activeskill_sound;
+    
+    private void Start()
+    {
+        activeskill_sound.Play();
+    }
 
     public void SkillCall(List<GameObject> target, int atk)
     {
