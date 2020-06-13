@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3999833648666710521}
   - component: {fileID: 3999833648666710526}
   - component: {fileID: 3999833648666710527}
-  - component: {fileID: 3999833648666710524}
   - component: {fileID: 3999833648666710525}
   - component: {fileID: 2797585356782985271}
   m_Layer: 0
@@ -104,25 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3999833648666710524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999833648666710498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3203876b0241f8346a82428ed05aa822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDamage: 1
-  lvOfDamage: 1
-  range: 5
-  atk_num: 1
-  colltime: 2
-  playerInfo: {fileID: 0}
-  activeskill_sound: {fileID: 2797585356782985271}
 --- !u!61 &3999833648666710525
 BoxCollider2D:
   m_ObjectHideFlags: 0

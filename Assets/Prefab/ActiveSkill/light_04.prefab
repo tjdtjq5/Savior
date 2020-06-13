@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2692594870528883966}
   - component: {fileID: 2692594870528883961}
   - component: {fileID: 2692594870528883960}
-  - component: {fileID: 2692594870528883963}
   - component: {fileID: 2692594870528883962}
   m_Layer: 0
   m_Name: light_04
@@ -103,24 +102,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2692594870528883963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2692594870528883941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3203876b0241f8346a82428ed05aa822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDamage: 1
-  lvOfDamage: 1
-  range: 5
-  atk_num: 3
-  colltime: 2
-  playerInfo: {fileID: 0}
 --- !u!61 &2692594870528883962
 BoxCollider2D:
   m_ObjectHideFlags: 0
