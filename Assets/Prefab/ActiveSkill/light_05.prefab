@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5449907962727524682}
   - component: {fileID: 5449907962727524685}
   - component: {fileID: 5449907962727524684}
-  - component: {fileID: 5449907962727524687}
   m_Layer: 0
   m_Name: light_05
   m_TagString: Untagged
@@ -102,21 +101,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5449907962727524687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5449907962727524689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3203876b0241f8346a82428ed05aa822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDamage: 1
-  lvOfDamage: 1
-  range: 5
-  atk_num: 3
-  colltime: 2
-  playerInfo: {fileID: 0}
