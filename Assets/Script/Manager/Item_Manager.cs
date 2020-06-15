@@ -43,7 +43,16 @@ public class Item_Manager : MonoBehaviour
 
     void hp_marble_Spawn()
     {
-        hp_marble = ObjectPoolingManager.instance.GetQueue(ObjectKind.hp_marble);
+        float marble_num = Random.value;
+        ObjectKind marble_type = ObjectKind.hp_marble_large;
+        if (marble_num < 0.1f)
+            marble_type = ObjectKind.hp_marble_large;
+        else if (marble_num < 0.3f)
+            marble_type = ObjectKind.hp_marble_middle;
+        else
+            marble_type = ObjectKind.hp_marble_small;
+
+        hp_marble = ObjectPoolingManager.instance.GetQueue(marble_type);
         hp_marble.GetComponent<Item>().player = player;
         float X = Random.Range(player.position.x - range, player.position.x + range);
         float Y = Random.Range(player.position.y - range, player.position.y + range);
@@ -86,9 +95,17 @@ public class Item_Manager : MonoBehaviour
             {
                 ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.exp_marble_small);
             }
-            if (hit_list[i] && hit_list[i].transform.name.Contains("hp"))
+            if (hit_list[i] && hit_list[i].transform.name.Contains("hp_marble_large"))
             {
-                ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.hp_marble);
+                ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.hp_marble_large);
+            }
+            if (hit_list[i] && hit_list[i].transform.name.Contains("hp_marble_middle"))
+            {
+                ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.hp_marble_middle);
+            }
+            if (hit_list[i] && hit_list[i].transform.name.Contains("hp_marble_small"))
+            {
+                ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.hp_marble_small);
             }
         }
     }

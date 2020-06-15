@@ -16,8 +16,12 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<GameObject> nomal_damage_queue = new Queue<GameObject>();
     public GameObject critical_damage_prefab = null;
     public Queue<GameObject> critical_damage_queue = new Queue<GameObject>();
-    public GameObject hp_marble_prefab = null;
-    public Queue<GameObject> hp_marble_queue = new Queue<GameObject>();
+    public GameObject hp_marble_large_prefab = null;
+    public Queue<GameObject> hp_marble_large_queue = new Queue<GameObject>();
+    public GameObject hp_marble_middle_prefab = null;
+    public Queue<GameObject> hp_marble_middle_queue = new Queue<GameObject>();
+    public GameObject hp_marble_small_prefab = null;
+    public Queue<GameObject> hp_marble_small_queue = new Queue<GameObject>();
 
     [Header("몬스터")]
     public GameObject monster_stage01_01_pripab = null;
@@ -105,11 +109,25 @@ public class ObjectPoolingManager : MonoBehaviour
             exp_marble_large_queue.Enqueue(t_object);
             t_object.SetActive(false);
         }
-        // hp_marble
+        // hp_marble_large
         for (int i = 0; i < 100; i++)
         {
-            GameObject t_object = Instantiate(hp_marble_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
-            hp_marble_queue.Enqueue(t_object);
+            GameObject t_object = Instantiate(hp_marble_large_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
+            hp_marble_large_queue.Enqueue(t_object);
+            t_object.SetActive(false);
+        }
+        // hp_marble_middle
+        for (int i = 0; i < 100; i++)
+        {
+            GameObject t_object = Instantiate(hp_marble_middle_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
+            hp_marble_middle_queue.Enqueue(t_object);
+            t_object.SetActive(false);
+        }
+        // hp_marble_small
+        for (int i = 0; i < 100; i++)
+        {
+            GameObject t_object = Instantiate(hp_marble_small_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
+            hp_marble_small_queue.Enqueue(t_object);
             t_object.SetActive(false);
         }
         // monster_stage01_01
@@ -259,8 +277,14 @@ public class ObjectPoolingManager : MonoBehaviour
         if (obj == ObjectKind.exp_marble_large)
             exp_marble_large_queue.Enqueue(p_object);
 
-        if (obj == ObjectKind.hp_marble)
-            hp_marble_queue.Enqueue(p_object);
+        if (obj == ObjectKind.hp_marble_large)
+            hp_marble_large_queue.Enqueue(p_object);
+
+        if (obj == ObjectKind.hp_marble_middle)
+            hp_marble_middle_queue.Enqueue(p_object);
+
+        if (obj == ObjectKind.hp_marble_small)
+            hp_marble_small_queue.Enqueue(p_object);
 
         if (obj == ObjectKind.monster_stage01_01)
             monster_stage01_01_queue.Enqueue(p_object);
@@ -336,8 +360,14 @@ public class ObjectPoolingManager : MonoBehaviour
         if (obj == ObjectKind.exp_marble_large)
             t_object = exp_marble_large_queue.Dequeue();
 
-        if (obj == ObjectKind.hp_marble)
-            t_object = hp_marble_queue.Dequeue();
+        if (obj == ObjectKind.hp_marble_large)
+            t_object = hp_marble_large_queue.Dequeue();
+
+        if (obj == ObjectKind.hp_marble_middle)
+            t_object = hp_marble_middle_queue.Dequeue();
+
+        if (obj == ObjectKind.hp_marble_small)
+            t_object = hp_marble_small_queue.Dequeue();
 
         if (obj == ObjectKind.monster_stage01_01)
             t_object = monster_stage01_01_queue.Dequeue();
@@ -398,7 +428,9 @@ public enum ObjectKind
     exp_marble_small,
     exp_marble_middle,
     exp_marble_large,
-    hp_marble,
+    hp_marble_large,
+    hp_marble_middle,
+    hp_marble_small,
     obstacle,
     monster_stage01_01,
     monster_stage01_02,
