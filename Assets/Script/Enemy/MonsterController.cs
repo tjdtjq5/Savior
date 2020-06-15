@@ -97,6 +97,11 @@ public class MonsterController : MonoBehaviour
     {
         if (TimeManager.instance.GetTime())
             return;
+
+        GameObject damage_obj = ObjectPoolingManager.instance.GetQueue(ObjectKind.nomal_damage);
+        damage_obj.transform.position = this.transform.position;
+        damage_obj.GetComponent<Damage>().DamageSet(damage);
+
         current_hp -= damage;
         if (current_hp <= 0)
         {
@@ -107,10 +112,6 @@ public class MonsterController : MonoBehaviour
 
         else
         {
-            GameObject damage_obj = ObjectPoolingManager.instance.GetQueue(ObjectKind.nomal_damage);
-            damage_obj.transform.position = this.transform.position;
-            damage_obj.GetComponent<Damage>().DamageSet(damage);
-
             StartCoroutine(Hit_Coroutine());
 
             if (currentSpineName != hit) // 스파인

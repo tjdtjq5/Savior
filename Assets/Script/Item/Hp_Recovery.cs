@@ -11,7 +11,18 @@ public class Hp_Recovery : MonoBehaviour
         if (collision.tag.Contains("Player"))
         {
             collision.GetComponent<PlayerController>().Hp_Recovery(recovery_amount);
-            ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.hp_marble);
+            if (this.gameObject.name.Contains("large"))
+            {
+                ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.hp_marble_large);
+            }
+            if (this.gameObject.name.Contains("middle"))
+            {
+                ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.hp_marble_middle);
+            }
+            if (this.gameObject.name.Contains("small"))
+            {
+                ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.hp_marble_small);
+            }
         }
     }
 }

@@ -2684,7 +2684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fab06e0be9375cc4d823efa71629885c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3138f79dc02fcd418da53d6fa47b3fa, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4332,11 +4332,15 @@ MonoBehaviour:
   ob_prefab: {fileID: 1638408656}
   smoke_prefab: {fileID: 848229566667484839, guid: ded5dfbc00182e84b8491bce1b05123f,
     type: 3}
-  nomal_damage_prefab: {fileID: 75255478555036854, guid: 3d8e66a6812c5234f987d8456adfe171,
+  nomal_damage_prefab: {fileID: 5264723063851965213, guid: 3d8e66a6812c5234f987d8456adfe171,
     type: 3}
   critical_damage_prefab: {fileID: 848229566667484839, guid: ded5dfbc00182e84b8491bce1b05123f,
     type: 3}
-  hp_marble_prefab: {fileID: 7970725954357340164, guid: 5a4dca9be006a4645b319f071215999f,
+  hp_marble_large_prefab: {fileID: 3286062673636818104, guid: 232722e8131b8204f9759b40dd261f0a,
+    type: 3}
+  hp_marble_middle_prefab: {fileID: 4392831437991066651, guid: 17b95504c2be22e4ba2715d72984e13d,
+    type: 3}
+  hp_marble_small_prefab: {fileID: 8977885384745896747, guid: 5c91f554e7e53394b9e6454be2cb0cdb,
     type: 3}
   monster_stage01_01_pripab: {fileID: 814743125}
   monster_stage01_02_pripab: {fileID: 1500272136}
@@ -22455,8 +22459,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 06241911df062784f8d04b1a3a660473, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -25681,7 +25685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  atk: 1
+  atk: 10
   nomal_atk_AudioSource: {fileID: 1638408657}
   player_status: {fileID: 0}
   targetList: []
