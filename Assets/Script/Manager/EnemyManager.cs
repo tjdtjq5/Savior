@@ -83,10 +83,46 @@ public class EnemyManager : MonoBehaviour
                 }
                 break;
             case 3:
+                switch (monsterType)
+                {
+                    case MonsterType.약한객체:
+                        monster = ObjectKind.monster_stage03_01;
+                        break;
+                    case MonsterType.중간객체:
+                        monster = ObjectKind.monster_stage03_02;
+                        break;
+                    case MonsterType.강한객체:
+                        monster = ObjectKind.monster_stage03_03;
+                        break;
+                }
                 break;
             case 4:
+                switch (monsterType)
+                {
+                    case MonsterType.약한객체:
+                        monster = ObjectKind.monster_stage04_01;
+                        break;
+                    case MonsterType.중간객체:
+                        monster = ObjectKind.monster_stage04_02;
+                        break;
+                    case MonsterType.강한객체:
+                        monster = ObjectKind.monster_stage04_03;
+                        break;
+                }
                 break;
             case 5:
+                switch (monsterType)
+                {
+                    case MonsterType.약한객체:
+                        monster = ObjectKind.monster_stage05_01;
+                        break;
+                    case MonsterType.중간객체:
+                        monster = ObjectKind.monster_stage05_02;
+                        break;
+                    case MonsterType.강한객체:
+                        monster = ObjectKind.monster_stage05_03;
+                        break;
+                }
                 break;
             default:
                 break;
