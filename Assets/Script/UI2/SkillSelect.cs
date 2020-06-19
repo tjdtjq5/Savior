@@ -21,6 +21,9 @@ public class SkillSelect : MonoBehaviour
     public Sprite[] attackPassive;
     public Sprite[] skillPassive;
 
+    [Header("사운드")]
+    public AudioSource selectSound;
+
     int select_num01;
     int select_num02;
 
@@ -37,16 +40,19 @@ public class SkillSelect : MonoBehaviour
                 {
                     case "캐릭터패시브":
                         select_num01 = 1;
+                        GameManager.instance.audioManager.EnvironVolume_Play(selectSound);
                         hit.transform.GetComponent<Animator>().SetBool("click", true);
                         StartCoroutine(Ani_Coroutine("SkillSelect01_FadeOut", .9F, Select01Btn));
                         break;
                     case "공격패시브 ":
                         select_num01 = 2;
+                        GameManager.instance.audioManager.EnvironVolume_Play(selectSound);
                         hit.transform.GetComponent<Animator>().SetBool("click", true);
                         StartCoroutine(Ani_Coroutine("SkillSelect01_FadeOut", .9F, Select01Btn));
                         break;
                     case "스킬패시브":
                         select_num01 = 3;
+                        GameManager.instance.audioManager.EnvironVolume_Play(selectSound);
                         hit.transform.GetComponent<Animator>().SetBool("click", true);
                         StartCoroutine(Ani_Coroutine("SkillSelect01_FadeOut", .9F, Select01Btn));
                         break;

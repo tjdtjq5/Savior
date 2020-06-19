@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2239085283241589171}
   - component: {fileID: 2239085283241589170}
   - component: {fileID: -3976032223101338299}
+  - component: {fileID: 2571484942507824269}
   m_Layer: 0
   m_Name: fire_05
   m_TagString: Untagged
@@ -198,3 +199,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2571484942507824269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239085283241589167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3203876b0241f8346a82428ed05aa822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillDamage: 1
+  lvOfDamage: 1
+  range: 5
+  atk_num: 3
+  colltime: 2
+  playerInfo: {fileID: 0}
