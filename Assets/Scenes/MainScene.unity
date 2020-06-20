@@ -14159,7 +14159,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb7a55c73c9ea541be6dbd4460dc3a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MonsterList: []
+  MonsterList:
+  - name: 
+    stage: 0
+    monsterType: 0
+    rigidTime: 0
+    hp: 0
+    atk: 0
+    speed: 0
+    exp: 0
+    point: 0
+    explanation: 
 --- !u!114 &2073598527
 MonoBehaviour:
   m_ObjectHideFlags: 0
