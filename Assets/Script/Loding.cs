@@ -9,11 +9,13 @@ public class Loding : MonoBehaviour
     public string nextScene;
     public Slider progressbar;
     public Text loadtext;
-
+    public GameObject progress;
+    public GameObject start;
 
     public void Start()
     {
         LoadScene();
+        start.SetActive(false);
     }
 
 
@@ -51,7 +53,8 @@ public class Loding : MonoBehaviour
 
             if (progressbar.value >= 1f)
             {
-                loadtext.text = "Touch Down";
+                progress.SetActive(false);
+                start.SetActive(true);
             }
 
             if (Input.GetMouseButtonDown(0) && progressbar.value >= 1f && operation.progress >= 0.9f)

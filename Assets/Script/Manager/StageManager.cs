@@ -13,7 +13,6 @@ public class StageManager : MonoBehaviour
     public Item_Manager item_Manager;
     public AudioSource next_audio;
     public Text stagetext;
-    public Text nexttext;
 
 
     private void Awake()
@@ -32,10 +31,9 @@ public class StageManager : MonoBehaviour
         if (currentStageInt == 6)
         {
             currentStage = "Boss";
-            nexttext.text = "Boss Stage";
             playerController.bossstage = true;
             enemyManager.bossstage = true;
-            this.GetComponent<Animator>().SetBool("Next", true);
+            this.GetComponent<Animator>().SetBool("Boss", true);
         }
         else
         {
@@ -59,9 +57,12 @@ public class StageManager : MonoBehaviour
     public void NextStage_End()
     {
         TimeManager.instance.SetTime(false);
-        this.GetComponent<Animator>().SetBool("Next", false);
         if (currentStageInt == 6)
+        {
+            this.GetComponent<Animator>().SetBool("Boss", false);
             CameraShake();
+        }
+        else  this.GetComponent<Animator>().SetBool("Next", false);
     }
 
     private void CameraShake()

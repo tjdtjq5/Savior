@@ -6,6 +6,7 @@ public class UI2_Manager : MonoBehaviour
 {
     public GameObject blackpannel;
     public GameObject skillSelect;
+    public AudioSource exitsound;
 
     public void SkillSelect()
     {
@@ -17,6 +18,7 @@ public class UI2_Manager : MonoBehaviour
 
     public void SkillSelect_Exit()
     {
+        GameManager.instance.audioManager.EnvironVolume_Play(exitsound);
         TimeManager.instance.SetTime(false);
         blackpannel.SetActive(false);
         skillSelect.SetActive(false);
