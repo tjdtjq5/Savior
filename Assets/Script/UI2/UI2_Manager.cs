@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UI2_Manager : MonoBehaviour
 {
+    public Transform mainCam;
     public GameObject blackpannel;
     public GameObject skillSelect;
     public AudioSource exitsound;
@@ -12,6 +13,7 @@ public class UI2_Manager : MonoBehaviour
     public void SkillSelect()
     {
         theCam.SetActive(true);
+        theCam.transform.position = new Vector3(mainCam.position.x, mainCam.position.y, theCam.transform.position.z);
         blackpannel.SetActive(true);
         skillSelect.SetActive(true);
         skillSelect.transform.GetChild(0).gameObject.SetActive(true);
