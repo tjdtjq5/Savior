@@ -11,9 +11,9 @@ public class MonsterManager : MonoBehaviour
         public string name;
         public Stage stage;
         public MonsterType monsterType;
-        [Range(0,1)] public float rigidTime;
         public int hp;
         public int atk;
+        public float def;
         public float speed;
         public int exp;
         public int point;
@@ -48,10 +48,11 @@ public class MonsterManager : MonoBehaviour
             MonsterList[i].monsterType = (MonsterType)Enum.Parse(typeof(MonsterType), monsterInfo[3]);
             MonsterList[i].hp = int.Parse(monsterInfo[4]);
             MonsterList[i].atk = int.Parse(monsterInfo[5]);
-            MonsterList[i].speed = float.Parse(monsterInfo[6]);
-            MonsterList[i].exp = int.Parse(monsterInfo[7]);
-            MonsterList[i].point = int.Parse(monsterInfo[8]);
-            MonsterList[i].explanation = monsterInfo[10];
+            MonsterList[i].def = float.Parse(monsterInfo[6]);
+            MonsterList[i].speed = float.Parse(monsterInfo[7]);
+            MonsterList[i].exp = int.Parse(monsterInfo[8]);
+            MonsterList[i].point = int.Parse(monsterInfo[9]);
+            MonsterList[i].explanation = monsterInfo[11];
         }
     }
 }
@@ -60,7 +61,8 @@ public enum MonsterType
 {
     약한객체,
     중간객체,
-    강한객체
+    강한객체,
+    보스
 }
 
 public enum Stage
@@ -69,5 +71,6 @@ public enum Stage
     Stage02,
     Stage03,
     Stage04,
-    Stage05
+    Stage05,
+    BossStage
 }

@@ -22,7 +22,6 @@ public class Boss : MonoBehaviour
 
     [HideInInspector] public float Boss_hp;
 
-    float rigidTime;
     int atk;
     int hp;
     float speed;
@@ -41,7 +40,6 @@ public class Boss : MonoBehaviour
     {
         Boss_ani = this.GetComponent<Animator>();
         this.gameObject.transform.position = player.position;
-        rigidTime = GameManager.instance.monsterManager.GetMonster(name).rigidTime;
         atk = GameManager.instance.monsterManager.GetMonster(name).atk;
         hp = GameManager.instance.monsterManager.GetMonster(name).hp;
         speed = GameManager.instance.monsterManager.GetMonster(name).speed;
