@@ -20,6 +20,9 @@ public class Boss : MonoBehaviour
     public Image boss_hp;
     public GameObject bosshpbar;
 
+    [Header("오디오")]
+    public AudioSource hit_nomal_atk_AudioSource;
+
     [HideInInspector] public float Boss_hp;
 
     float rigidTime;
@@ -214,6 +217,42 @@ public class Boss : MonoBehaviour
         else
             //꼬리치기 강화 동작
             Boss_Skill.instance.SpinStrong();
+    }
+
+    public void Hit(int damage, bool sound_flag = false)
+    {
+        if (TimeManager.instance.GetTime())
+            return;
+
+        GameObject damage_obj = ObjectPoolingManager.instance.GetQueue(ObjectKind.nomal_damage);
+        damage_obj.transform.position = this.transform.position;
+        damage_obj.GetComponent<Damage>().DamageSet(damage);
+
+        Boss_hp -= damage;
+
+        if(Boss_hp>0)
+        {
+            StartCoroutine(Hit_Coroutine());
+
+            /*if (currentSpineName != hit) // 스파인
+            {
+                currentSpineName = hit;
+                GetComponent<Animator>().SetTrigger("hit");
+                skeletonAnimation.AnimationState.SetAnimation(0, hit, false);
+                skeletonAnimation.timeScale = 1;
+            }*/
+
+            if (sound_flag)
+            {
+                hit_nomal_atk_AudioSource.Play();
+            }
+        }
+    }
+    IEnumerator Hit_Coroutine()
+    {
+        hit_flag = true;
+        yield return new WaitForSeconds(0.3f);
+        hit_flag = false;
     }
 
 }

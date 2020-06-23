@@ -29,7 +29,12 @@ public class Boss_Skill : MonoBehaviour
     public void Breath()
     {
         //브레스
+
         GameObject breath = Instantiate(phase1[0], mouth.position, Quaternion.identity);
+        if (player.position.x - this.transform.position.x > 0)
+            breath.transform.rotation = Quaternion.Euler(0, 180, 0);
+        else
+            breath.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     
     public void Flame()
@@ -42,7 +47,11 @@ public class Boss_Skill : MonoBehaviour
     {
         //할퀴기
         //부채꼴 범위 추가
-        GameObject breath = Instantiate(phase1[0], hand.position, Quaternion.identity);
+        GameObject claw = Instantiate(phase1[0], hand.position, Quaternion.identity);
+        if (player.position.x - this.transform.position.x > 0)
+            claw.transform.rotation = Quaternion.Euler(0, 180, 0);
+        else
+            claw.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void RandomShot()
@@ -51,6 +60,10 @@ public class Boss_Skill : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject randomskill = Instantiate(phase1[0], mouth.position, Quaternion.identity);
+            if (player.position.x - this.transform.position.x > 0)
+                randomskill.transform.rotation = Quaternion.Euler(0, 180, 0);
+            else
+                randomskill.transform.rotation = Quaternion.Euler(0, 0, 0);
             randomskill.GetComponent<Boss_Skillinfo>().randomshot = true;
             randomskill.GetComponent<Boss_Skillinfo>().phase1 = phase_01;
         }
@@ -65,7 +78,7 @@ public class Boss_Skill : MonoBehaviour
     public void RandomShot02(Transform pos)
     {
         //화염탄 난사2
-        GameObject randomshot01 = Instantiate(phase2[5], pos.position, Quaternion.identity);
+        GameObject randomshot02 = Instantiate(phase2[5], pos.position, Quaternion.identity);
     }
 
     public void BreathBall()

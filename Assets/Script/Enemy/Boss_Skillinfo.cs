@@ -20,6 +20,7 @@ public class Boss_Skillinfo : MonoBehaviour
         Vector3 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         float randx = Random.Range(min.x, max.x);
         float randy = Random.Range(min.y, max.y);
+
     }
 
     public void Destroy()
@@ -36,7 +37,11 @@ public class Boss_Skillinfo : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            if (TimeManager.instance.GetTime())
+                return;
+
             collision.GetComponent<PlayerController>().Hit(skillDamage,this.gameObject);
+            
         }
     }
 
