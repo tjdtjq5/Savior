@@ -11,10 +11,10 @@ public class MonsterController : MonoBehaviour
     public string objectKind_string;
     Stage stage;
     MonsterType monsterType;
-    [Range(0, 1)] float rigidTime;
     int atk;
     int hp; int current_hp;
     float speed;
+    float def;
 
     [Header("플레이어 정보")]
     public Transform player_transform;
@@ -35,10 +35,10 @@ public class MonsterController : MonoBehaviour
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         stage = GameManager.instance.monsterManager.GetMonster(name).stage;
         monsterType = GameManager.instance.monsterManager.GetMonster(name).monsterType;
-        rigidTime = GameManager.instance.monsterManager.GetMonster(name).rigidTime;
         atk = GameManager.instance.monsterManager.GetMonster(name).atk;
         hp = GameManager.instance.monsterManager.GetMonster(name).hp;
         speed = GameManager.instance.monsterManager.GetMonster(name).speed;
+        def = GameManager.instance.monsterManager.GetMonster(name).def;
 
         rigidbody2D = this.GetComponent<Rigidbody2D>();
         current_hp = hp;

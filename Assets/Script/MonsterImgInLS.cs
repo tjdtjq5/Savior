@@ -16,8 +16,8 @@ public class MonsterImgInLS : MonoBehaviour
         nameText.text = GameManager.instance.monsterManager.MonsterList[rand].name;
         statusText.text = "공격력 " + GameManager.instance.monsterManager.MonsterList[rand].atk + "\n" +
                         "체력 " + GameManager.instance.monsterManager.MonsterList[rand].hp + "\n" +
-                        "속력 " + GameManager.instance.monsterManager.MonsterList[rand].speed + "\n" +
-                        "경직 " + GameManager.instance.monsterManager.MonsterList[rand].rigidTime + "\n";
+                        "방어력 " + GameManager.instance.monsterManager.MonsterList[rand].def + "\n" +
+                        "이동속도 " + GameManager.instance.monsterManager.MonsterList[rand].speed + "\n";
         explanationText.text = GameManager.instance.monsterManager.MonsterList[rand].explanation;
     }
 }
