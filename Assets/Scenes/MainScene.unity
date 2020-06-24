@@ -14163,9 +14163,9 @@ MonoBehaviour:
   - name: 
     stage: 0
     monsterType: 0
-    rigidTime: 0
     hp: 0
     atk: 0
+    def: 0
     speed: 0
     exp: 0
     point: 0

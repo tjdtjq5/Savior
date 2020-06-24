@@ -14,13 +14,12 @@ public class Boss_Skillinfo : MonoBehaviour
     [HideInInspector] public bool breathstrong;
     [HideInInspector] public bool phase1;
 
+    Vector3 min;
+    Vector3 max;
     private void Start()
     {
-        Vector3 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        Vector3 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        float randx = Random.Range(min.x, max.x);
-        float randy = Random.Range(min.y, max.y);
-
+        min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
     }
 
     public void Destroy()
@@ -30,6 +29,7 @@ public class Boss_Skillinfo : MonoBehaviour
             Boss_Skill.instance.RandomShot01(this.transform);
         else if (!phase1 && randomshot)
             Boss_Skill.instance.RandomShot02(this.transform);
+        randomshot = false;
     }
 
 
@@ -49,6 +49,9 @@ public class Boss_Skillinfo : MonoBehaviour
     {
         if (TimeManager.instance.GetTime())
             return;
+
+        float randx = Random.Range(min.x, max.x);
+        float randy = Random.Range(min.y, max.y);
 
         if (randomshot)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Boss_Skill : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class Boss_Skill : MonoBehaviour
     {
         //할퀴기
         //부채꼴 범위 추가
-        GameObject claw = Instantiate(phase1[0], hand.position, Quaternion.identity);
+        GameObject claw = Instantiate(phase1[2], hand.position, Quaternion.identity);
         if (player.position.x - this.transform.position.x > 0)
             claw.transform.rotation = Quaternion.Euler(0, 180, 0);
         else
@@ -59,7 +60,7 @@ public class Boss_Skill : MonoBehaviour
         //화염탄 난사
         for (int i = 0; i < 5; i++)
         {
-            GameObject randomskill = Instantiate(phase1[0], mouth.position, Quaternion.identity);
+            GameObject randomskill = Instantiate(phase1[3], mouth.position, Quaternion.identity);
             if (player.position.x - this.transform.position.x > 0)
                 randomskill.transform.rotation = Quaternion.Euler(0, 180, 0);
             else
@@ -87,6 +88,18 @@ public class Boss_Skill : MonoBehaviour
         GameObject breathball01 = Instantiate(phase2[0], mouth.position, Quaternion.identity);
         GameObject breathball02 = Instantiate(phase2[0], new Vector3(mouth.position.x,mouth.position.y-1), Quaternion.identity);
         GameObject breathball03 = Instantiate(phase2[0], new Vector3(mouth.position.x, mouth.position.y + 1), Quaternion.identity);
+        if (player.position.x - this.transform.position.x > 0)
+        {
+            breathball01.transform.rotation = Quaternion.Euler(0, 180, 0);
+            breathball02.transform.rotation = Quaternion.Euler(0, 180, 0);
+            breathball03.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            breathball01.transform.rotation = Quaternion.Euler(0, 0, 0);
+            breathball02.transform.rotation = Quaternion.Euler(0, 0, 0);
+            breathball03.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
     public void FlameBomb()
     {
@@ -108,10 +121,15 @@ public class Boss_Skill : MonoBehaviour
 
     public void BurningGround()
     {
+        Vector2 pos;
+        if (player.position.x - this.transform.position.x > 0)
+            pos = new Vector2(hand.position.x + 2, hand.position.y);
+        else
+            pos = new Vector2(hand.position.x - 2, hand.position.y);
         //불타는 대지
-        GameObject burning01 = Instantiate(phase3[1], hand.position, Quaternion.identity);
-        GameObject burning02 = Instantiate(phase3[1], new Vector3(hand.position.x, hand.position.y - 1), Quaternion.identity);
-        GameObject burning03 = Instantiate(phase3[1], new Vector3(hand.position.x, hand.position.y + 1), Quaternion.identity);
+        GameObject burning01 = Instantiate(phase3[1], pos, Quaternion.identity);
+        GameObject burning02 = Instantiate(phase3[1], new Vector3(pos.x, hand.position.y - 1), Quaternion.identity);
+        GameObject burning03 = Instantiate(phase3[1], new Vector3(pos.x, hand.position.y + 1), Quaternion.identity);
     }
 
     public void BreathStrong()

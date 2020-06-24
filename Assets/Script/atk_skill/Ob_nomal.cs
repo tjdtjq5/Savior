@@ -36,7 +36,9 @@ public class Ob_nomal : MonoBehaviour
         this.transform.position = Vector2.MoveTowards(this.transform.position, targetList[iCount].position, 0.3f);
         if (Vector2.Distance(transform.position, targetList[iCount].position) == 0)
         {
-            targetList[iCount].GetComponent<MonsterController>().Hit((int)(player_status.atk * atk), true);
+            if (StageManager.instance.currentStage == "Boss")
+                targetList[iCount].GetComponent<Boss>().Hit((int)(player_status.atk*atk), true);
+            else targetList[iCount].GetComponent<MonsterController>().Hit((int)(player_status.atk * atk), true);
             iCount++;
             if (iCount == targetList.Count)
             {
