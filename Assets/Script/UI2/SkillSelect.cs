@@ -165,12 +165,15 @@ public class SkillSelect : MonoBehaviour
                 {
                     case 1:
                         playerController.character_lv_hp++;
+                        playerController.max_hp++;//몇%증가 나중에 추가
                         break;
                     case 2:
                         playerController.character_lv_speed++;
+                        playerController.speed++;
                         break;
                     case 3:
                         playerController.character_lv_exp++;
+                        //exp구슬경험치 증가
                         break;
                 }
                 break;
@@ -179,9 +182,11 @@ public class SkillSelect : MonoBehaviour
                 {
                     case 1:
                         playerController.attack_lv_atk++;
+                        playerController.atk++;
                         break;
                     case 2:
                         playerController.attack_lv_speed++;
+                        playerController.atkspeed++;
                         break;
                     case 3:
                         playerController.attack_lv_count++;

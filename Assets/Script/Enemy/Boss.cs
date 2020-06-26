@@ -42,6 +42,7 @@ public class Boss : MonoBehaviour
     bool attack_flag;
     bool hit_flag;
     bool move_flag;
+    bool fly_flag;
 
     [Header("범위")]
     public float range;
@@ -100,6 +101,12 @@ public class Boss : MonoBehaviour
     {
         if (TimeManager.instance.GetTime())
             return;
+
+        if (fly_flag)
+        {
+            player_pos = this.transform.position;
+            this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector3(player_pos.x, player_pos.y + 5, player_pos.z),2f);
+        }
 
         if (!hit_flag && !attack_flag)
         {
@@ -360,6 +367,8 @@ public class Boss : MonoBehaviour
         {
             skeletonAnimation.AnimationState.SetAnimation(0,name[i],false);
             skeletonAnimation.AnimationState.TimeScale = 1f;
+            if(i==0&&type=="RandomShot")
+
             if (i == 1)
             {
                 switch (type)
@@ -388,7 +397,6 @@ public class Boss : MonoBehaviour
                             Boss_Skill.instance.Flame();
                         break;
                     case "RandomShot":
-                        this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 3);
                         Boss_Skill.instance.RandomShot();
                         break;
                     case "Spin":
@@ -402,7 +410,7 @@ public class Boss : MonoBehaviour
                 }
             }
             if (i == 2 && type == "RandomShot")
-                this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 3);
+                this.transform.position = player_pos;
             yield return new WaitForSeconds(time[i]);
         }
     }

@@ -8,17 +8,18 @@ using Spine.Unity;
 public class PlayerController : MonoBehaviour
 {
     [Header("STATUS")]
-    [Range(1, 10)] public float atk;
-    [Range(0, 200)] public int max_hp;
-    [Range(3, 10)] public float range;
-    [Range(0.1f, 3f)] public float atkspeed;
-    [Range(0.04f, 0.1f)] public float speed;
-    [Range(1.5f, 3f)] public float dash_move;
-    [Range(1f, 5f)] public float item_range;
+    public float atk;
+    public int max_hp;
+    public float range;
+    public float atkspeed;
+    public float speed;
+    public float dash_move;
+    public float item_range;
+    public string name;
+    public int def;
 
     [HideInInspector]
     public int current_hp;
-
     [Header("카메라")]
     public Transform theCam;
     [Header("조이스틱")]
@@ -92,12 +93,20 @@ public class PlayerController : MonoBehaviour
     public int player_lv;
     private void Start()
     {
-        player_exp = 90;
+        atk = GameManager.instance.userinfo.GetPlayer(name).attack;
+        max_hp = GameManager.instance.userinfo.GetPlayer(name).max_hp;
+        range = GameManager.instance.userinfo.GetPlayer(name).attack_range;
+        atkspeed = GameManager.instance.userinfo.GetPlayer(name).attack_speed;
+        speed = GameManager.instance.userinfo.GetPlayer(name).move_speed;
+        item_range = GameManager.instance.userinfo.GetPlayer(name).getitem_range;
+        def = GameManager.instance.userinfo.GetPlayer(name).def;
+
+        player_exp = 0;
         current_hp = max_hp;
         lv_up.text = "LV" + player_lv;
         hp_image.fillAmount = current_hp / max_hp;
         rigidbody2D = GetComponent<Rigidbody2D>();
-        exp_full.fillAmount = (float)player_exp / 10;
+        exp_full.fillAmount = (float)player_exp / 100;
 
         character_lv_hp = 1;
         character_lv_speed = 1;
@@ -433,7 +442,10 @@ public class PlayerController : MonoBehaviour
         if (hit_flag)
             return;
 
-        current_hp -= damage;
+        if (damage - def < 0)
+            current_hp -= 1;
+        else current_hp -= (damage-def);
+
         hp_image.fillAmount = (float)current_hp / max_hp;
 
         //죽음
