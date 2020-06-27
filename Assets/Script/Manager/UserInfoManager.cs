@@ -18,55 +18,6 @@ public class UserInfoManager : MonoBehaviour
     public bool exp_research;
     public bool point_research;
 
-    [SerializeField]
-    public struct PlayerStruct
-    {
-        public string name;
-        public int max_hp;
-        public int attack;
-        public int def;
-        public int attack_speed;
-        public int move_speed;
-        public int attack_range;
-        public int getitem_range;
-        public int max_skilllmarble_count;
-        public int attack_count;
-        public string explanation;
-    }
-
-    public PlayerStruct[] PlayerList;
-
-    public PlayerStruct GetPlayer(string name)
-    {
-        for(int i = 0; i<PlayerList.Length; i++)
-        {
-            if (PlayerList[i].name.Contains(name))
-                return PlayerList[i];
-        }
-        PlayerStruct Null = new PlayerStruct();
-        Null.name = "";
-        return Null;
-    }
-
-    private void Start()
-    {
-        int player_num = GetComponent<DatabaseManager>().monster_DB.GetLineSize();
-        PlayerList = new PlayerStruct[player_num];
-        for (int i = 0; i < player_num; i++)
-        {
-            List<string> playerInfo = GetComponent<DatabaseManager>().player_DB.GetRowData(i);
-            PlayerList[i].name = playerInfo[1];
-            PlayerList[i].max_hp = int.Parse(playerInfo[7]);
-            PlayerList[i].def = int.Parse(playerInfo[8]);
-            PlayerList[i].attack_speed = int.Parse(playerInfo[9]);
-            PlayerList[i].move_speed = int.Parse(playerInfo[10]);
-            PlayerList[i].attack_range = int.Parse(playerInfo[11]);
-            PlayerList[i].getitem_range = int.Parse(playerInfo[12]);
-            PlayerList[i].max_skilllmarble_count = int.Parse(playerInfo[13]);
-            PlayerList[i].max_skilllmarble_count = int.Parse(playerInfo[14]);
-            PlayerList[i].explanation = playerInfo[15];
-        }
-    }
 
     public int GetMasicMaxHP()
     {
