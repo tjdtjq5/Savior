@@ -67,7 +67,7 @@ public class StageManager : MonoBehaviour
 
     private void CameraShake()
     {
-        Camera.main.transform.DOShakePosition(2.0f,2);
+        Camera.main.transform.DOShakePosition(1.7f,1.5f,7);
     }
 
 }

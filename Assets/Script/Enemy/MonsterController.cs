@@ -14,7 +14,8 @@ public class MonsterController : MonoBehaviour
     int atk;
     int hp; int current_hp;
     float speed;
-    float def;
+    int def;
+    int exp;
 
     [Header("플레이어 정보")]
     public Transform player_transform;
@@ -39,6 +40,7 @@ public class MonsterController : MonoBehaviour
         hp = GameManager.instance.monsterManager.GetMonster(name).hp;
         speed = GameManager.instance.monsterManager.GetMonster(name).speed;
         def = GameManager.instance.monsterManager.GetMonster(name).def;
+        exp = GameManager.instance.monsterManager.GetMonster(name).exp;
 
         rigidbody2D = this.GetComponent<Rigidbody2D>();
         current_hp = hp;
@@ -102,7 +104,10 @@ public class MonsterController : MonoBehaviour
         damage_obj.transform.position = this.transform.position;
         damage_obj.GetComponent<Damage>().DamageSet(damage);
 
-        current_hp -= damage;
+        if (damage - def < 0)
+            current_hp -= 1;
+        else current_hp -= (damage-def);
+
         if (current_hp <= 0)
         {
             GameObject smoke = ObjectPoolingManager.instance.GetQueue(ObjectKind.smoke);

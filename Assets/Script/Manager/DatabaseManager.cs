@@ -6,6 +6,7 @@ using System;
 public class DatabaseManager : MonoBehaviour
 {
     public DataBase monster_DB;
+    public DataBase player_DB;
 }
 
 [Serializable]

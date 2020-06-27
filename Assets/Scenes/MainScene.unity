@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -14163,9 +14163,9 @@ MonoBehaviour:
   - name: 
     stage: 0
     monsterType: 0
-    rigidTime: 0
     hp: 0
     atk: 0
+    def: 0
     speed: 0
     exp: 0
     point: 0
@@ -14184,6 +14184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster_DB:
     txt: {fileID: 4900000, guid: 3871e0e641e7ef545ab6b55a99eacb71, type: 3}
+  player_DB:
+    txt: {fileID: 4900000, guid: 59cddc720e754d849a093bcd911502eb, type: 3}
 --- !u!1 &2092812385
 GameObject:
   m_ObjectHideFlags: 0
