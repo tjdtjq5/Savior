@@ -13,6 +13,8 @@ public class Boss_Skillinfo : MonoBehaviour
     [HideInInspector] public bool randomshot;
     [HideInInspector] public bool breathstrong;
     [HideInInspector] public bool phase1;
+    [HideInInspector] public bool breathball;
+    [HideInInspector] public bool direction;//브레스탄과 플레이어의 x방향구분
 
     Vector3 min;
     Vector3 max;
@@ -55,11 +57,18 @@ public class Boss_Skillinfo : MonoBehaviour
 
         if (randomshot)
         {
-            this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(randx,randy), 3.0f);
+            this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(randx,randy), 0.3f);
         }
         if (breathstrong)
         {
             this.transform.position = Vector3.MoveTowards(transform.position, target.position, 3.0f);
+        }
+        if (breathball)
+        {
+            if (direction)
+                this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(this.transform.position.x + 40, this.transform.position.y), 7.2f*Time.deltaTime);
+            else
+                this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(this.transform.position.x - 40, this.transform.position.y), 7.2f*Time.deltaTime);
         }
     }
 }
