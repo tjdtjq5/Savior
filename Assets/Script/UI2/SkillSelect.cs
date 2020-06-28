@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,30 @@ public class SkillSelect : MonoBehaviour
     int select_num02;
 
     bool select_flag;
+
+    int maxLv_character_lv_hp;
+    int maxLv_character_lv_speed;
+    int maxLv_character_lv_exp;
+    int maxLv_attack_lv_atk;
+    int maxLv_attack_lv_speed;
+    int maxLv_attack_lv_count;
+    int maxLv_skill_lv_atk;
+    int maxLv_skill_lv_cooltime;
+    int maxLv_skill_lv_getcount;
+
+    private void Start()
+    {
+        maxLv_character_lv_hp = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(0)[1]);
+        maxLv_character_lv_speed = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(1)[1]);
+        maxLv_character_lv_exp = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(2)[1]);
+        maxLv_attack_lv_atk = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(3)[1]);
+        maxLv_attack_lv_speed = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(4)[1]);
+        maxLv_attack_lv_count = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(5)[1]);
+        maxLv_skill_lv_atk = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(6)[1]);
+        maxLv_skill_lv_cooltime = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(7)[1]);
+        maxLv_skill_lv_getcount = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(8)[1]);
+    }
+
     public void Update()
     {
         if (Input.GetMouseButtonDown(0) && !select_flag)
@@ -105,32 +130,68 @@ public class SkillSelect : MonoBehaviour
             case 1:
                 for (int i = 0; i < 3; i++)
                     select02.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = characterPassive[i];
+
                 select02_canvas.GetChild(0).GetComponent<Text>().text = "<color=#FFFC00>LV"+ playerController.character_lv_hp + "</color>" + "   체력";
-                select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "캐릭터 최대 체력\n" + "<color=#2EFF00>n%" + "</color>" + " 증가";
+                if (maxLv_character_lv_hp -1 == playerController.character_lv_hp)
+                    select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
+                else
+                    select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "캐릭터 최대 체력\n" + "<color=#2EFF00>" + GameManager.instance.database.skillCard_DB.GetRowData(0)[2] + "%" + "</color>" + " 증가";
+                
                 select02_canvas.GetChild(1).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.character_lv_speed + "</color>" + "   이동속도";
-                select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "캐릭터 이동속도\n" + "<color=#2EFF00>n%" + "</color>" + " 증가";
+                if (maxLv_character_lv_speed - 1 != playerController.character_lv_speed)
+                    select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "캐릭터 이동속도\n" + "<color=#2EFF00>" + GameManager.instance.database.skillCard_DB.GetRowData(3)[2] + "%" + "</color>" + " 증가";
+                else
+                    select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
+                
                 select02_canvas.GetChild(2).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.character_lv_exp + "</color>" + "   경험치상승";
-                select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "캐릭터 경험치 상승량\n" + "<color=#2EFF00>n%" + "</color>" + " 증가";
+                if (maxLv_character_lv_exp - 1 != playerController.character_lv_exp)
+                    select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "캐릭터 경험치 상승량\n" + "<color=#2EFF00>" +GameManager.instance.database.skillCard_DB.GetRowData(5)[2] +  "%" + "</color>" + " 증가";
+                else
+                    select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
                 break;
             case 2:
                 for (int i = 0; i < 3; i++)
                     select02.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = attackPassive[i];
+
                 select02_canvas.GetChild(0).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.attack_lv_atk + "</color>" + "   공격력";
-                select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "일반 공격력 증가\n" + "<color=#2EFF00>n%" + "</color>" + " 증가";
+                if (maxLv_attack_lv_atk - 1 != playerController.attack_lv_atk)
+                    select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "일반 공격력 증가\n" + "<color=#2EFF00>"+ GameManager.instance.database.skillCard_DB.GetRowData(1)[2] + "%" + "</color>" + " 증가";
+                else
+                    select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
+
                 select02_canvas.GetChild(1).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.attack_lv_speed + "</color>" + "   공격속도";
-                select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "일반 공격속도\n" + "<color=#2EFF00>n%" + "</color>" + " 감소";
+                if (maxLv_attack_lv_speed - 1 != playerController.attack_lv_speed)
+                    select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "일반 공격속도\n" + "<color=#2EFF00>" + GameManager.instance.database.skillCard_DB.GetRowData(2)[2] + "%" + "</color>" + " 감소";
+                else
+                    select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
+
                 select02_canvas.GetChild(2).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.attack_lv_count + "</color>" + "   개체수 증가";
-                select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "적 공격 개체수\n" + "<color=#2EFF00>n" + "</color>" + " 증가";
+                if (maxLv_attack_lv_count - 1 != playerController.attack_lv_count)
+                    select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "적 공격 개체수\n" + "<color=#2EFF00>"+ GameManager.instance.database.skillCard_DB.GetRowData(4)[2] + "</color>" + " 증가";
+                else
+                    select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
                 break;
             case 3:
                 for (int i = 0; i < 3; i++)
                     select02.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = skillPassive[i];
+
                 select02_canvas.GetChild(0).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.skill_lv_atk + "</color>" + "   스킬공격력";
-                select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "모든 스킬 공격력\n" + "<color=#2EFF00>n%" + "</color>" + " 증가";
+                if (maxLv_skill_lv_atk - 1 != playerController.skill_lv_atk)
+                    select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "모든 스킬 공격력\n" + "<color=#2EFF00>" + GameManager.instance.database.skillCard_DB.GetRowData(6)[2] + "%" + "</color>" + " 증가";
+                else
+                    select02_canvas.GetChild(0).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
+
                 select02_canvas.GetChild(1).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.skill_lv_cooltime + "</color>" + "   쿨타임";
-                select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "모든 스킬 쿨타임\n" + "<color=#2EFF00>n%" + "</color>" + " 감소";
+                if (maxLv_skill_lv_cooltime - 1 != playerController.skill_lv_cooltime)
+                    select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "모든 스킬 쿨타임\n" + "<color=#2EFF00>"+ GameManager.instance.database.skillCard_DB.GetRowData(7)[2] + "%" + "</color>" + " 감소";
+                else
+                    select02_canvas.GetChild(1).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
+
                 select02_canvas.GetChild(2).GetComponent<Text>().text = "<color=#FFFC00>LV" + playerController.skill_lv_getcount + "</color>" + "   스킬 소지개수";
-                select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "소지할 수 있는 스킬의 수\n" + "<color=#2EFF00>n" + "</color>" + " 증가";
+                if (maxLv_skill_lv_getcount - 1 != playerController.skill_lv_getcount)
+                    select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "소지할 수 있는 스킬의 수\n" + "<color=#2EFF00>"+ GameManager.instance.database.skillCard_DB.GetRowData(8)[2] + "</color>" + " 증가";
+                else
+                    select02_canvas.GetChild(2).GetChild(0).GetComponent<Text>().text = "<color=#FF0000>MaxLv 입니다.</color>";
                 break;
         }
         
@@ -164,16 +225,21 @@ public class SkillSelect : MonoBehaviour
                 switch (select_num02)
                 {
                     case 1:
+                        if (maxLv_character_lv_hp - 1 == playerController.character_lv_hp)
+                            return;
+                        
                         playerController.character_lv_hp++;
-                        playerController.max_hp++;//몇%증가 나중에 추가
+                        playerController.Chracter_LvUp_MaxHp();
                         break;
                     case 2:
+                        if (maxLv_character_lv_speed - 1 == playerController.character_lv_speed)
+                            return;
                         playerController.character_lv_speed++;
-                        playerController.speed++;
                         break;
                     case 3:
+                        if (maxLv_character_lv_exp - 1 == playerController.character_lv_exp)
+                            return;
                         playerController.character_lv_exp++;
-                        //exp구슬경험치 증가
                         break;
                 }
                 break;
@@ -181,14 +247,18 @@ public class SkillSelect : MonoBehaviour
                 switch (select_num02)
                 {
                     case 1:
+                        if (maxLv_attack_lv_atk - 1 == playerController.attack_lv_atk)
+                            return;
                         playerController.attack_lv_atk++;
-                        playerController.atk++;
                         break;
                     case 2:
+                        if (maxLv_attack_lv_speed - 1 == playerController.attack_lv_speed)
+                            return;
                         playerController.attack_lv_speed++;
-                        playerController.atkspeed++;
                         break;
                     case 3:
+                        if (maxLv_attack_lv_count - 1 == playerController.attack_lv_count)
+                            return;
                         playerController.attack_lv_count++;
                         break;
                 }
@@ -197,12 +267,18 @@ public class SkillSelect : MonoBehaviour
                 switch (select_num02)
                 {
                     case 1:
+                        if (maxLv_skill_lv_atk - 1 == playerController.skill_lv_atk)
+                            return;
                         playerController.skill_lv_atk++;
                         break;
                     case 2:
+                        if (maxLv_skill_lv_cooltime - 1 == playerController.skill_lv_cooltime)
+                            return;
                         playerController.skill_lv_cooltime++;
                         break;
                     case 3:
+                        if (maxLv_skill_lv_getcount - 1 == playerController.skill_lv_getcount)
+                            return;
                         playerController.skill_lv_getcount++;
                         break;
                 }

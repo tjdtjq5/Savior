@@ -97,6 +97,7 @@ public class MonsterController : MonoBehaviour
 
     public void Hit(int damage, bool sound_flag = false)
     {
+
         if (TimeManager.instance.GetTime())
             return;
 

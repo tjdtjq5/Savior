@@ -26,9 +26,9 @@ public class Item_Manager : MonoBehaviour
     {
         float marble_num = Random.value;
         ObjectKind marble_type = ObjectKind.exp_marble_small;
-        if (marble_num < 0.1f)
+        if (marble_num < 0.15f)
             marble_type = ObjectKind.exp_marble_large;
-        else if (marble_num < 0.3f)
+        else if (marble_num < 0.5f)
             marble_type = ObjectKind.exp_marble_middle;
         else
             marble_type = ObjectKind.exp_marble_small;
@@ -45,9 +45,9 @@ public class Item_Manager : MonoBehaviour
     {
         float marble_num = Random.value;
         ObjectKind marble_type = ObjectKind.hp_marble_large;
-        if (marble_num < 0.1f)
+        if (marble_num < 0.15f)
             marble_type = ObjectKind.hp_marble_large;
-        else if (marble_num < 0.3f)
+        else if (marble_num < 0.5f)
             marble_type = ObjectKind.hp_marble_middle;
         else
             marble_type = ObjectKind.hp_marble_small;
