@@ -125,7 +125,7 @@ public class PlayerSkill : MonoBehaviour
     IEnumerator Atkspeed_Flag_Coroutine()
     {
         atkspeed_flag = true;
-        yield return new WaitForSeconds(GetComponent<PlayerController>().atkspeed);
+        yield return new WaitForSeconds(GetComponent<PlayerController>().AtkSpeed());
         nomal_atk.SetActive(true);
         nomal_atk.transform.localPosition = origin_nomal_atk_Pos;
         atkspeed_flag = false;
@@ -171,6 +171,13 @@ public class PlayerSkill : MonoBehaviour
             player_skill.Add(skillname);
             Invoke(skillname, 0);
         }
+    }
+
+    public float SkillCollTime(float originTime)
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(6);
+        float skillCoolTime = originTime - (originTime * GetComponent<PlayerController>().skill_lv_cooltime * float.Parse(skillcard_db[2]) / 100);
+        return skillCoolTime;
     }
 
     bool water01_flag;
@@ -227,8 +234,9 @@ public class PlayerSkill : MonoBehaviour
             }
 
         }
+     
 
-        Invoke("Water01", 0.5f);
+        Invoke("Water01", SkillCollTime(0.5f));
     }
     IEnumerator Water01_Flag_Coroutine()
     {

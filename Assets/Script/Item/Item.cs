@@ -13,7 +13,7 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        search_range = player.GetComponent<PlayerController>().item_range;
+        search_range = player.GetComponent<PlayerController>().ItemRange();
     }
 
     private void Update()
