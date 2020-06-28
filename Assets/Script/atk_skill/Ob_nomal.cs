@@ -40,7 +40,7 @@ public class Ob_nomal : MonoBehaviour
                 targetList[iCount].GetComponent<Boss>().Hit((int)(player_status.atk*atk), true);
             else targetList[iCount].GetComponent<MonsterController>().Hit((int)(player_status.atk * atk), true);
             iCount++;
-            if (iCount == GetComponent<PlayerController>().attack_lv_count)
+            if (iCount == targetList.Count)
             {
                 atk_sound_flag = false;
                 iCount = 0;

@@ -8,15 +8,13 @@ using Spine.Unity;
 public class PlayerController : MonoBehaviour
 {
     [Header("STATUS")]
-    public float atk;
-    public int max_hp;
-    public float range;
-    public float atkspeed;
-    public float speed;
-    public float dash_move;
-    public float item_range;
-    public string name;
-    public int def;
+    [Range(1, 10)] public float atk;
+    [Range(0, 200)] public int max_hp;
+    [Range(3, 10)] public float range;
+    [Range(0.1f, 3f)] public float atkspeed;
+    [Range(0.04f, 0.1f)] public float speed;
+    [Range(1.5f, 3f)] public float dash_move;
+    [Range(1f, 5f)] public float item_range;
 
     [HideInInspector]
     public int current_hp;
@@ -93,14 +91,6 @@ public class PlayerController : MonoBehaviour
     public int player_lv;
     private void Start()
     {
-        atk = GameManager.instance.userinfo.GetPlayer(name).attack;
-        max_hp = GameManager.instance.userinfo.GetPlayer(name).max_hp;
-        range = GameManager.instance.userinfo.GetPlayer(name).attack_range;
-        atkspeed = GameManager.instance.userinfo.GetPlayer(name).attack_speed;
-        speed = GameManager.instance.userinfo.GetPlayer(name).move_speed;
-        item_range = GameManager.instance.userinfo.GetPlayer(name).getitem_range;
-        def = GameManager.instance.userinfo.GetPlayer(name).def;
-
         player_exp = 0;
         current_hp = max_hp;
         lv_up.text = "LV" + player_lv;
@@ -442,9 +432,7 @@ public class PlayerController : MonoBehaviour
         if (hit_flag)
             return;
 
-        if (damage - def < 0)
-            current_hp -= 1;
-        else current_hp -= (damage-def);
+        current_hp -= damage;
 
         hp_image.fillAmount = (float)current_hp / max_hp;
 

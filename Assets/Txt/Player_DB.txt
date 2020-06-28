@@ -1,1 +1,0 @@
-Character_001	영술사		Null	Null	Null	Null	Null	300	50	10	1	5	5	2	1	1	기본 캐릭터인 영술사입니다.
