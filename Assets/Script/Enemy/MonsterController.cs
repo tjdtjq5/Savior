@@ -111,6 +111,8 @@ public class MonsterController : MonoBehaviour
 
         if (current_hp <= 0)
         {
+            int point = GameManager.instance.monsterManager.GetMonster(name).point;
+            player_transform.GetComponent<PlayerController>().PointUp(point);
             GameObject smoke = ObjectPoolingManager.instance.GetQueue(ObjectKind.smoke);
             smoke.transform.position = this.transform.position;
             ObjectPoolingManager.instance.InsertQueue(this.gameObject, (ObjectKind)Enum.Parse(typeof(ObjectKind), objectKind_string));

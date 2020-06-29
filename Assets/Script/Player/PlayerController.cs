@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [Range(3, 10)] public float range;
     [Range(1.5f, 3f)] public float dash_move;
 
+    int currentPoint;
     int maxLv;
 
     [HideInInspector]
@@ -226,6 +227,10 @@ public class PlayerController : MonoBehaviour
         hp_image.fillAmount = (float)current_hp / MaxHp();
     }
 
+    public void PointUp(int up)
+    {
+        currentPoint += up + (int)(up * PointUpPercent());
+    }
 
     private void FixedUpdate()
     {
