@@ -97,7 +97,7 @@ public class Boss : MonoBehaviour
         CameraShake();
         boss_start = false;
         player.GetComponent<PlayerController>().boss_start = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         skill_start = true;
         GameManager.instance.audioManager.Bgm_Play(bossbgm);
     }
@@ -193,13 +193,13 @@ public class Boss : MonoBehaviour
         int range = Random.Range(0, 100);
         if (range < 35)
             //보스 브레스 애니메이션 동작
-            Spine_Ani(AniKind.Breath);
+            Spine_Ani(AniKind.RandomShot);
         else if (35 <= range && range < 70)
             //보스 플레임 애니메이션 동작
-            Spine_Ani(AniKind.Flame);
+            Spine_Ani(AniKind.RandomShot);
         else
             //보스 할퀴기 동작
-            Spine_Ani(AniKind.Claw);
+            Spine_Ani(AniKind.RandomShot);
         if(Boss_hp <= hp*0.7)
         {
             //보스 화염탄 난사 애니메이션 동작
@@ -425,20 +425,6 @@ public class Boss : MonoBehaviour
                         else
                             Boss_Skill.instance.Flame(pos);
                         break;
-                    case "RandomShot":
-                        if (phase_num == "Phase_01")
-                        {
-                            for (int j = 0; j < 5; j++)
-                            {
-                                StartCoroutine("randshotCoroutine");
-                            }
-                        }
-                        else
-                            for(int j = 0; j<8; j++)
-                            {
-                                StartCoroutine("randshotCoroutine");
-                            }
-                        break;
                     case "Spin":
                         if (phase_num == "Phase_03")
                             Boss_Skill.instance.SpinStrong();
@@ -449,15 +435,12 @@ public class Boss : MonoBehaviour
                         break;
                 }
             }
+            if (i == 2 && type == "RandomShot")
+                Boss_Skill.instance.RandomShot();
             yield return new WaitForSeconds(time[i]);
         }
     }
 
-    IEnumerator randshotCoroutine()
-    {
-        yield return new WaitForSeconds(0.8f);
-        Boss_Skill.instance.RandomShot();
-    }
 
     enum AniKind
     {

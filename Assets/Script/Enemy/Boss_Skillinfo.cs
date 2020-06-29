@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Boss_Skillinfo : MonoBehaviour
@@ -16,13 +17,7 @@ public class Boss_Skillinfo : MonoBehaviour
     [HideInInspector] public bool breathball;
     [HideInInspector] public bool direction;//브레스탄과 플레이어의 x방향구분
 
-    Vector3 min;
-    Vector3 max;
-    private void Start()
-    {
-        min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-    }
+    [HideInInspector] public Vector3 pos; //랜덤샷 떨어질 곳
 
     public void Destroy()
     {
@@ -52,16 +47,14 @@ public class Boss_Skillinfo : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
-        float randx = Random.Range(min.x, max.x);
-        float randy = Random.Range(min.y, max.y);
-
         if (randomshot)
         {
-            this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(randx,randy), 0.3f);
+            this.transform.position = Vector3.MoveTowards(transform.position, pos, 0.3f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 60));
         }
         if (breathstrong)
         {
-            this.transform.position = Vector3.MoveTowards(transform.position, target.position, 3.0f);
+            this.transform.position = Vector3.MoveTowards(transform.position, target.position, 3.0f*Time.deltaTime);
         }
         if (breathball)
         {

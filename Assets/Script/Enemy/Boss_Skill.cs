@@ -22,10 +22,19 @@ public class Boss_Skill : MonoBehaviour
     public Transform hand;
     public Transform tail;
     public Transform randshot;
+    public Transform burningground;
 
+    Vector3 min;
+    Vector3 max;
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));//카메라최소값
+        max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));//카메라최대값
     }
 
     public void Breath()
@@ -58,13 +67,25 @@ public class Boss_Skill : MonoBehaviour
     public void RandomShot()
     {
         //화염탄 난사
-        GameObject randomskill = Instantiate(phase1[3], randshot.position, Quaternion.identity);
-        if (player.position.x - this.transform.position.x > 0)
-            randomskill.transform.rotation = Quaternion.Euler(0, 180, 0);
+        int num;
+        if (phase_01)
+            num = 5;
         else
-            randomskill.transform.rotation = Quaternion.Euler(0, 0, 0);
-        randomskill.GetComponent<Boss_Skillinfo>().randomshot = true;
-        randomskill.GetComponent<Boss_Skillinfo>().phase1 = phase_01;
+            num = 8;
+        for (int i = 0; i < num; i++)
+        {
+            GameObject randomskill = Instantiate(phase1[3], randshot.position, Quaternion.identity);
+            if (player.position.x - this.transform.position.x > 0)
+                randomskill.transform.rotation = Quaternion.Euler(0, 180, 0);
+            else
+                randomskill.transform.rotation = Quaternion.Euler(0, 0, 0);
+            randomskill.GetComponent<Boss_Skillinfo>().randomshot = true;
+            float randx = Random.Range(min.x, max.x);
+            float randy = Random.Range(min.y, max.y);
+            Vector3 pos = new Vector3(randx, randy);
+            randomskill.GetComponent<Boss_Skillinfo>().pos = pos;
+            randomskill.GetComponent<Boss_Skillinfo>().phase1 = phase_01;
+        }
     }
 
     public void RandomShot01(Transform pos)
@@ -129,13 +150,13 @@ public class Boss_Skill : MonoBehaviour
     {
         Vector2 pos;
         if (player.position.x - this.transform.position.x > 0)
-            pos = new Vector2(hand.position.x + 2, hand.position.y);
+            pos = new Vector2(burningground.position.x + 2, burningground.position.y);
         else
-            pos = new Vector2(hand.position.x - 2, hand.position.y);
+            pos = new Vector2(burningground.position.x - 2, burningground.position.y);
         //불타는 대지
         GameObject burning01 = Instantiate(phase3[1], pos, Quaternion.identity);
-        GameObject burning02 = Instantiate(phase3[1], new Vector3(pos.x, hand.position.y - 1), Quaternion.identity);
-        GameObject burning03 = Instantiate(phase3[1], new Vector3(pos.x, hand.position.y + 1), Quaternion.identity);
+        GameObject burning02 = Instantiate(phase3[1], new Vector3(pos.x, burningground.position.y - 1), Quaternion.identity);
+        GameObject burning03 = Instantiate(phase3[1], new Vector3(pos.x, burningground.position.y + 1), Quaternion.identity);
     }
 
     public void BreathStrong()
