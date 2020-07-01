@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using Spine.Unity;
-using UnityEditor.ShaderGraph.Internal;
 
 public class PlayerController : MonoBehaviour
 {
