@@ -93,6 +93,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector]
     public int player_lv;
+
+    [HideInInspector] public bool boss_start;//보스스테이지 시작시 잠시 멈추게
+
     private void Start()
     {
         player_exp = 0;
@@ -242,7 +245,7 @@ public class PlayerController : MonoBehaviour
 
             if (!treasure_flag)
             {
-                if (!dash_flag) // 대쉬중에는 막아둔다
+                if (!dash_flag&&!boss_start) // 대쉬중에는 막아둔다
                 {
                     // 조이스틱 위치에 따른 플레이어 위치 
                     this.transform.position = new Vector2(

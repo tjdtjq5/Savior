@@ -60,14 +60,8 @@ public class StageManager : MonoBehaviour
         if (currentStageInt == 6)
         {
             this.GetComponent<Animator>().SetBool("Boss", false);
-            CameraShake();
         }
         else  this.GetComponent<Animator>().SetBool("Next", false);
-    }
-
-    private void CameraShake()
-    {
-        Camera.main.transform.DOShakePosition(1.7f,1.5f,7);
     }
 
 }
