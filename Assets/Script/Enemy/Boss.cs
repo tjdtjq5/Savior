@@ -31,7 +31,17 @@ public class Boss : MonoBehaviour
     public string name;
     string currentSpineName;
 
+    [Header("보스음악")]
+    public AudioSource bossbgm;
+
+    //연출
     [HideInInspector] public float Boss_hp;
+    [Header("보스스테이지시작정보")]
+    public Transform temppos; //시작전 위에 있는곳
+    public Transform startpos; //보스연출 처음 등장하는 곳
+    bool boss_start;
+    public GameObject smoke;//연출 연기
+    bool skill_start;
 
     int atk;
     int hp;
@@ -42,7 +52,6 @@ public class Boss : MonoBehaviour
     bool attack_flag;
     bool hit_flag;
     bool move_flag;
-    bool fly_flag;
 
     [Header("범위")]
     public float range;
@@ -59,15 +68,39 @@ public class Boss : MonoBehaviour
         atk = GameManager.instance.monsterManager.GetMonster(name).atk;
         hp = GameManager.instance.monsterManager.GetMonster(name).hp;
         speed = GameManager.instance.monsterManager.GetMonster(name).speed;
+        boss_start = true;
+        player.GetComponent<PlayerController>().boss_start = true;
+        this.transform.position = temppos.position;
         Boss_hp = hp;
         Boss_Skill.instance.phase_01 = true;
         bosshpbar.SetActive(true);
         phase_num = "Phase_01";
         countdown.time = 300;
+        skill_start = false;
 
         player_pos = player.transform.position;
+        StartCoroutine("Boss_Start");
     }
 
+    private void CameraShake()
+    {
+        Camera.main.transform.DOShakePosition(1.7f, 1.5f, 7);
+    }
+
+    IEnumerator Boss_Start()
+    {
+        yield return new WaitForSeconds(4f);
+        skeletonAnimation.AnimationState.SetAnimation(0, "Dragon_RandomShot_E", false);
+        yield return new WaitForSeconds(0.3f);
+        this.transform.position = startpos.position;
+        Instantiate(smoke, this.transform.position, Quaternion.identity);
+        CameraShake();
+        boss_start = false;
+        player.GetComponent<PlayerController>().boss_start = false;
+        yield return new WaitForSeconds(1f);
+        skill_start = true;
+        GameManager.instance.audioManager.Bgm_Play(bossbgm);
+    }
 
     private void FixedUpdate()
     {
@@ -83,7 +116,8 @@ public class Boss : MonoBehaviour
             Victory();
         else if (countdown.remainTime <= 0)
             GameOver();
-        Move();
+        if (!boss_start)
+            Move();
 
     }
 
@@ -102,18 +136,12 @@ public class Boss : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
-        if (fly_flag)
-        {
-            player_pos = this.transform.position;
-            this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector3(player_pos.x, player_pos.y + 5, player_pos.z),2f);
-        }
-
         if (!hit_flag && !attack_flag)
         {
             if (move_flag)
             {
                 Spine_Ani(AniKind.move);
-                this.transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed/100f);
+                this.transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed/50f);
 
                 if (player.position.x - this.transform.position.x > 0)
                     this.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -129,7 +157,7 @@ public class Boss : MonoBehaviour
                         StartCoroutine("Attack_flag_Couroutine");
                 }
             }
-            if (attack_flag)
+            if (attack_flag&&skill_start)
             {
                 Invoke(phase_num,0.1f);
             }
@@ -165,13 +193,13 @@ public class Boss : MonoBehaviour
         int range = Random.Range(0, 100);
         if (range < 35)
             //보스 브레스 애니메이션 동작
-            Spine_Ani(AniKind.Breath);
+            Spine_Ani(AniKind.RandomShot);
         else if (35 <= range && range < 70)
             //보스 플레임 애니메이션 동작
-            Spine_Ani(AniKind.Flame);
+            Spine_Ani(AniKind.RandomShot);
         else
             //보스 할퀴기 동작
-            Spine_Ani(AniKind.Claw);
+            Spine_Ani(AniKind.RandomShot);
         if(Boss_hp <= hp*0.7)
         {
             //보스 화염탄 난사 애니메이션 동작
@@ -367,19 +395,20 @@ public class Boss : MonoBehaviour
         {
             skeletonAnimation.AnimationState.SetAnimation(0,name[i],false);
             skeletonAnimation.AnimationState.TimeScale = 1f;
-            if(i==0&&type=="RandomShot")
 
+            float randx = Random.Range(-5,5);
+            Vector3 pos = new Vector3(player.position.x+randx,player.position.y);
             if (i == 1)
             {
                 switch (type)
                 {
                     case "Breath":
-                        if (phase_num == "Phase_01")
-                            Boss_Skill.instance.Breath();
-                        else if (phase_num == "Phase_02")
-                            Boss_Skill.instance.BreathBall();
-                        else
-                            Boss_Skill.instance.BreathStrong();
+                            if (phase_num == "Phase_01")
+                                Boss_Skill.instance.Breath();
+                            else if (phase_num == "Phase_02")
+                                Boss_Skill.instance.BreathBall();
+                            else
+                                Boss_Skill.instance.BreathStrong();
                         break;
                     case "Claw":
                         Boss_Skill.instance.Claw();
@@ -388,16 +417,13 @@ public class Boss : MonoBehaviour
                         Boss_Skill.instance.BurningGround();
                         break;
                     case "FlameBomb":
-                        Boss_Skill.instance.FlameBomb();
+                        Boss_Skill.instance.FlameBomb(pos);
                         break;
                     case "Flame":
                         if (phase_num == "Phase_03")
-                            Boss_Skill.instance.FlameStrong();
+                            Boss_Skill.instance.FlameStrong(pos);
                         else
-                            Boss_Skill.instance.Flame();
-                        break;
-                    case "RandomShot":
-                        Boss_Skill.instance.RandomShot();
+                            Boss_Skill.instance.Flame(pos);
                         break;
                     case "Spin":
                         if (phase_num == "Phase_03")
@@ -410,10 +436,11 @@ public class Boss : MonoBehaviour
                 }
             }
             if (i == 2 && type == "RandomShot")
-                this.transform.position = player_pos;
+                Boss_Skill.instance.RandomShot();
             yield return new WaitForSeconds(time[i]);
         }
     }
+
 
     enum AniKind
     {

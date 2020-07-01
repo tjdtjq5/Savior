@@ -21,16 +21,25 @@ public class Boss_Skill : MonoBehaviour
     public Transform mouth;
     public Transform hand;
     public Transform tail;
+    public Transform randshot;
+    public Transform burningground;
 
+    Vector3 min;
+    Vector3 max;
     private void Awake()
     {
         instance = this;
     }
 
+    private void Start()
+    {
+        min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));//카메라최소값
+        max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));//카메라최대값
+    }
+
     public void Breath()
     {
         //브레스
-
         GameObject breath = Instantiate(phase1[0], mouth.position, Quaternion.identity);
         if (player.position.x - this.transform.position.x > 0)
             breath.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -38,10 +47,10 @@ public class Boss_Skill : MonoBehaviour
             breath.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     
-    public void Flame()
+    public void Flame(Vector3 pos)
     {
         //플레임
-        GameObject flame = Instantiate(phase1[1], player.position, Quaternion.identity);
+        GameObject flame = Instantiate(phase1[1], pos, Quaternion.identity);
     }
 
     public void Claw()
@@ -58,14 +67,23 @@ public class Boss_Skill : MonoBehaviour
     public void RandomShot()
     {
         //화염탄 난사
-        for (int i = 0; i < 5; i++)
+        int num;
+        if (phase_01)
+            num = 5;
+        else
+            num = 8;
+        for (int i = 0; i < num; i++)
         {
-            GameObject randomskill = Instantiate(phase1[3], mouth.position, Quaternion.identity);
+            GameObject randomskill = Instantiate(phase1[3], randshot.position, Quaternion.identity);
             if (player.position.x - this.transform.position.x > 0)
                 randomskill.transform.rotation = Quaternion.Euler(0, 180, 0);
             else
                 randomskill.transform.rotation = Quaternion.Euler(0, 0, 0);
             randomskill.GetComponent<Boss_Skillinfo>().randomshot = true;
+            float randx = Random.Range(min.x, max.x);
+            float randy = Random.Range(min.y, max.y);
+            Vector3 pos = new Vector3(randx, randy);
+            randomskill.GetComponent<Boss_Skillinfo>().pos = pos;
             randomskill.GetComponent<Boss_Skillinfo>().phase1 = phase_01;
         }
     }
@@ -86,25 +104,34 @@ public class Boss_Skill : MonoBehaviour
     {
         //브레스탄
         GameObject breathball01 = Instantiate(phase2[0], mouth.position, Quaternion.identity);
-        GameObject breathball02 = Instantiate(phase2[0], new Vector3(mouth.position.x,mouth.position.y-1), Quaternion.identity);
+        GameObject breathball02 = Instantiate(phase2[0], new Vector3(mouth.position.x, mouth.position.y - 1), Quaternion.identity);
         GameObject breathball03 = Instantiate(phase2[0], new Vector3(mouth.position.x, mouth.position.y + 1), Quaternion.identity);
+        breathball01.GetComponent<Boss_Skillinfo>().breathball = true;
+        breathball02.GetComponent<Boss_Skillinfo>().breathball = true;
+        breathball03.GetComponent<Boss_Skillinfo>().breathball = true;
         if (player.position.x - this.transform.position.x > 0)
         {
+            breathball01.GetComponent<Boss_Skillinfo>().direction = true;
+            breathball02.GetComponent<Boss_Skillinfo>().direction = true;
+            breathball03.GetComponent<Boss_Skillinfo>().direction = true;
             breathball01.transform.rotation = Quaternion.Euler(0, 180, 0);
             breathball02.transform.rotation = Quaternion.Euler(0, 180, 0);
             breathball03.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
+            breathball01.GetComponent<Boss_Skillinfo>().direction = false;
+            breathball02.GetComponent<Boss_Skillinfo>().direction = false;
+            breathball03.GetComponent<Boss_Skillinfo>().direction = false;
             breathball01.transform.rotation = Quaternion.Euler(0, 0, 0);
             breathball02.transform.rotation = Quaternion.Euler(0, 0, 0);
             breathball03.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-    public void FlameBomb()
+    public void FlameBomb(Vector3 pos)
     {
         //화염폭발
-        GameObject flamebomb = Instantiate(phase2[1], player.position, Quaternion.identity);
+        GameObject flamebomb = Instantiate(phase2[1], pos, Quaternion.identity);
     }
 
     public void Spin()
@@ -113,23 +140,23 @@ public class Boss_Skill : MonoBehaviour
         GameObject spin = Instantiate(phase2[2], tail.position, Quaternion.identity);
     }
 
-    public void FlameStrong()
+    public void FlameStrong(Vector3 pos)
     {
         //플레임 강화
-        GameObject flamestrong = Instantiate(phase3[0], player.position, Quaternion.identity);
+        GameObject flamestrong = Instantiate(phase3[0], pos, Quaternion.identity);
     }
 
     public void BurningGround()
     {
         Vector2 pos;
         if (player.position.x - this.transform.position.x > 0)
-            pos = new Vector2(hand.position.x + 2, hand.position.y);
+            pos = new Vector2(burningground.position.x + 2, burningground.position.y);
         else
-            pos = new Vector2(hand.position.x - 2, hand.position.y);
+            pos = new Vector2(burningground.position.x - 2, burningground.position.y);
         //불타는 대지
         GameObject burning01 = Instantiate(phase3[1], pos, Quaternion.identity);
-        GameObject burning02 = Instantiate(phase3[1], new Vector3(pos.x, hand.position.y - 1), Quaternion.identity);
-        GameObject burning03 = Instantiate(phase3[1], new Vector3(pos.x, hand.position.y + 1), Quaternion.identity);
+        GameObject burning02 = Instantiate(phase3[1], new Vector3(pos.x, burningground.position.y - 1), Quaternion.identity);
+        GameObject burning03 = Instantiate(phase3[1], new Vector3(pos.x, burningground.position.y + 1), Quaternion.identity);
     }
 
     public void BreathStrong()
