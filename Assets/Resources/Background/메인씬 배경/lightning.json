@@ -1,0 +1,446 @@
+{
+"skeleton": {
+	"hash": "glLzkB1/6r08m8nL3DGHXapOv04",
+	"spine": "3.8.95",
+	"x": -165.72,
+	"y": -142.02,
+	"width": 377,
+	"height": 261,
+	"images": "../images/lightning/",
+	"audio": "/Users/edayeong/Desktop/매직서바이벌/스타트씬배경/lightning"
+},
+"bones": [
+	{ "name": "root", "x": 1.04, "y": 3.22 }
+],
+"slots": [
+	{ "name": "cloud_light2", "bone": "root", "attachment": "cloud_light" },
+	{ "name": "lightning_b", "bone": "root", "attachment": "lightning_b3" },
+	{ "name": "lightning_a", "bone": "root", "attachment": "lightning_a1" },
+	{ "name": "cloud", "bone": "root", "attachment": "cloud" },
+	{ "name": "cloud_light", "bone": "root", "attachment": "cloud_light" }
+],
+"skins": [
+	{
+		"name": "main_lightning",
+		"attachments": {
+			"cloud": {
+				"cloud": { "x": 21.74, "y": 80.26, "width": 377, "height": 71 }
+			},
+			"cloud_light": {
+				"cloud_light": { "x": -6.26, "y": 58.26, "width": 203, "height": 35 }
+			},
+			"cloud_light2": {
+				"cloud_light": { "x": -6.26, "y": 58.26, "width": 203, "height": 35 }
+			},
+			"lightning_a": {
+				"lightning_a1": { "x": -10.26, "y": 44.76, "width": 113, "height": 42 },
+				"lightning_a2": { "x": -10.76, "y": 32.26, "width": 110, "height": 47 },
+				"lightning_a3": { "x": -6.76, "y": 40.76, "width": 130, "height": 44 }
+			},
+			"lightning_b": {
+				"lightning_b1": { "x": -0.26, "y": 12.76, "width": 39, "height": 126 },
+				"lightning_b2": { "x": -9.26, "y": -38.74, "width": 51, "height": 219 },
+				"lightning_b3": { "x": -9.26, "y": -33.74, "width": 47, "height": 223 },
+				"lightning_b4": { "x": -0.26, "y": -38.24, "width": 53, "height": 210 },
+				"lightning_b5": { "x": -6.26, "y": -34.74, "width": 81, "height": 217 },
+				"lightning_b6": { "x": -7.26, "y": -34.74, "width": 75, "height": 209 },
+				"lightning_b7": { "x": -6.76, "y": -35.24, "width": 68, "height": 200 }
+			}
+		}
+	}
+],
+"animations": {
+	"main_lightning1": {
+		"slots": {
+			"cloud": {
+				"attachment": [
+					{ "name": "cloud" },
+					{ "time": 1.6667, "name": "cloud" },
+					{ "time": 2, "name": "cloud" },
+					{ "time": 2.3333, "name": "cloud" },
+					{ "time": 2.5, "name": "cloud" },
+					{ "time": 4.6667, "name": "cloud" },
+					{ "time": 4.7667, "name": "cloud" },
+					{ "time": 4.8667, "name": "cloud" },
+					{ "time": 5.2, "name": "cloud" },
+					{ "time": 5.3333, "name": "cloud" },
+					{ "time": 8.1667, "name": "cloud" },
+					{ "time": 8.5, "name": "cloud" },
+					{ "time": 8.7, "name": "cloud" },
+					{ "time": 9, "name": "cloud" },
+					{ "time": 9.2, "name": "cloud" },
+					{ "time": 9.3333, "name": "cloud" },
+					{ "time": 9.5, "name": "cloud" },
+					{ "time": 10.3, "name": "cloud" },
+					{ "time": 10.4, "name": "cloud" },
+					{ "time": 10.5, "name": "cloud" },
+					{ "time": 10.8333, "name": "cloud" },
+					{ "time": 10.9667, "name": "cloud" },
+					{ "time": 12.4667, "name": "cloud" },
+					{ "time": 12.8, "name": "cloud" },
+					{ "time": 13.1333, "name": "cloud" },
+					{ "time": 13.3, "name": "cloud" }
+				]
+			},
+			"cloud_light": {
+				"color": [
+					{ "time": 2.5, "color": "ffffffff" },
+					{ "time": 2.5667, "color": "ffffff00", "curve": 0.594, "c3": 0.945, "c4": 0.94 },
+					{ "time": 2.8333, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 3.1667, "color": "ffffffff" },
+					{ "time": 3.5, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.0667, "name": "cloud_light" },
+					{ "time": 0.1, "name": null },
+					{ "time": 0.1333, "name": "cloud_light" },
+					{ "time": 0.1667, "name": null },
+					{ "time": 0.3333, "name": "cloud_light" },
+					{ "time": 0.3667, "name": null },
+					{ "time": 0.4667, "name": "cloud_light" },
+					{ "time": 0.5, "name": null },
+					{ "time": 0.5333, "name": "cloud_light" },
+					{ "time": 0.6667, "name": null },
+					{ "time": 1.6667, "name": null },
+					{ "time": 1.9667, "name": "cloud_light" },
+					{ "time": 2, "name": null },
+					{ "time": 2.1667, "name": "cloud_light" },
+					{ "time": 2.3333, "name": null },
+					{ "time": 2.5, "name": null },
+					{ "time": 2.5667, "name": "cloud_light" },
+					{ "time": 4.6667, "name": null },
+					{ "time": 4.7667, "name": null },
+					{ "time": 4.8667, "name": null },
+					{ "time": 5.2, "name": null },
+					{ "time": 5.3333, "name": null },
+					{ "time": 8.1667, "name": null },
+					{ "time": 8.3333, "name": "cloud_light" },
+					{ "time": 8.5, "name": null },
+					{ "time": 8.6333, "name": "cloud_light" },
+					{ "time": 8.7, "name": null },
+					{ "time": 9, "name": null },
+					{ "time": 9.0667, "name": "cloud_light" },
+					{ "time": 9.2, "name": null },
+					{ "time": 9.3333, "name": null },
+					{ "time": 9.4333, "name": "cloud_light" },
+					{ "time": 9.5, "name": null },
+					{ "time": 10.3, "name": null },
+					{ "time": 10.4, "name": null },
+					{ "time": 10.5, "name": null },
+					{ "time": 10.8333, "name": null },
+					{ "time": 10.9667, "name": null },
+					{ "time": 12.4667, "name": null },
+					{ "time": 12.7667, "name": "cloud_light" },
+					{ "time": 12.8, "name": null },
+					{ "time": 12.9667, "name": "cloud_light" },
+					{ "time": 13.1333, "name": null },
+					{ "time": 13.3, "name": null }
+				]
+			},
+			"cloud_light2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"lightning_a": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.0667, "name": "lightning_a1" },
+					{ "time": 0.1, "name": null },
+					{ "time": 0.1333, "name": "lightning_a1" },
+					{ "time": 0.1667, "name": null },
+					{ "time": 0.3333, "name": "lightning_a2" },
+					{ "time": 0.3667, "name": null },
+					{ "time": 0.4667, "name": "lightning_a2" },
+					{ "time": 0.5, "name": null },
+					{ "time": 0.5333, "name": "lightning_a1" },
+					{ "time": 0.6667, "name": null },
+					{ "time": 1.6667, "name": null },
+					{ "time": 1.9667, "name": "lightning_a2" },
+					{ "time": 2, "name": null },
+					{ "time": 2.1667, "name": "lightning_a2" },
+					{ "time": 2.2, "name": "lightning_a3" },
+					{ "time": 2.3333, "name": null },
+					{ "time": 2.5, "name": null },
+					{ "time": 2.5667, "name": null },
+					{ "time": 4.6667, "name": null },
+					{ "time": 4.7333, "name": "lightning_a1" },
+					{ "time": 4.7667, "name": null },
+					{ "time": 4.8333, "name": "lightning_a2" },
+					{ "time": 4.8667, "name": null },
+					{ "time": 5.1667, "name": "lightning_a3" },
+					{ "time": 5.2, "name": null },
+					{ "time": 5.2333, "name": "lightning_a3" },
+					{ "time": 5.3333, "name": null },
+					{ "time": 8.1667, "name": null },
+					{ "time": 8.3333, "name": "lightning_a1" },
+					{ "time": 8.5, "name": null },
+					{ "time": 8.6333, "name": "lightning_a2" },
+					{ "time": 8.7, "name": null },
+					{ "time": 9, "name": null },
+					{ "time": 9.2, "name": null },
+					{ "time": 9.3333, "name": null },
+					{ "time": 9.5, "name": null },
+					{ "time": 10.3, "name": null },
+					{ "time": 10.3667, "name": "lightning_a1" },
+					{ "time": 10.4, "name": null },
+					{ "time": 10.4667, "name": "lightning_a2" },
+					{ "time": 10.5, "name": null },
+					{ "time": 10.8, "name": "lightning_a3" },
+					{ "time": 10.8333, "name": null },
+					{ "time": 10.8667, "name": "lightning_a3" },
+					{ "time": 10.9667, "name": null },
+					{ "time": 12.4667, "name": null },
+					{ "time": 12.7667, "name": "lightning_a2" },
+					{ "time": 12.8, "name": null },
+					{ "time": 12.9667, "name": "lightning_a2" },
+					{ "time": 13, "name": "lightning_a3" },
+					{ "time": 13.1333, "name": null },
+					{ "time": 13.3, "name": null }
+				]
+			},
+			"lightning_b": {
+				"color": [
+					{ "time": 2.5, "color": "ffffffff" },
+					{ "time": 2.5667, "color": "ffffff00", "curve": 0.594, "c3": 0.945, "c4": 0.94 },
+					{ "time": 2.8333, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 3.1667, "color": "ffffffff" },
+					{ "time": 3.5, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 9, "color": "ffffff00" },
+					{ "time": 9.0333, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": null },
+					{ "time": 1.6667, "name": null },
+					{ "time": 2, "name": null },
+					{ "time": 2.3333, "name": null },
+					{ "time": 2.5, "name": null },
+					{ "time": 2.5667, "name": "lightning_b3" },
+					{ "time": 4.6667, "name": null },
+					{ "time": 4.7667, "name": null },
+					{ "time": 4.8667, "name": null },
+					{ "time": 5.2, "name": null },
+					{ "time": 5.3333, "name": null },
+					{ "time": 8.1667, "name": null },
+					{ "time": 8.5, "name": null },
+					{ "time": 8.7, "name": null },
+					{ "time": 9, "name": null },
+					{ "time": 9.0667, "name": "lightning_b1" },
+					{ "time": 9.1333, "name": "lightning_b2" },
+					{ "time": 9.2, "name": null },
+					{ "time": 9.2667, "name": "lightning_b2" },
+					{ "time": 9.3333, "name": null },
+					{ "time": 9.4333, "name": "lightning_b4" },
+					{ "time": 9.5, "name": null },
+					{ "time": 10.3, "name": null },
+					{ "time": 10.4, "name": null },
+					{ "time": 10.5, "name": null },
+					{ "time": 10.8333, "name": null },
+					{ "time": 10.9667, "name": null },
+					{ "time": 12.4667, "name": null },
+					{ "time": 12.8, "name": null },
+					{ "time": 13.1333, "name": null },
+					{ "time": 13.3, "name": null }
+				]
+			}
+		}
+	},
+	"main_lightning2": {
+		"slots": {
+			"cloud": {
+				"attachment": [
+					{ "name": "cloud" },
+					{ "time": 0.1667, "name": "cloud" },
+					{ "time": 0.6333, "name": "cloud" },
+					{ "time": 5.3333, "name": "cloud" },
+					{ "time": 5.4333, "name": "cloud" },
+					{ "time": 5.5333, "name": "cloud" },
+					{ "time": 5.8667, "name": "cloud" },
+					{ "time": 6, "name": "cloud" },
+					{ "time": 7.0667, "name": "cloud" },
+					{ "time": 7.1667, "name": "cloud" },
+					{ "time": 7.5333, "name": "cloud" },
+					{ "time": 7.7333, "name": "cloud" },
+					{ "time": 8.9667, "name": "cloud" },
+					{ "time": 9.3, "name": "cloud" },
+					{ "time": 9.6333, "name": "cloud" },
+					{ "time": 9.8, "name": "cloud" },
+					{ "time": 11.8, "name": "cloud" },
+					{ "time": 12.1333, "name": "cloud" },
+					{ "time": 12.3333, "name": "cloud" }
+				]
+			},
+			"cloud_light": {
+				"color": [
+					{ "time": 0.5333, "color": "ffffffff" },
+					{ "time": 0.9, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 3.2667, "color": "ffffff00" },
+					{ "time": 3.3, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 3.8, "color": "ffffffff" },
+					{ "time": 4.2, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 5.3, "color": "ffffff00" },
+					{ "time": 5.3333, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 5.6333, "color": "ffffffff" },
+					{ "time": 6, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 6.9, "color": "ffffff00" },
+					{ "time": 6.9667, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 7.4667, "color": "ffffffff" },
+					{ "time": 7.5667, "color": "ffffff00" },
+					{ "time": 7.6333, "color": "ffffffff" },
+					{ "time": 8.1, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 8.9667, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 9.9667, "color": "ffffff00" },
+					{ "time": 11.8, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 12.2667, "color": "ffffffff" },
+					{ "time": 12.5333, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.1667, "name": null },
+					{ "time": 0.2333, "name": "cloud_light" },
+					{ "time": 0.9, "name": null },
+					{ "time": 3.3, "name": "cloud_light" },
+					{ "time": 3.3333, "name": null },
+					{ "time": 3.3667, "name": "cloud_light" },
+					{ "time": 3.4, "name": null },
+					{ "time": 3.5667, "name": "cloud_light" },
+					{ "time": 3.6, "name": null },
+					{ "time": 3.7, "name": "cloud_light" },
+					{ "time": 3.7333, "name": null },
+					{ "time": 3.8, "name": "cloud_light" },
+					{ "time": 4.2, "name": null },
+					{ "time": 5.3333, "name": "cloud_light" },
+					{ "time": 5.4333, "name": null },
+					{ "time": 5.5333, "name": null },
+					{ "time": 5.8667, "name": null },
+					{ "time": 6, "name": null },
+					{ "time": 7.0667, "name": null },
+					{ "time": 7.1, "name": "cloud_light" },
+					{ "time": 7.1667, "name": null },
+					{ "time": 7.5333, "name": "cloud_light" },
+					{ "time": 8.1, "name": null },
+					{ "time": 8.9667, "name": null },
+					{ "time": 9.2667, "name": "cloud_light" },
+					{ "time": 9.3, "name": null },
+					{ "time": 9.4667, "name": "cloud_light" },
+					{ "time": 9.9667, "name": null },
+					{ "time": 11.8, "name": null },
+					{ "time": 11.9667, "name": "cloud_light" },
+					{ "time": 12.1333, "name": null },
+					{ "time": 12.2667, "name": "cloud_light" },
+					{ "time": 12.5333, "name": null }
+				]
+			},
+			"cloud_light2": {
+				"color": [
+					{ "time": 3.3, "color": "ffffffab" }
+				],
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.9, "name": null },
+					{ "time": 3.3, "name": "cloud_light" },
+					{ "time": 3.8, "name": null },
+					{ "time": 7.0667, "name": "cloud_light" },
+					{ "time": 7.1667, "name": null },
+					{ "time": 7.5333, "name": "cloud_light" },
+					{ "time": 7.8667, "name": null }
+				]
+			},
+			"lightning_a": {
+				"color": [
+					{ "time": 3.8, "color": "ffffffff" },
+					{ "time": 4.2, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 5.3, "color": "ffffff00" },
+					{ "time": 5.3333, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.1667, "name": null },
+					{ "time": 0.6333, "name": null },
+					{ "time": 3.3, "name": "lightning_a1" },
+					{ "time": 3.3333, "name": null },
+					{ "time": 3.3667, "name": "lightning_a1" },
+					{ "time": 3.4, "name": null },
+					{ "time": 3.5667, "name": "lightning_a2" },
+					{ "time": 3.6, "name": null },
+					{ "time": 3.7, "name": "lightning_a2" },
+					{ "time": 3.7333, "name": null },
+					{ "time": 3.8, "name": "lightning_a1" },
+					{ "time": 4.2, "name": null },
+					{ "time": 5.3333, "name": null },
+					{ "time": 5.4, "name": "lightning_a1" },
+					{ "time": 5.4333, "name": null },
+					{ "time": 5.5, "name": "lightning_a2" },
+					{ "time": 5.5333, "name": null },
+					{ "time": 5.8333, "name": "lightning_a3" },
+					{ "time": 5.8667, "name": null },
+					{ "time": 5.9, "name": "lightning_a3" },
+					{ "time": 6, "name": null },
+					{ "time": 7.0667, "name": null },
+					{ "time": 7.1667, "name": null },
+					{ "time": 7.5333, "name": null },
+					{ "time": 7.7333, "name": null },
+					{ "time": 8.9667, "name": null },
+					{ "time": 9.2667, "name": "lightning_a2" },
+					{ "time": 9.3, "name": null },
+					{ "time": 9.4667, "name": "lightning_a2" },
+					{ "time": 9.5, "name": "lightning_a3" },
+					{ "time": 9.6333, "name": null },
+					{ "time": 9.8, "name": null },
+					{ "time": 11.8, "name": null },
+					{ "time": 11.9667, "name": "lightning_a1" },
+					{ "time": 12.1333, "name": null },
+					{ "time": 12.2667, "name": "lightning_a2" },
+					{ "time": 12.3333, "name": null },
+					{ "time": 12.4333, "name": null }
+				]
+			},
+			"lightning_b": {
+				"color": [
+					{ "time": 0.6, "color": "ffffffff" },
+					{ "time": 0.9, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 5.3, "color": "ffffff00" },
+					{ "time": 5.3333, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.1667, "name": null },
+					{ "time": 0.2333, "name": "lightning_b1" },
+					{ "time": 0.3, "name": "lightning_b3" },
+					{ "time": 0.3667, "name": "lightning_b4" },
+					{ "time": 0.4333, "name": "lightning_b6" },
+					{ "time": 0.5333, "name": "lightning_b7" },
+					{ "time": 0.9, "name": null },
+					{ "time": 5.3333, "name": null },
+					{ "time": 5.4333, "name": null },
+					{ "time": 5.5333, "name": null },
+					{ "time": 5.8667, "name": null },
+					{ "time": 6, "name": null },
+					{ "time": 7.0667, "name": null },
+					{ "time": 7.1, "name": "lightning_b1" },
+					{ "time": 7.1667, "name": null },
+					{ "time": 7.4667, "name": "lightning_b3" },
+					{ "time": 7.5333, "name": null },
+					{ "time": 7.6, "name": "lightning_b4" },
+					{ "time": 7.7333, "name": null },
+					{ "time": 8.9667, "name": null },
+					{ "time": 9.3, "name": null },
+					{ "time": 9.6333, "name": null },
+					{ "time": 9.8, "name": null },
+					{ "time": 11.8, "name": null },
+					{ "time": 12.1333, "name": null },
+					{ "time": 12.3333, "name": null }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"translate": [
+					{ "time": 13.3333 }
+				]
+			}
+		}
+	}
+}
+}

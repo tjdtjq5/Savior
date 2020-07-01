@@ -10,7 +10,7 @@ public class Hp_Recovery : MonoBehaviour
     {
         if (collision.tag.Contains("Player"))
         {
-            collision.GetComponent<PlayerController>().Hp_Recovery((int)(collision.GetComponent<PlayerController>().MaxHp() * recovery_amount));
+            collision.GetComponent<PlayerController>().Hp_Recovery((int)(collision.GetComponent<PlayerController>().max_hp * recovery_amount));
             if (this.gameObject.name.Contains("large"))
             {
                 ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.hp_marble_large);
