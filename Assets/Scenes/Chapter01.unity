@@ -3836,13 +3836,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ff9f33b85a25945b3e530f6a105164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atk: 10
-  max_hp: 100
-  range: 6.4
-  atkspeed: 0.5
+  atk: 50
+  max_hp: 300
+  atkspeed: 1
   speed: 0.05
-  dash_move: 1.5
   item_range: 1.48
+  sheild: 10
+  range: 6.4
+  dash_move: 1.5
   current_hp: 0
   theCam: {fileID: 519420032}
   joystic_foreground: {fileID: 2667463744975630604}
@@ -4947,7 +4948,7 @@ PrefabInstance:
     - target: {fileID: 630685352050908960, guid: 4e03cf11b5fdcba4a9008c23c5baf4ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.8448315
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 630685352050908960, guid: 4e03cf11b5fdcba4a9008c23c5baf4ac,
         type: 3}
@@ -22369,7 +22370,7 @@ PrefabInstance:
     - target: {fileID: 630685352050908960, guid: 4e03cf11b5fdcba4a9008c23c5baf4ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2599678
+      value: -9.5
       objectReference: {fileID: 0}
     - target: {fileID: 630685352050908960, guid: 4e03cf11b5fdcba4a9008c23c5baf4ac,
         type: 3}
@@ -26413,7 +26414,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  atk: 10
   nomal_atk_AudioSource: {fileID: 1638408657}
   player_status: {fileID: 0}
   targetList: []

@@ -14184,6 +14184,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster_DB:
     txt: {fileID: 4900000, guid: 3871e0e641e7ef545ab6b55a99eacb71, type: 3}
+  masic_circle_DB:
+    txt: {fileID: 4900000, guid: 30d6ec4dacf8a0f4c90724994a79eab9, type: 3}
+  character_exp_DB:
+    txt: {fileID: 4900000, guid: 3871e0e641e7ef545ab6b55a99eacb71, type: 3}
+  skillCard_DB:
+    txt: {fileID: 4900000, guid: 36fd2dd2b030e3348b4d55e5b2a69ac7, type: 3}
+  exp_DB:
+    txt: {fileID: 4900000, guid: 3409034499309f840b67e76239a21133, type: 3}
 --- !u!1 &2092812385
 GameObject:
   m_ObjectHideFlags: 0

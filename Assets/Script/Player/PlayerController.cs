@@ -4,17 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Spine.Unity;
+using UnityEditor.ShaderGraph.Internal;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("STATUS")]
-    [Range(1, 10)] public float atk;
-    [Range(0, 200)] public int max_hp;
-    [Range(3, 10)] public float range;
+    [Range(0,100)] public float atk;
+    [Range(100,500)] public int max_hp;
     [Range(0.1f, 3f)] public float atkspeed;
     [Range(0.04f, 0.1f)] public float speed;
-    [Range(1.5f, 3f)] public float dash_move;
     [Range(1f, 5f)] public float item_range;
+    [Range(0,100)] public float sheild;
+    [Range(3, 10)] public float range;
+    [Range(1.5f, 3f)] public float dash_move;
+
+    int maxLv;
 
     [HideInInspector]
     public int current_hp;
@@ -71,16 +75,16 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool bossstage;
 
     //메인화면 마법진 정보 
-    [HideInInspector] public int masic_maxhp;
-    [HideInInspector] public int masic_atk;
-    [HideInInspector] public int masic_atkspeed;
-    [HideInInspector] public int masic_speed;
-    [HideInInspector] public int masic_itemdistance;
-    [HideInInspector] public int masic_sheild;
-    [HideInInspector] public int masic_recovery;
-    [HideInInspector] public int masic_skilldamage;
-    [HideInInspector] public int masic_exp;
-    [HideInInspector] public int masic_point;
+    [HideInInspector] public int masic_maxhp; // 최대체력
+    [HideInInspector] public int masic_atk; // 공격력
+    [HideInInspector] public int masic_atkspeed; // 공격속도
+    [HideInInspector] public int masic_speed; // 이동속도
+    [HideInInspector] public int masic_itemdistance; // 아이템 거리
+    [HideInInspector] public int masic_sheild; // 방어력
+    [HideInInspector] public int masic_recovery; // 회복량
+    [HideInInspector] public int masic_skilldamage; // 스킬 데미지
+    [HideInInspector] public int masic_exp; // 경험치 획득
+    [HideInInspector] public int masic_point; // 포인트 획득
 
     Rigidbody2D rigidbody2D;
 
@@ -95,9 +99,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         player_exp = 0;
-        current_hp = max_hp;
+        current_hp = MaxHp();
         lv_up.text = "LV" + player_lv;
-        hp_image.fillAmount = current_hp / max_hp;
+        hp_image.fillAmount = current_hp / MaxHp();
         rigidbody2D = GetComponent<Rigidbody2D>();
         exp_full.fillAmount = (float)player_exp / 100;
 
@@ -107,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         attack_lv_atk = 1;
         attack_lv_speed = 1;
-        attack_lv_count = 3;
+        attack_lv_count = 1;
 
         skill_lv_atk = 1;
         skill_lv_cooltime = 1;
@@ -125,6 +129,104 @@ public class PlayerController : MonoBehaviour
         masic_skilldamage = GameManager.instance.userinfo.GetMasicSkillDamage();
         masic_exp = GameManager.instance.userinfo.GetMasicExp();
         masic_point = GameManager.instance.userinfo.GetMasicPoint();
+
+        speed = MoveSpeed();
+
+        int tempMaxLv = 0;
+        for (int i = 0; i < GameManager.instance.database.skillCard_DB.GetLineSize(); i++)
+        {
+            tempMaxLv += int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(i)[1]);
+        }
+        maxLv = tempMaxLv;
+    }
+
+    public float Atk()
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(1);
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(1);
+        float tempAtk = atk + (atk * masic_atk * float.Parse(masic_db[1]) / 100) * (atk * attack_lv_atk * float.Parse(skillcard_db[2]) / 100);
+        return tempAtk;
+    }
+
+    public int MaxHp()
+    {
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(0);
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(0);
+        float tempHP = max_hp + (max_hp * masic_maxhp * float.Parse(masic_db[1]) / 100) + (max_hp * character_lv_hp * float.Parse(skillcard_db[2]) / 100);
+        return (int)tempHP; 
+    }
+
+    public float AtkSpeed()
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(2); 
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(2);
+        float tempAtkSpeed = atkspeed - ((atkspeed * masic_maxhp * float.Parse(masic_db[1]) / 100) + (atkspeed * attack_lv_speed * float.Parse(skillcard_db[2]) / 100));
+        return tempAtkSpeed;
+    }
+
+    public float MoveSpeed()
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(3);
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(3);
+        float tempMoveSpeed = speed + (speed * masic_speed * float.Parse(masic_db[1]) / 100) + (speed * character_lv_speed * float.Parse(skillcard_db[2]) / 100);
+        return tempMoveSpeed;
+    }
+
+    public float ItemRange()
+    {
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(4);
+        float tempItem_range = item_range + (item_range * masic_itemdistance * float.Parse(masic_db[1]) / 100);
+        return tempItem_range;
+    }
+
+    public float Sheild()
+    {
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(5);
+        float tempSheild = sheild + (sheild * masic_sheild * float.Parse(masic_db[1]) / 100);
+        return tempSheild;
+    }
+
+    // % 형식
+    public float Recovery()
+    {
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(6);
+        float tempRecovery = masic_recovery * float.Parse(masic_db[1]);
+        return tempRecovery / 100;
+    }
+    // % 형식
+    public float SkillDamage()
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(6);
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(7);
+        float tempSkillDamage = masic_skilldamage * float.Parse(masic_db[1]) + (skill_lv_atk * float.Parse(skillcard_db[2]));
+        return tempSkillDamage / 100;
+    }
+    // % 형식
+    public float ExpUpPercent()
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(5);
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(8);
+        float tempExp = (masic_exp * float.Parse(masic_db[1])) + (character_lv_exp * float.Parse(skillcard_db[2]));
+        return tempExp / 100;
+    }
+    // % 형식
+    public float PointUpPercent()
+    {
+        List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(9);
+        float tempPoint = masic_point * float.Parse(masic_db[1]);
+        return tempPoint / 100;
+    }
+    // 캐릭터 카드로 렙업 했을 때
+    public void Chracter_LvUp_MaxHp()
+    {
+        List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(0);
+        float reHP = float.Parse(skillcard_db[2]);
+
+        current_hp += (int)reHP;
+        if (MaxHp() < current_hp)
+            current_hp = MaxHp();
+
+        hp_image.fillAmount = (float)current_hp / MaxHp();
     }
 
 
@@ -199,8 +301,6 @@ public class PlayerController : MonoBehaviour
     string currentSkinName;
     void Spine_Ani(AniKind ani)
     {
-      
-
         string aniName = "";
         switch (ani)
         {
@@ -435,9 +535,15 @@ public class PlayerController : MonoBehaviour
         if (hit_flag)
             return;
 
-        current_hp -= damage;
+        float tempDamage = (float)damage - Sheild();
+        if (tempDamage < 0)
+        {
+            tempDamage = 1;
+        }
 
-        hp_image.fillAmount = (float)current_hp / max_hp;
+        current_hp -= (int)tempDamage;
+
+        hp_image.fillAmount = (float)current_hp / MaxHp();
 
         //죽음
         if(current_hp <= 0)
@@ -486,11 +592,13 @@ public class PlayerController : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
-        current_hp += up;
-        if (max_hp < current_hp)
-            current_hp = max_hp;
-        hp_image.fillAmount = (float)current_hp / max_hp;
-        hp_image.fillAmount = (float)current_hp / max_hp;
+        float tempRecovery = up + (up * Recovery());
+
+        current_hp += (int)tempRecovery;
+        if (MaxHp() < current_hp)
+            current_hp = MaxHp();
+
+        hp_image.fillAmount = (float)current_hp / MaxHp();
     }
 
     public void Exp_Up(int up)
@@ -498,8 +606,15 @@ public class PlayerController : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
-        player_exp += up;
-        if (player_exp >= 10)
+        if (maxLv == player_lv)
+            return;
+
+        float tempExpUp = up + (up * ExpUpPercent());
+        player_exp += (int)tempExpUp;
+
+        int needExp = int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv - 1)[0]);
+
+        if (player_exp >= needExp)
         {
             uI2_Manager.SkillSelect();
             player_exp = 0;
@@ -507,6 +622,11 @@ public class PlayerController : MonoBehaviour
             lv_up.text = "LV" + player_lv;
             GameManager.instance.audioManager.EnvironVolume_Play(levelUp_AudioSource);
             TimeManager.instance.SetTime(true);
+
+            if (maxLv == player_lv)
+            {
+                exp_full.fillAmount = 1;
+            }
         }
         exp_full.fillAmount = (float)player_exp / 100;
     }

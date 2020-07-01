@@ -6,7 +6,6 @@ public class Ob_nomal : MonoBehaviour
 {
     [Header("오브")]
     [Range(15, 30)] public float speed = 15;
-    [Range(0, 10)] public float atk = 1;
 
     [Header("오디오")]
     public AudioSource nomal_atk_AudioSource;
@@ -37,8 +36,8 @@ public class Ob_nomal : MonoBehaviour
         if (Vector2.Distance(transform.position, targetList[iCount].position) == 0)
         {
             if (StageManager.instance.currentStage == "Boss")
-                targetList[iCount].GetComponent<Boss>().Hit((int)(player_status.atk*atk), true);
-            else targetList[iCount].GetComponent<MonsterController>().Hit((int)(player_status.atk * atk), true);
+                targetList[iCount].GetComponent<Boss>().Hit((int)(player_status.Atk()), true);
+            else targetList[iCount].GetComponent<MonsterController>().Hit((int)(player_status.Atk()), true);
             iCount++;
             if (iCount == targetList.Count)
             {

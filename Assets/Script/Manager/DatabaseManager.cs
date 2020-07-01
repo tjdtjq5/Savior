@@ -6,6 +6,10 @@ using System;
 public class DatabaseManager : MonoBehaviour
 {
     public DataBase monster_DB;
+    public DataBase masic_circle_DB;
+    public DataBase character_exp_DB;
+    public DataBase skillCard_DB;
+    public DataBase exp_DB;
 }
 
 [Serializable]
