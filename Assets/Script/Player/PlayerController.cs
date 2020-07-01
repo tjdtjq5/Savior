@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("STATUS")]
     [Range(0,100)] public float atk;
-    [Range(100,500)] public int max_hp;
+    public int max_hp;
     [Range(0.1f, 3f)] public float atkspeed;
     [Range(0.04f, 0.1f)] public float speed;
     [Range(1f, 5f)] public float item_range;
@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
     public GameObject ver;
     public GameObject up;
     public GameObject up_ver;
+    public GameObject dead;
+
+    [Header("GameEnd")]
+    public GameObject GameOverPannel;
 
 
     //플레이어 레벨 업 변수 정보
@@ -100,9 +104,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         player_exp = 0;
-        current_hp = MaxHp();
+        MaxHpSetting();
+        current_hp = max_hp;
         lv_up.text = "LV" + player_lv;
-        hp_image.fillAmount = current_hp / MaxHp();
+        hp_image.fillAmount = current_hp / max_hp;
         rigidbody2D = GetComponent<Rigidbody2D>();
         exp_full.fillAmount = (float)player_exp / 100;
 
@@ -149,12 +154,11 @@ public class PlayerController : MonoBehaviour
         return tempAtk;
     }
 
-    public int MaxHp()
+    public void MaxHpSetting()
     {
         List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(0);
         List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(0);
-        float tempHP = max_hp + (max_hp * masic_maxhp * float.Parse(masic_db[1]) / 100) + (max_hp * character_lv_hp * float.Parse(skillcard_db[2]) / 100);
-        return (int)tempHP; 
+        max_hp = (int)(max_hp + (max_hp * masic_maxhp * float.Parse(masic_db[1]) / 100) + (max_hp * character_lv_hp * float.Parse(skillcard_db[2]) / 100));
     }
 
     public float AtkSpeed()
@@ -222,12 +226,12 @@ public class PlayerController : MonoBehaviour
     {
         List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(0);
         float reHP = float.Parse(skillcard_db[2]);
-
+        MaxHpSetting();
         current_hp += (int)reHP;
-        if (MaxHp() < current_hp)
-            current_hp = MaxHp();
+        if (max_hp < current_hp)
+            current_hp = max_hp;
 
-        hp_image.fillAmount = (float)current_hp / MaxHp();
+        hp_image.fillAmount = (float)current_hp / max_hp;
     }
 
     public void PointUp(int up)
@@ -240,6 +244,10 @@ public class PlayerController : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
+        if (daedFlag)
+        {
+            return;
+        }
 
         joystic_localpos = joystic_foreground.GetComponent<RectTransform>().localPosition;
 
@@ -316,7 +324,6 @@ public class PlayerController : MonoBehaviour
                 idle_down.transform.localPosition = Vector2.zero; down_ver.transform.localPosition = new Vector2(2000, 2000); ver.transform.localPosition = new Vector2(2000, 2000); up.transform.localPosition = new Vector2(2000, 2000); up_ver.transform.localPosition = new Vector2(2000, 2000);
                 idle_down.GetComponent<SkeletonAnimation>().AnimationState.SetAnimation(0, "character001_idle_down", true);
                 currentAniName = "character001_idle_down";
-
                 idle_down.GetComponent<Transform>().rotation = Quaternion.Euler(0, 0, 0);
                 break;
             case AniKind.up:
@@ -458,6 +465,10 @@ public class PlayerController : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
+        if (daedFlag)
+        {
+            return;
+        }
 
         if (Mathf.Abs(joystic_localpos.x) < 45 && Mathf.Abs(joystic_localpos.y) < 45)
         {
@@ -515,6 +526,10 @@ public class PlayerController : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
 
+        if (daedFlag)
+        {
+            return;
+        }
 
         if (treasure_flag)
             return;
@@ -540,6 +555,11 @@ public class PlayerController : MonoBehaviour
         if (hit_flag)
             return;
 
+        if (daedFlag)
+        {
+            return;
+        }
+
         float tempDamage = (float)damage - Sheild();
         if (tempDamage < 0)
         {
@@ -547,13 +567,13 @@ public class PlayerController : MonoBehaviour
         }
 
         current_hp -= (int)tempDamage;
-
-        hp_image.fillAmount = (float)current_hp / MaxHp();
+        hp_image.fillAmount = (float)current_hp / max_hp;
 
         //죽음
         if(current_hp <= 0)
         {
-           // Game_Over();
+            // Game_Over();
+            StartCoroutine(GameOverCoroutine());
         }
         Vector3 dir = enemy.transform.position - this.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 180f;
@@ -592,18 +612,46 @@ public class PlayerController : MonoBehaviour
         hit_flag = false;
     }
 
+    bool daedFlag = false;
+    IEnumerator GameOverCoroutine()
+    {
+        daedFlag = true;
+
+        idle_down.transform.localPosition = new Vector2(2000, 2000);
+        down_ver.transform.localPosition = new Vector2(2000, 2000);
+        ver.transform.localPosition = new Vector2(2000, 2000);
+        up.transform.localPosition = new Vector2(2000, 2000);
+        up_ver.transform.localPosition = new Vector2(2000, 2000);
+        dead.transform.localPosition = Vector2.zero;
+
+        dead.GetComponent<SkeletonAnimation>().AnimationState.SetAnimation(0,"character001_dead" ,false);
+        currentSkinName = "character001_dead";
+        dead.GetComponent<SkeletonAnimation>().skeleton.SetSlotsToSetupPose();
+        dead.GetComponent<SkeletonAnimation>().LateUpdate();
+        currentAniName = "character001_dead";
+
+        yield return new WaitForSeconds(1f);
+
+        GameOverPannel.SetActive(true);
+    }
+
     public void Hp_Recovery(int up)
     {
         if (TimeManager.instance.GetTime())
             return;
 
+        if (daedFlag)
+        {
+            return;
+        }
+
         float tempRecovery = up + (up * Recovery());
 
         current_hp += (int)tempRecovery;
-        if (MaxHp() < current_hp)
-            current_hp = MaxHp();
+        if (max_hp < current_hp)
+            current_hp = max_hp;
 
-        hp_image.fillAmount = (float)current_hp / MaxHp();
+        hp_image.fillAmount = (float)current_hp / max_hp;
     }
 
     public void Exp_Up(int up)
@@ -613,6 +661,11 @@ public class PlayerController : MonoBehaviour
 
         if (maxLv == player_lv)
             return;
+
+        if (daedFlag)
+        {
+            return;
+        }
 
         float tempExpUp = up + (up * ExpUpPercent());
         player_exp += (int)tempExpUp;
@@ -644,6 +697,11 @@ public class PlayerController : MonoBehaviour
 
         if (skill_item_flag)
             return;
+
+        if (daedFlag)
+        {
+            return;
+        }
 
         StartCoroutine(Skill_item_Coroutine());
 
