@@ -8,6 +8,7 @@ public class Boss_Skill : MonoBehaviour
     public static Boss_Skill instance;
     [HideInInspector] public int attack;
     [HideInInspector] public bool phase_01;
+    [HideInInspector] public bool isreflect;
 
     [Header("플레이어위치")]
     public Transform player;
@@ -23,6 +24,9 @@ public class Boss_Skill : MonoBehaviour
     public Transform tail;
     public Transform randshot;
     public Transform burningground;
+
+    [Header("랜덤샷탄환갯수")]
+    public int num;
 
     Vector3 min;
     Vector3 max;
@@ -41,7 +45,7 @@ public class Boss_Skill : MonoBehaviour
     {
         //브레스
         GameObject breath = Instantiate(phase1[0], mouth.position, Quaternion.identity);
-        if (player.position.x - this.transform.position.x > 0)
+        if (isreflect)
             breath.transform.rotation = Quaternion.Euler(0, 180, 0);
         else
             breath.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -56,9 +60,8 @@ public class Boss_Skill : MonoBehaviour
     public void Claw()
     {
         //할퀴기
-        //부채꼴 범위 추가
         GameObject claw = Instantiate(phase1[2], hand.position, Quaternion.identity);
-        if (player.position.x - this.transform.position.x > 0)
+        if (isreflect)
             claw.transform.rotation = Quaternion.Euler(0, 180, 0);
         else
             claw.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -67,7 +70,6 @@ public class Boss_Skill : MonoBehaviour
     public void RandomShot()
     {
         //화염탄 난사
-        int num;
         if (phase_01)
             num = 5;
         else
@@ -75,7 +77,7 @@ public class Boss_Skill : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject randomskill = Instantiate(phase1[3], randshot.position, Quaternion.identity);
-            if (player.position.x - this.transform.position.x > 0)
+            if (isreflect)
                 randomskill.transform.rotation = Quaternion.Euler(0, 180, 0);
             else
                 randomskill.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -109,7 +111,7 @@ public class Boss_Skill : MonoBehaviour
         breathball01.GetComponent<Boss_Skillinfo>().breathball = true;
         breathball02.GetComponent<Boss_Skillinfo>().breathball = true;
         breathball03.GetComponent<Boss_Skillinfo>().breathball = true;
-        if (player.position.x - this.transform.position.x > 0)
+        if (isreflect)
         {
             breathball01.GetComponent<Boss_Skillinfo>().direction = true;
             breathball02.GetComponent<Boss_Skillinfo>().direction = true;
@@ -149,7 +151,7 @@ public class Boss_Skill : MonoBehaviour
     public void BurningGround()
     {
         Vector2 pos;
-        if (player.position.x - this.transform.position.x > 0)
+        if (isreflect)
             pos = new Vector2(burningground.position.x + 2, burningground.position.y);
         else
             pos = new Vector2(burningground.position.x - 2, burningground.position.y);

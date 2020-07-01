@@ -24,6 +24,8 @@ public class Item_Manager : MonoBehaviour
 
     void exp_marble_Spawn()
     {
+        if (StageManager.instance.currentStageInt == 6)
+            return;
         float marble_num = Random.value;
         ObjectKind marble_type = ObjectKind.exp_marble_small;
         if (marble_num < 0.15f)
@@ -43,6 +45,8 @@ public class Item_Manager : MonoBehaviour
 
     void hp_marble_Spawn()
     {
+        if (StageManager.instance.currentStageInt == 6)
+            return;
         float marble_num = Random.value;
         ObjectKind marble_type = ObjectKind.hp_marble_large;
         if (marble_num < 0.15f)
@@ -62,6 +66,8 @@ public class Item_Manager : MonoBehaviour
 
     void Treasure_Spawn()
     {
+        if (StageManager.instance.currentStageInt == 6)
+            return;
         float X = Random.Range(player.position.x - range, player.position.x + range);
         float Y = Random.Range(player.position.y - range, player.position.y + range);
         while ((Mathf.Abs(player.position.x - X) < 20 && Mathf.Abs(player.position.y - Y) < 20))
@@ -70,7 +76,8 @@ public class Item_Manager : MonoBehaviour
             Y = Random.Range(player.position.y - range, player.position.y + range);
         }
         Instantiate(treasure_obj, new Vector3(X, Y, 0), Quaternion.identity);
-        Invoke("Treasure_Spawn", spawn_time);
+        if (StageManager.instance.currentStageInt != 6)
+            Invoke("Treasure_Spawn", spawn_time);
     }
 
     public void NextStage()
