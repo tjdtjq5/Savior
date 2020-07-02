@@ -30,6 +30,9 @@ public class Boss_Skill : MonoBehaviour
 
     Vector3 min;
     Vector3 max;
+
+    bool rangeend;
+
     private void Awake()
     {
         instance = this;
@@ -54,6 +57,8 @@ public class Boss_Skill : MonoBehaviour
     public void Flame(Vector3 pos)
     {
         //플레임
+        GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
+        skillrange.transform.position = new Vector3(pos.x,pos.y-2);
         GameObject flame = Instantiate(phase1[1], pos, Quaternion.identity);
     }
 
@@ -87,6 +92,8 @@ public class Boss_Skill : MonoBehaviour
             Vector3 pos = new Vector3(randx, randy);
             randomskill.GetComponent<Boss_Skillinfo>().pos = pos;
             randomskill.GetComponent<Boss_Skillinfo>().phase1 = phase_01;
+            GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
+            skillrange.transform.position = new Vector3(pos.x, pos.y - 2);
         }
     }
 
@@ -133,6 +140,8 @@ public class Boss_Skill : MonoBehaviour
     public void FlameBomb(Vector3 pos)
     {
         //화염폭발
+        GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
+        skillrange.transform.position = new Vector3(pos.x, pos.y - 2);
         GameObject flamebomb = Instantiate(phase2[1], pos, Quaternion.identity);
     }
 
@@ -140,11 +149,15 @@ public class Boss_Skill : MonoBehaviour
     {
         //꼬리치기
         GameObject spin = Instantiate(phase2[2], tail.position, Quaternion.identity);
+        spin.GetComponent<Boss_Skillinfo>().spin = true;
+        spin.GetComponent<Boss_Skillinfo>().target = player;
     }
 
     public void FlameStrong(Vector3 pos)
     {
         //플레임 강화
+        GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
+        skillrange.transform.position = new Vector3(pos.x, pos.y - 2);
         GameObject flamestrong = Instantiate(phase3[0], pos, Quaternion.identity);
     }
 
@@ -173,6 +186,8 @@ public class Boss_Skill : MonoBehaviour
     {
         //꼬리치기 강화
         GameObject spin = Instantiate(phase3[5], tail.position, Quaternion.identity);
+        spin.GetComponent<Boss_Skillinfo>().spinstrong = true;
+        spin.GetComponent<Boss_Skillinfo>().target = player;
     }
 
 }

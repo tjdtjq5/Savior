@@ -6409,6 +6409,8 @@ MonoBehaviour:
   ob_prefab: {fileID: 1638408656}
   smoke_prefab: {fileID: 848229566667484839, guid: ded5dfbc00182e84b8491bce1b05123f,
     type: 3}
+  skillrange_prefab: {fileID: 4233561341818601473, guid: cfa0df6cd6b009c4b84928cb872b887f,
+    type: 3}
   nomal_damage_prefab: {fileID: 5264723063851965213, guid: 3d8e66a6812c5234f987d8456adfe171,
     type: 3}
   critical_damage_prefab: {fileID: 848229566667484839, guid: ded5dfbc00182e84b8491bce1b05123f,
@@ -6878,7 +6880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418599198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6, y: 3.06, z: 0}
+  m_LocalPosition: {x: -1.97, y: 2.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1626633286}
@@ -31097,6 +31099,7 @@ MonoBehaviour:
   next_audio: {fileID: 1527876598}
   stagetext: {fileID: 1245455456}
   currentStage: Stage01
+  currentStageInt: 1
 --- !u!95 &1527876597
 Animator:
   serializedVersion: 3
@@ -32824,6 +32827,7 @@ MonoBehaviour:
   tail: {fileID: 2127328602}
   randshot: {fileID: 578784235}
   burningground: {fileID: 249842242}
+  num: 0
 --- !u!82 &1626633295
 AudioSource:
   m_ObjectHideFlags: 0

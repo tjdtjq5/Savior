@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77877ccb7a850354783caa44b8c27c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillDamage: 15
+  skillDamage: 650
   randx: 0
   randy: 0
   target: {fileID: 0}
@@ -151,3 +151,10 @@ MonoBehaviour:
   phase1: 0
   breathball: 0
   direction: 0
+  spin: 0
+  spinstrong: 0
+  pos: {x: 0, y: 0, z: 0}
+  spintime: 0
+  spinstrongtime: 7
+  spinspeed: 0
+  spinstrongspeed: 7

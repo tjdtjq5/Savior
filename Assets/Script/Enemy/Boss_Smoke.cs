@@ -8,4 +8,9 @@ public class Boss_Smoke : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+    public void Insert()
+    {
+        ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.skillrange);
+    }
 }
