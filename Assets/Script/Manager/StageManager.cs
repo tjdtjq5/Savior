@@ -21,7 +21,7 @@ public class StageManager : MonoBehaviour
     }
 
     public string currentStage;
-    int currentStageInt = 1;
+    public int currentStageInt = 1;
 
     public void NextStage()
     {

@@ -12,6 +12,8 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<GameObject> ob_queue = new Queue<GameObject>();
     public GameObject smoke_prefab = null;
     public Queue<GameObject> smoke_queue = new Queue<GameObject>();
+    public GameObject skillrange_prefab = null;
+    public Queue<GameObject> skillrange_queue = new Queue<GameObject>();
     public GameObject nomal_damage_prefab = null;
     public Queue<GameObject> nomal_damage_queue = new Queue<GameObject>();
     public GameObject critical_damage_prefab = null;
@@ -79,6 +81,13 @@ public class ObjectPoolingManager : MonoBehaviour
         {
             GameObject t_object = Instantiate(smoke_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
             smoke_queue.Enqueue(t_object);
+            t_object.SetActive(false);
+        }
+        // skillrange
+        for (int i = 0; i < 20; i++)
+        {
+            GameObject t_object = Instantiate(skillrange_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
+            skillrange_queue.Enqueue(t_object);
             t_object.SetActive(false);
         }
         // nomal_damage
@@ -262,6 +271,9 @@ public class ObjectPoolingManager : MonoBehaviour
         if (obj == ObjectKind.smoke)
             smoke_queue.Enqueue(p_object);
 
+        if (obj == ObjectKind.skillrange)
+            skillrange_queue.Enqueue(p_object);
+
         if (obj == ObjectKind.nomal_damage)
             nomal_damage_queue.Enqueue(p_object);
 
@@ -345,6 +357,9 @@ public class ObjectPoolingManager : MonoBehaviour
         if (obj == ObjectKind.smoke)
             t_object = smoke_queue.Dequeue();
 
+        if (obj == ObjectKind.skillrange)
+            t_object = skillrange_queue.Dequeue();
+
         if (obj == ObjectKind.nomal_damage)
             t_object = nomal_damage_queue.Dequeue();
 
@@ -423,6 +438,7 @@ public enum ObjectKind
 {
     ob,
     smoke,
+    skillrange,
     nomal_damage,
     critical_damage,
     exp_marble_small,

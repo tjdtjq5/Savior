@@ -34,6 +34,20 @@ public class Boss : MonoBehaviour
     [Header("보스음악")]
     public AudioSource bossbgm;
 
+    [Header("보스스킬음악")]
+    public AudioSource breath_ball;
+    public AudioSource breath_strong;
+    public AudioSource breath;
+    public AudioSource burning_ground;
+    public AudioSource claw;
+    public AudioSource flame;
+    public AudioSource flame_bomb;
+    public AudioSource flame_strong;
+    public AudioSource randomshot;
+    public AudioSource randomshot02;
+    public AudioSource spin_strong;
+    public AudioSource spin;
+
     //연출
     [HideInInspector] public float Boss_hp;
     [Header("보스스테이지시작정보")]
@@ -46,6 +60,7 @@ public class Boss : MonoBehaviour
     int atk;
     int hp;
     float speed;
+    int def;
 
     string phase_num;
 
@@ -66,8 +81,11 @@ public class Boss : MonoBehaviour
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         this.gameObject.transform.position = new Vector2(player.position.x+20,player.position.y+10);
         atk = GameManager.instance.monsterManager.GetMonster(name).atk;
-        hp = GameManager.instance.monsterManager.GetMonster(name).hp;
+        //hp = GameManager.instance.monsterManager.GetMonster(name).hp;
+        hp = 10000;
         speed = GameManager.instance.monsterManager.GetMonster(name).speed;
+        def = GameManager.instance.monsterManager.GetMonster(name).def;
+        
         boss_start = true;
         player.GetComponent<PlayerController>().boss_start = true;
         this.transform.position = temppos.position;
@@ -99,7 +117,6 @@ public class Boss : MonoBehaviour
         player.GetComponent<PlayerController>().boss_start = false;
         yield return new WaitForSeconds(1f);
         skill_start = true;
-        GameManager.instance.audioManager.Bgm_Play(bossbgm);
     }
 
     private void FixedUpdate()
@@ -193,13 +210,13 @@ public class Boss : MonoBehaviour
         int range = Random.Range(0, 100);
         if (range < 35)
             //보스 브레스 애니메이션 동작
-            Spine_Ani(AniKind.RandomShot);
+            Spine_Ani(AniKind.Breath);
         else if (35 <= range && range < 70)
             //보스 플레임 애니메이션 동작
-            Spine_Ani(AniKind.RandomShot);
+            Spine_Ani(AniKind.Flame);
         else
             //보스 할퀴기 동작
-            Spine_Ani(AniKind.RandomShot);
+            Spine_Ani(AniKind.Claw);
         if(Boss_hp <= hp*0.7)
         {
             //보스 화염탄 난사 애니메이션 동작
@@ -274,7 +291,9 @@ public class Boss : MonoBehaviour
         damage_obj.transform.position = this.transform.position;
         damage_obj.GetComponent<Damage>().DamageSet(damage);
 
-        Boss_hp -= damage;
+        if (damage - def <= 0)
+            Boss_hp -= 1;
+        else Boss_hp -= damage;
 
         if(Boss_hp>0)
         {
@@ -396,6 +415,14 @@ public class Boss : MonoBehaviour
             skeletonAnimation.AnimationState.SetAnimation(0,name[i],false);
             skeletonAnimation.AnimationState.TimeScale = 1f;
 
+            if(i == 0)
+            {
+                if (player.position.x - this.transform.position.x > 0)
+                    this.GetComponent<Boss_Skill>().isreflect = true;
+                else
+                    this.GetComponent<Boss_Skill>().isreflect = false;
+            }
+
             float randx = Random.Range(-5,5);
             Vector3 pos = new Vector3(player.position.x+randx,player.position.y);
             if (i == 1)
@@ -403,40 +430,70 @@ public class Boss : MonoBehaviour
                 switch (type)
                 {
                     case "Breath":
-                            if (phase_num == "Phase_01")
-                                Boss_Skill.instance.Breath();
-                            else if (phase_num == "Phase_02")
-                                Boss_Skill.instance.BreathBall();
-                            else
-                                Boss_Skill.instance.BreathStrong();
+                        if (phase_num == "Phase_01")
+                        {
+                            Boss_Skill.instance.Breath();
+                            GameManager.instance.audioManager.EnvironVolume_Play(breath);
+                        }
+                        else if (phase_num == "Phase_02")
+                        {
+                            Boss_Skill.instance.BreathBall();
+                            GameManager.instance.audioManager.EnvironVolume_Play(breath_ball);
+                        }
+                        else
+                        {
+                            Boss_Skill.instance.BreathStrong();
+                            GameManager.instance.audioManager.EnvironVolume_Play(breath_strong);
+                        }
                         break;
                     case "Claw":
                         Boss_Skill.instance.Claw();
+                        GameManager.instance.audioManager.EnvironVolume_Play(claw);
                         break;
                     case "BurningGround":
                         Boss_Skill.instance.BurningGround();
+                        GameManager.instance.audioManager.EnvironVolume_Play(burning_ground);
                         break;
                     case "FlameBomb":
                         Boss_Skill.instance.FlameBomb(pos);
+                        GameManager.instance.audioManager.EnvironVolume_Play(flame_bomb);
                         break;
                     case "Flame":
                         if (phase_num == "Phase_03")
+                        {
                             Boss_Skill.instance.FlameStrong(pos);
+                            GameManager.instance.audioManager.EnvironVolume_Play(flame_strong);
+                        }
                         else
+                        {
                             Boss_Skill.instance.Flame(pos);
+                            GameManager.instance.audioManager.EnvironVolume_Play(flame);
+                        }
                         break;
                     case "Spin":
                         if (phase_num == "Phase_03")
+                        {
                             Boss_Skill.instance.SpinStrong();
+                            GameManager.instance.audioManager.EnvironVolume_Play(spin_strong);
+                        }
                         else
+                        {
                             Boss_Skill.instance.Spin();
+                            GameManager.instance.audioManager.EnvironVolume_Play(spin);
+                        }
                         break;
                     default:
                         break;
                 }
             }
             if (i == 2 && type == "RandomShot")
-                Boss_Skill.instance.RandomShot();
+            {
+                    Boss_Skill.instance.RandomShot();
+                if (phase_num == "Phase_01")
+                    GameManager.instance.audioManager.EnvironVolume_Play(randomshot);
+                else
+                    GameManager.instance.audioManager.EnvironVolume_Play(randomshot02);
+            }
             yield return new WaitForSeconds(time[i]);
         }
     }
