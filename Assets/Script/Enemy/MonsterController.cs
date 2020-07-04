@@ -28,6 +28,8 @@ public class MonsterController : MonoBehaviour
 
     [Header("오디오")]
     public AudioSource hit_nomal_atk_AudioSource;
+    [Header("게임오버")]
+    public GameEnd gameEnd;
 
     Rigidbody2D rigidbody2D;
 
@@ -111,6 +113,7 @@ public class MonsterController : MonoBehaviour
 
         if (current_hp <= 0)
         {
+            gameEnd.monsterDeadCount++;
             int point = GameManager.instance.monsterManager.GetMonster(name).point;
             player_transform.GetComponent<PlayerController>().PointUp(point);
             GameObject smoke = ObjectPoolingManager.instance.GetQueue(ObjectKind.smoke);
