@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     [Range(3, 10)] public float range;
     [Range(1.5f, 3f)] public float dash_move;
 
-    int currentPoint;
+    [HideInInspector]
+    public int currentPoint;
     int maxLv;
 
     [HideInInspector]

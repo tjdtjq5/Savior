@@ -84,12 +84,12 @@ public class ObjectPoolingManager : MonoBehaviour
             t_object.SetActive(false);
         }
         // skillrange
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject t_object = Instantiate(skillrange_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
-            skillrange_queue.Enqueue(t_object);
-            t_object.SetActive(false);
-        }
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    GameObject t_object = Instantiate(skillrange_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
+        //    skillrange_queue.Enqueue(t_object);
+        //    t_object.SetActive(false);
+        //}
         // nomal_damage
         for (int i = 0; i < 100; i++)
         {

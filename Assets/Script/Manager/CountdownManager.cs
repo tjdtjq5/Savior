@@ -8,6 +8,7 @@ public class CountdownManager : MonoBehaviour
     public float time = 600;
     float tempTime = 0;
     [HideInInspector] public float remainTime;
+    [HideInInspector] public float playTime;
 
     private void FixedUpdate()
     {
@@ -15,6 +16,7 @@ public class CountdownManager : MonoBehaviour
             return;
 
         tempTime += Time.fixedDeltaTime;
+        playTime += Time.fixedDeltaTime;
 
         remainTime = time - tempTime;
         string minuteString = ((int)remainTime / 60).ToString("00");
