@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Spine.Unity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -57,8 +58,6 @@ public class Boss_Skill : MonoBehaviour
     public void Flame(Vector3 pos)
     {
         //플레임
-        GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
-        skillrange.transform.position = new Vector3(pos.x,pos.y-2);
         GameObject flame = Instantiate(phase1[1], pos, Quaternion.identity);
     }
 
@@ -92,8 +91,6 @@ public class Boss_Skill : MonoBehaviour
             Vector3 pos = new Vector3(randx, randy);
             randomskill.GetComponent<Boss_Skillinfo>().pos = pos;
             randomskill.GetComponent<Boss_Skillinfo>().phase1 = phase_01;
-            GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
-            skillrange.transform.position = new Vector3(pos.x, pos.y - 2);
         }
     }
 
@@ -140,8 +137,6 @@ public class Boss_Skill : MonoBehaviour
     public void FlameBomb(Vector3 pos)
     {
         //화염폭발
-        GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
-        skillrange.transform.position = new Vector3(pos.x, pos.y - 2);
         GameObject flamebomb = Instantiate(phase2[1], pos, Quaternion.identity);
     }
 
@@ -156,8 +151,6 @@ public class Boss_Skill : MonoBehaviour
     public void FlameStrong(Vector3 pos)
     {
         //플레임 강화
-        GameObject skillrange = ObjectPoolingManager.instance.GetQueue(ObjectKind.skillrange);
-        skillrange.transform.position = new Vector3(pos.x, pos.y - 2);
         GameObject flamestrong = Instantiate(phase3[0], pos, Quaternion.identity);
     }
 
@@ -189,5 +182,4 @@ public class Boss_Skill : MonoBehaviour
         spin.GetComponent<Boss_Skillinfo>().spinstrong = true;
         spin.GetComponent<Boss_Skillinfo>().target = player;
     }
-
 }
