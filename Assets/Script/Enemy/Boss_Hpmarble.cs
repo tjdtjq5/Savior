@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss_Hpmarble : MonoBehaviour
 {
+    public static Boss_Hpmarble instance;
     [Header("구슬 스폰 위치")]
     public Transform pos1;
     public Transform pos2;
@@ -13,10 +14,27 @@ public class Boss_Hpmarble : MonoBehaviour
 
     [Header("구슬 생성 최대 갯수")]
     public int max_num;
+    [HideInInspector]public int marble_num;//구슬 생성된 갯수
+
+    [Header("구슬스폰타임")]
+    public float spawn_time;
 
     GameObject hp_marble;
 
-    /*private void Start()
+    [HideInInspector] public bool place1;
+    [HideInInspector] public bool place2;
+    [HideInInspector] public bool place3;
+    [HideInInspector] public bool place4;
+    [HideInInspector] public bool place5;
+
+    [Header("플레이어")]
+    public Transform player;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    private void Start()
     {
         hp_marble_Spawn();
     }
@@ -34,9 +52,61 @@ public class Boss_Hpmarble : MonoBehaviour
 
         hp_marble = ObjectPoolingManager.instance.GetQueue(marble_type);
         hp_marble.GetComponent<Item>().player = player;
-        float X = Random.Range(player.position.x - range, player.position.x + range);
-        float Y = Random.Range(player.position.y - range, player.position.y + range);
-        hp_marble.transform.position = new Vector3(X, Y, 0);
+        int randnum = Random.Range(0, 5);
+        if (marble_num < max_num)
+        {
+            switch (randnum)
+            {
+                case 0:
+                    if (!place1)
+                    {
+                        hp_marble.transform.position = pos1.position;
+                        hp_marble.GetComponent<Hp_Recovery>().placenum = 1;
+                        place1 = true;
+                        marble_num++;
+                    }
+                    break;
+                case 1:
+                    if (!place2)
+                    {
+                        hp_marble.transform.position = pos2.position;
+                        hp_marble.GetComponent<Hp_Recovery>().placenum = 2;
+                        place2 = true;
+                        marble_num++;
+                    }
+                    break;
+                case 2:
+                    if (!place3)
+                    {
+                        hp_marble.transform.position = pos3.position;
+                        hp_marble.GetComponent<Hp_Recovery>().placenum = 3;
+                        place3 = true;
+                        marble_num++;
+                    }
+                    break;
+                case 3:
+                    if (!place4)
+                    {
+                        hp_marble.transform.position = pos4.position;
+                        hp_marble.GetComponent<Hp_Recovery>().placenum = 4;
+                        place4 = true;
+                        marble_num++;
+                    }
+                    break;
+                case 4:
+                    if (!place5)
+                    {
+                        hp_marble.transform.position = pos5.position;
+                        hp_marble.GetComponent<Hp_Recovery>().placenum = 5;
+                        place5 = true;
+                        marble_num++;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         Invoke("hp_marble_Spawn", spawn_time);
-    }*/
+    }
 }

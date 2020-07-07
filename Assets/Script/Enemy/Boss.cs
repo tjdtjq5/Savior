@@ -48,6 +48,9 @@ public class Boss : MonoBehaviour
     public AudioSource spin_strong;
     public AudioSource spin;
 
+    [Header("카메라줌")]
+    public float Zoom;
+
     //연출
     [HideInInspector] public float Boss_hp;
     [Header("보스스테이지시작정보")]
@@ -92,12 +95,14 @@ public class Boss : MonoBehaviour
         Boss_hp = hp;
         Boss_Skill.instance.phase_01 = true;
         bosshpbar.SetActive(true);
-        phase_num = "Phase_01";
+        phase_num = "Phase_03";
         countdown.time = 300;
         skill_start = false;
 
         player_pos = player.transform.position;
         StartCoroutine("Boss_Start");
+
+        Camera.main.orthographicSize = Zoom;
     }
 
     private void CameraShake()
