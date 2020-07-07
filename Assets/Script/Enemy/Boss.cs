@@ -95,7 +95,7 @@ public class Boss : MonoBehaviour
         Boss_hp = hp;
         Boss_Skill.instance.phase_01 = true;
         bosshpbar.SetActive(true);
-        phase_num = "Phase_03";
+        phase_num = "Phase_01";
         countdown.time = 300;
         skill_start = false;
 
@@ -215,18 +215,18 @@ public class Boss : MonoBehaviour
         int range = Random.Range(0, 100);
         if (range < 35)
             //보스 브레스 애니메이션 동작
-            Spine_Ani(AniKind.Breath);
+            Spine_Ani(AniKind.Flame);
         else if (35 <= range && range < 70)
             //보스 플레임 애니메이션 동작
             Spine_Ani(AniKind.Flame);
         else
             //보스 할퀴기 동작
-            Spine_Ani(AniKind.Claw);
+            Spine_Ani(AniKind.Flame);
         if(Boss_hp <= hp*0.7)
         {
             //보스 화염탄 난사 애니메이션 동작
             Spine_Ani(AniKind.RandomShot);
-            Boss_Skill.instance.phase_01 = false;
+            Boss_Skill.instance.phase_01 = true;
             phase_num = "Phase_02";
         }
     }
@@ -320,6 +320,13 @@ public class Boss : MonoBehaviour
         hit_flag = true;
         yield return new WaitForSeconds(0.3f);
         hit_flag = false;
+    }
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (TimeManager.instance.GetTime())
+            return;
+        if (col.transform.tag.Contains("Player"))
+            col.transform.GetComponent<PlayerController>().Hit(atk,gameObject);
     }
 
     void Spine_Ani(AniKind ani)
@@ -420,6 +427,7 @@ public class Boss : MonoBehaviour
             skeletonAnimation.AnimationState.SetAnimation(0,name[i],false);
             skeletonAnimation.AnimationState.TimeScale = 1f;
 
+
             if(i == 0)
             {
                 if (player.position.x - this.transform.position.x > 0)
@@ -428,7 +436,7 @@ public class Boss : MonoBehaviour
                     this.GetComponent<Boss_Skill>().isreflect = false;
             }
 
-            float randx = Random.Range(-5,5);
+            float randx = Random.Range(-2,2);
             Vector3 pos = new Vector3(player.position.x+randx,player.position.y);
             if (i == 1)
             {
