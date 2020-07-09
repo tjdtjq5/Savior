@@ -10,6 +10,7 @@ public class DatabaseManager : MonoBehaviour
     public DataBase character_exp_DB;
     public DataBase skillCard_DB;
     public DataBase exp_DB;
+    public DataBase skill_DB;
 }
 
 [Serializable]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Spine.Unity;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -149,7 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(1);
         List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(1);
-        float tempAtk = atk + (atk * masic_atk * float.Parse(masic_db[1]) / 100) * (atk * attack_lv_atk * float.Parse(skillcard_db[2]) / 100);
+        float tempAtk = atk + (atk * masic_atk * float.Parse(masic_db[1]) / 100) + (atk * attack_lv_atk * float.Parse(skillcard_db[2]) / 100);
         return tempAtk;
     }
 
@@ -224,9 +225,10 @@ public class PlayerController : MonoBehaviour
     public void Chracter_LvUp_MaxHp()
     {
         List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(0);
-        float reHP = float.Parse(skillcard_db[2]);
+        float tempCurrentMaxHp01 = max_hp;
         MaxHpSetting();
-        current_hp += (int)reHP;
+        float tempCurrentMaxHp02 = max_hp;
+        current_hp += (int)(tempCurrentMaxHp02 - tempCurrentMaxHp01);
         if (max_hp < current_hp)
             current_hp = max_hp;
 
@@ -473,6 +475,15 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        if (dash_btn.transform.GetChild(0).GetComponent<Image>().fillAmount != 1)
+        {
+            return;
+        }
+
+        dash_btn.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
+        dash_btn.transform.GetChild(0).GetComponent<Image>().DOFillAmount(1, 3f); // 쿨타임 
+
         StartCoroutine(DashCoroutine());
     }
 
@@ -669,8 +680,8 @@ public class PlayerController : MonoBehaviour
         float tempExpUp = up + (up * ExpUpPercent());
         player_exp += (int)tempExpUp;
 
-        int needExp = int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv - 1)[0]);
-
+        int needExp = int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv-1)[0]);
+        Debug.Log(needExp);
         if (player_exp >= needExp)
         {
             uI2_Manager.SkillSelect();
@@ -685,7 +696,7 @@ public class PlayerController : MonoBehaviour
                 exp_full.fillAmount = 1;
             }
         }
-        exp_full.fillAmount = (float)player_exp / 100;
+        exp_full.fillAmount = (float)player_exp / needExp;
     }
 
     bool skill_item_flag = false;

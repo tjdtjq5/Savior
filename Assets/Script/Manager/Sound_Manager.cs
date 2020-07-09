@@ -23,4 +23,9 @@ public class Sound_Manager : MonoBehaviour
         if(bgm_isStart)
             BgmPlay();
     }
+
+    private void Update()
+    {
+        bgm_AudioSource.volume = GameManager.instance.audioManager.GetBgmVolume();
+    }
 }

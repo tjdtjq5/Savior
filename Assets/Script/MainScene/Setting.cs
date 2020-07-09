@@ -9,41 +9,17 @@ public class Setting : MonoBehaviour
     public Slider bgmVolume;
     public Slider environVolume;
 
-    public Sound_Manager sound_Manager;
-
-    private float entireVnum = 1f;
-    private float bgmVnum = 1f;
-    private float environVnum = 1f;
-
-    private void Start()
+    private void OnEnable()
     {
-        entireVnum = GameManager.instance.audioManager.entireVolume;
-        bgmVnum = GameManager.instance.audioManager.BgmVolume;
-        environVnum = GameManager.instance.audioManager.environVolume;
-        entireVolume.value = entireVnum;
-        bgmVolume.value = bgmVnum;
-        environVolume.value = environVnum;
+        entireVolume.value = GameManager.instance.audioManager.entireVolume;
+        bgmVolume.value = GameManager.instance.audioManager.BgmVolume;
+        environVolume.value = GameManager.instance.audioManager.environVolume;
     }
-    private void Update()
-    {
-        EntireVolume();
-        BgmVolume();
-        EnvironVolume();
-    }
-    public void EntireVolume()
+
+    private void OnDisable()
     {
         GameManager.instance.audioManager.entireVolume = entireVolume.value;
-        sound_Manager.bgm_AudioSource.volume = entireVolume.value * bgmVolume.value;
-        sound_Manager.bgm_AudioSource.volume = entireVolume.value * environVolume.value;
-    }
-    public void BgmVolume()
-    {
         GameManager.instance.audioManager.BgmVolume = bgmVolume.value;
-        sound_Manager.bgm_AudioSource.volume = entireVolume.value * bgmVolume.value;
-    }
-    public void EnvironVolume()
-    {
         GameManager.instance.audioManager.environVolume = environVolume.value;
-        sound_Manager.bgm_AudioSource.volume = entireVolume.value * environVolume.value;
     }
 }

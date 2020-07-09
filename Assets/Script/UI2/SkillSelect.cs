@@ -61,18 +61,36 @@ public class SkillSelect : MonoBehaviour
                 switch (hit.transform.name)
                 {
                     case "캐릭터패시브":
+                        if (playerController.character_lv_hp >= maxLv_character_lv_hp &&
+                            playerController.character_lv_exp >= maxLv_character_lv_exp &&
+                            playerController.character_lv_speed >= maxLv_character_lv_speed)
+                        {
+                            return;
+                        }
                         select_num01 = 1;
                         GameManager.instance.audioManager.EnvironVolume_Play(selectSound);
                         hit.transform.GetComponent<Animator>().SetBool("click", true);
                         StartCoroutine(Ani_Coroutine("SkillSelect01_FadeOut", .9F, Select01Btn));
                         break;
                     case "공격패시브 ":
+                        if (playerController.attack_lv_atk >= maxLv_attack_lv_atk &&
+                        playerController.attack_lv_speed >= maxLv_attack_lv_speed &&
+                        playerController.attack_lv_count >= maxLv_attack_lv_count)
+                        {
+                            return;
+                        }
                         select_num01 = 2;
                         GameManager.instance.audioManager.EnvironVolume_Play(selectSound);
                         hit.transform.GetComponent<Animator>().SetBool("click", true);
                         StartCoroutine(Ani_Coroutine("SkillSelect01_FadeOut", .9F, Select01Btn));
                         break;
                     case "스킬패시브":
+                        if (playerController.skill_lv_atk >= maxLv_skill_lv_atk &&
+                     playerController.skill_lv_cooltime >= maxLv_skill_lv_cooltime &&
+                     playerController.skill_lv_getcount >= maxLv_skill_lv_getcount)
+                        {
+                            return;
+                        }
                         select_num01 = 3;
                         GameManager.instance.audioManager.EnvironVolume_Play(selectSound);
                         hit.transform.GetComponent<Animator>().SetBool("click", true);

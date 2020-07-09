@@ -211,9 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3203876b0241f8346a82428ed05aa822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillDamage: 1
+  skillDamage: 100
   lvOfDamage: 1
-  range: 5
+  range: 10
   atk_num: 4
-  colltime: 2
+  colltime: 5
   playerInfo: {fileID: 0}
