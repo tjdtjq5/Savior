@@ -120,6 +120,7 @@ public class MonsterController : MonoBehaviour
             GameObject smoke = ObjectPoolingManager.instance.GetQueue(ObjectKind.smoke);
             smoke.transform.position = this.transform.position;
             ObjectPoolingManager.instance.InsertQueue(this.gameObject, (ObjectKind)Enum.Parse(typeof(ObjectKind), objectKind_string));
+            player_transform.GetComponent<PlayerController>().deadMonsterNum++;
         }
 
         else

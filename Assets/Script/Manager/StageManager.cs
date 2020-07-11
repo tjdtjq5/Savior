@@ -13,7 +13,7 @@ public class StageManager : MonoBehaviour
     public Item_Manager item_Manager;
     public AudioSource next_audio;
     public Text stagetext;
-
+    public Sound_Manager Sound_Manager;
 
     private void Awake()
     {
@@ -28,6 +28,29 @@ public class StageManager : MonoBehaviour
         TimeManager.instance.SetTime(true);
 
         currentStageInt++;
+
+        switch (currentStageInt)
+        {
+            case 1:
+                Sound_Manager.Stage01();
+                break;
+            case 2:
+                Sound_Manager.Stage02();
+                break;
+            case 3:
+                Sound_Manager.Stage03();
+                break;
+            case 4:
+                Sound_Manager.Stage04();
+                break;
+            case 5:
+                Sound_Manager.Stage05();
+                break;
+            case 6:
+                Sound_Manager.Boss();
+                break;
+        }
+
         if (currentStageInt == 6)
         {
             currentStage = "Boss";

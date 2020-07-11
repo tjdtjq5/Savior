@@ -39,7 +39,7 @@ public class Item_Manager : MonoBehaviour
         float X = Random.Range(player.position.x - range, player.position.x + range);
         float Y = Random.Range(player.position.y - range, player.position.y + range);
 
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 1);
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 0);
         for (int i = 0; i < hit.Length; i++)
         {
             if (hit[i].transform.tag == "Obstacle")
@@ -73,7 +73,7 @@ public class Item_Manager : MonoBehaviour
         float X = Random.Range(player.position.x - range, player.position.x + range);
         float Y = Random.Range(player.position.y - range, player.position.y + range);
 
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 1);
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 0);
         for (int i = 0; i < hit.Length; i++)
         {
             if (hit[i].transform.tag == "Obstacle")
@@ -105,7 +105,7 @@ public class Item_Manager : MonoBehaviour
             Y = Random.Range(player.position.y - range, player.position.y + range);
         }
 
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 1);
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 0);
         for (int i = 0; i < hit.Length; i++)
         {
             if (hit[i].transform.tag == "Obstacle")
@@ -153,6 +153,10 @@ public class Item_Manager : MonoBehaviour
             if (hit_list[i] && hit_list[i].transform.name.Contains("hp_marble_small"))
             {
                 ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.hp_marble_small);
+            }
+            if (hit_list[i] && hit_list[i].transform.tag == "Skill_Item")
+            {
+                Destroy(hit_list[i].transform.gameObject);
             }
         }
     }

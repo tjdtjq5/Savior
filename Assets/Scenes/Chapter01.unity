@@ -6641,6 +6641,7 @@ MonoBehaviour:
   range: 6.4
   dash_move: 1.5
   currentPoint: 0
+  deadMonsterNum: 0
   current_hp: 0
   theCam: {fileID: 519420032}
   joystic_foreground: {fileID: 2667463744975630604}
@@ -30139,6 +30140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1238075831}
+  - component: {fileID: 1238075832}
   m_Layer: 5
   m_Name: "\uC74C\uD5A5\uC124\uC815"
   m_TagString: Untagged
@@ -30168,6 +30170,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1238075832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238075830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21f402f354cc4f4d9489a299912873c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entireVolume: {fileID: 630140196}
+  bgmVolume: {fileID: 935008700}
+  environVolume: {fileID: 1999097837}
 --- !u!1 &1245455451
 GameObject:
   m_ObjectHideFlags: 0
@@ -30597,8 +30614,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm_AudioSource: {fileID: 1284231259}
-  bgm_isStart: 0
+  bgm_isStart: 1
   _AudioSource: {fileID: 1284231258}
+  stageSound:
+  - {fileID: 8300000, guid: e9e999eb37e161f40be67fd57e8adbae, type: 3}
+  - {fileID: 8300000, guid: 8221f7d9c6272154cbbc2ff10d3c08f3, type: 3}
+  - {fileID: 8300000, guid: ace5916015866974f85884447efd045c, type: 3}
+  - {fileID: 8300000, guid: 4607ceed3f7ee4a45816f98db5e16fa6, type: 3}
+  - {fileID: 8300000, guid: f0bc6190007ac614b8e9e31851c6b034, type: 3}
+  - {fileID: 8300000, guid: a219cd7c1e865d549946429ad9088cf4, type: 3}
 --- !u!82 &1284231258
 AudioSource:
   m_ObjectHideFlags: 0
@@ -30705,7 +30729,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: efe06f48328faa14ab130daf20df7198, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e9e999eb37e161f40be67fd57e8adbae, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -35928,6 +35952,7 @@ MonoBehaviour:
   item_Manager: {fileID: 974000847}
   next_audio: {fileID: 1527876598}
   stagetext: {fileID: 1245455456}
+  Sound_Manager: {fileID: 1284231257}
   currentStage: Stage01
   currentStageInt: 1
 --- !u!95 &1527876597
@@ -40562,7 +40587,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6ca578e163a38f5418151dc8cb5568cf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e6f0e771d6330354a9ed89dc045e21da, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -42921,6 +42946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopPannel: {fileID: 1173947166}
   blackPannel: {fileID: 1961463061}
+  PlayerController: {fileID: 314764034}
   point_text: {fileID: 891337151}
   point_pannel: {fileID: 760537751}
   status_text: {fileID: 156051322}

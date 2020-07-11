@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector]
     public int currentPoint;
+    public int deadMonsterNum;
     int maxLv;
 
     [HideInInspector]
@@ -238,6 +239,22 @@ public class PlayerController : MonoBehaviour
     public void PointUp(int up)
     {
         currentPoint += up + (int)(up * PointUpPercent());
+        if (!PlayerPrefs.HasKey("Point"))
+        {
+            PlayerPrefs.SetInt("Point", currentPoint);
+        }
+        else
+        {
+            if (PlayerPrefs.GetInt("Point") < currentPoint)
+            {
+                PlayerPrefs.SetInt("Point", currentPoint);
+            }
+        }
+    }
+
+    public float SkillCoolTime()
+    {
+        return skill_lv_cooltime * 3;
     }
 
     private void FixedUpdate()

@@ -8,6 +8,7 @@ public class SetUp : MonoBehaviour
 {
     public GameObject stopPannel;
     public GameObject blackPannel;
+    public PlayerController PlayerController;
     public void StopUIOpen()
     {
         if (!stopPannel.activeSelf)
@@ -61,6 +62,14 @@ public class SetUp : MonoBehaviour
         Setting();
         point_text.GetComponent<Text>().color = Color.white;
         point_pannel.SetActive(true);
+        int highScore = 0;
+        if (PlayerPrefs.HasKey("Point"))
+        {
+            highScore = PlayerPrefs.GetInt("Point");
+        }
+        point_pannel.transform.Find("최고점수").GetChild(0).GetComponent<Text>().text = string.Format("{0:#,###0}", highScore) + "점";
+        point_pannel.transform.Find("현재점수").GetChild(0).GetComponent<Text>().text = string.Format("{0:#,###0}", PlayerController.currentPoint) + "점";
+        point_pannel.transform.Find("처치 몬스터").GetChild(0).GetComponent<Text>().text = PlayerController.deadMonsterNum.ToString() + "마리";
     }
 
     public Text status_text;
@@ -71,6 +80,15 @@ public class SetUp : MonoBehaviour
         Setting();
         status_text.GetComponent<Text>().color = Color.white;
         status_pannel.SetActive(true);
+        status_pannel.transform.Find("공격력").GetChild(0).GetComponent<Text>().text = PlayerController.Atk().ToString();
+        status_pannel.transform.Find("공격속도").GetChild(0).GetComponent<Text>().text = PlayerController.AtkSpeed().ToString() + "S";
+        status_pannel.transform.Find("공격 객체수").GetChild(0).GetComponent<Text>().text = PlayerController.attack_lv_count.ToString();
+        status_pannel.transform.Find("체력").GetChild(0).GetComponent<Text>().text = PlayerController.max_hp.ToString();
+        status_pannel.transform.Find("스킬 슬롯").GetChild(0).GetComponent<Text>().text = PlayerController.skill_lv_getcount.ToString();
+        status_pannel.transform.Find("스킬 공격력").GetChild(0).GetComponent<Text>().text = ((int)(PlayerController.SkillDamage() * 100)).ToString() + "%";
+        status_pannel.transform.Find("스킬 쿨타임").GetChild(0).GetComponent<Text>().text = ((int)(PlayerController.SkillCoolTime())).ToString() + "%";
+        status_pannel.transform.Find("이동속도").GetChild(0).GetComponent<Text>().text = ((int)(PlayerController.MoveSpeed() * 100)).ToString() + "%";
+        status_pannel.transform.Find("경험치").GetChild(0).GetComponent<Text>().text = ((int)(PlayerController.ExpUpPercent() * 100)).ToString() + "%";
     }
 
     public Text masicCircle_text;
