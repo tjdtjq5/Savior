@@ -105,7 +105,7 @@ public class MonsterController : MonoBehaviour
 
         GameObject damage_obj = ObjectPoolingManager.instance.GetQueue(ObjectKind.nomal_damage);
         damage_obj.transform.position = this.transform.position;
-        damage_obj.GetComponent<Damage>().DamageSet(damage);
+        damage_obj.GetComponent<Damage>().DamageSet(damage - def);
 
         if (damage - def < 0)
             current_hp -= 1;
@@ -116,9 +116,11 @@ public class MonsterController : MonoBehaviour
             gameEnd.monsterDeadCount++;
             int point = GameManager.instance.monsterManager.GetMonster(name).point;
             player_transform.GetComponent<PlayerController>().PointUp(point);
+            player_transform.GetComponent<PlayerController>().Exp_Up(exp);
             GameObject smoke = ObjectPoolingManager.instance.GetQueue(ObjectKind.smoke);
             smoke.transform.position = this.transform.position;
             ObjectPoolingManager.instance.InsertQueue(this.gameObject, (ObjectKind)Enum.Parse(typeof(ObjectKind), objectKind_string));
+            player_transform.GetComponent<PlayerController>().deadMonsterNum++;
         }
 
         else

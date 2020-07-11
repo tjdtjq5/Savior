@@ -35,10 +35,23 @@ public class Item_Manager : MonoBehaviour
         else
             marble_type = ObjectKind.exp_marble_small;
 
-        exp_marble = ObjectPoolingManager.instance.GetQueue(marble_type);
-        exp_marble.GetComponent<Item>().player = player;
+     
         float X = Random.Range(player.position.x - range, player.position.x + range);
         float Y = Random.Range(player.position.y - range, player.position.y + range);
+
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 0);
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if (hit[i].transform.tag == "Obstacle")
+            {
+                Invoke("exp_marble_Spawn", 0.1f);
+                return;
+            }
+        }
+
+        exp_marble = ObjectPoolingManager.instance.GetQueue(marble_type);
+        exp_marble.GetComponent<Item>().player = player;
+
         exp_marble.transform.position = new Vector3(X,Y,0);
         Invoke("exp_marble_Spawn", spawn_time);
     }
@@ -56,11 +69,27 @@ public class Item_Manager : MonoBehaviour
         else
             marble_type = ObjectKind.hp_marble_small;
 
-        hp_marble = ObjectPoolingManager.instance.GetQueue(marble_type);
-        hp_marble.GetComponent<Item>().player = player;
+  
         float X = Random.Range(player.position.x - range, player.position.x + range);
         float Y = Random.Range(player.position.y - range, player.position.y + range);
+
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 0);
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if (hit[i].transform.tag == "Obstacle")
+            {
+                Invoke("hp_marble_Spawn", 0.1f);
+                return;
+            }
+        }
+
+
+        hp_marble = ObjectPoolingManager.instance.GetQueue(marble_type);
+        hp_marble.GetComponent<Item>().player = player;
         hp_marble.transform.position = new Vector3(X, Y, 0);
+
+   
+
         Invoke("hp_marble_Spawn", spawn_time);
     }
 
@@ -75,6 +104,17 @@ public class Item_Manager : MonoBehaviour
             X = Random.Range(player.position.x - range, player.position.x + range);
             Y = Random.Range(player.position.y - range, player.position.y + range);
         }
+
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(X, Y), 1, Vector2.zero, 0);
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if (hit[i].transform.tag == "Obstacle")
+            {
+                Invoke("Treasure_Spawn", 0.1f);
+                return;
+            }
+        }
+
         Instantiate(treasure_obj, new Vector3(X, Y, 0), Quaternion.identity);
         if (StageManager.instance.currentStageInt != 6)
             Invoke("Treasure_Spawn", spawn_time);
@@ -113,6 +153,10 @@ public class Item_Manager : MonoBehaviour
             if (hit_list[i] && hit_list[i].transform.name.Contains("hp_marble_small"))
             {
                 ObjectPoolingManager.instance.InsertQueue(hit_list[i].transform.gameObject, ObjectKind.hp_marble_small);
+            }
+            if (hit_list[i] && hit_list[i].transform.tag == "Skill_Item")
+            {
+                Destroy(hit_list[i].transform.gameObject);
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ActiveSkill : MonoBehaviour
 {
-    [Range(1,10)] public float skillDamage;
+    [Range(1,1000)] public float skillDamage;
     public float lvOfDamage;
     [Range(1, 10)] public float range;
     [Range(1, 10)] public int atk_num; // 타격수
@@ -13,10 +13,7 @@ public class ActiveSkill : MonoBehaviour
 
     [HideInInspector] public PlayerController playerInfo;
 
-    private void Start()
-    {
-        skillDamage = skillDamage * playerInfo.SkillDamage();
-    }
+   
 
     public void SkillCall(List<GameObject> target, int atk)
     {
@@ -33,8 +30,8 @@ public class ActiveSkill : MonoBehaviour
             if (target.activeSelf == true)
             {
                 if (StageManager.instance.currentStage == "Boss")
-                    target.GetComponent<Boss>().Hit((int)(atk * skillDamage));
-                else target.GetComponent<MonsterController>().Hit((int)(atk * skillDamage));
+                    target.GetComponent<Boss>().Hit((int)( skillDamage));
+                else target.GetComponent<MonsterController>().Hit((int)( skillDamage));
                 yield return new WaitForSeconds(0.1f);
             }
         }
