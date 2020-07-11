@@ -48,8 +48,26 @@ public class Boss : MonoBehaviour
     public AudioSource spin_strong;
     public AudioSource spin;
 
+
+    [Header("스킬범위")]
+    public GameObject burningground_R;
+    public GameObject breathball_R;
+    public GameObject breath_R;
+    public GameObject claw_R;
+    public GameObject flame_R;
+    public GameObject flamebomb_R;
+    public GameObject flamestrong_R;
+    public GameObject randomshot_R;
+
+    [Header("패널")]
+    public GameObject VictoryPanel;
+    public GameObject GameOverPanel;
+
     [Header("카메라줌")]
     public float Zoom;
+
+    public Transform mouth;
+    bool phase_01;
 
     //연출
     [HideInInspector] public float Boss_hp;
@@ -82,13 +100,13 @@ public class Boss : MonoBehaviour
     {
         Boss_ani = this.GetComponent<Animator>();
         skeletonAnimation = GetComponent<SkeletonAnimation>();
-        this.gameObject.transform.position = new Vector2(player.position.x+20,player.position.y+10);
+        this.gameObject.transform.position = new Vector2(player.position.x + 20, player.position.y + 10);
         atk = GameManager.instance.monsterManager.GetMonster(name).atk;
         //hp = GameManager.instance.monsterManager.GetMonster(name).hp;
         hp = 10000;
         speed = GameManager.instance.monsterManager.GetMonster(name).speed;
         def = GameManager.instance.monsterManager.GetMonster(name).def;
-        
+
         boss_start = true;
         player.GetComponent<PlayerController>().boss_start = true;
         this.transform.position = temppos.position;
@@ -136,7 +154,7 @@ public class Boss : MonoBehaviour
         boss_hp.fillAmount = (float)Boss_hp / hp;
         if (countdown.remainTime > 0 && Boss_hp <= 0)
             Victory();
-        else if (countdown.remainTime <= 0)
+        else if (countdown.playTime >= countdown.time)
             GameOver();
         if (!boss_start)
             Move();
@@ -145,12 +163,12 @@ public class Boss : MonoBehaviour
 
     void GameOver()
     {
-
+        GameOverPanel.SetActive(true);
     }
 
     void Victory()
     {
-        SceneManager.LoadScene("MainScene");
+        VictoryPanel.SetActive(true);
     }
 
     public void Move()
@@ -163,7 +181,7 @@ public class Boss : MonoBehaviour
             if (move_flag)
             {
                 Spine_Ani(AniKind.move);
-                this.transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed/50f);
+                this.transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed / 50f);
 
                 if (player.position.x - this.transform.position.x > 0)
                     this.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -173,15 +191,15 @@ public class Boss : MonoBehaviour
 
                 RaycastHit2D[] isplayer = Physics2D.CircleCastAll(this.transform.position, range, Vector2.zero);
 
-                for(int i = 0; i<isplayer.Length; i++)
+                for (int i = 0; i < isplayer.Length; i++)
                 {
                     if (isplayer[i].transform.gameObject.tag.Contains("Player"))
                         StartCoroutine("Attack_flag_Couroutine");
                 }
             }
-            if (attack_flag&&skill_start)
+            if (attack_flag && skill_start)
             {
-                Invoke(phase_num,0.1f);
+                Invoke(phase_num, 0.1f);
             }
             else
             {
@@ -194,7 +212,7 @@ public class Boss : MonoBehaviour
     IEnumerator Move_flag_Couroutine()
     {
         move_flag = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         move_flag = false;
     }
 
@@ -215,18 +233,19 @@ public class Boss : MonoBehaviour
         int range = Random.Range(0, 100);
         if (range < 35)
             //보스 브레스 애니메이션 동작
-            Spine_Ani(AniKind.Flame);
+            Spine_Ani(AniKind.Breath);
         else if (35 <= range && range < 70)
             //보스 플레임 애니메이션 동작
             Spine_Ani(AniKind.Flame);
         else
             //보스 할퀴기 동작
-            Spine_Ani(AniKind.Flame);
-        if(Boss_hp <= hp*0.7)
+            Spine_Ani(AniKind.Claw);
+        if (Boss_hp <= hp * 0.7)
         {
             //보스 화염탄 난사 애니메이션 동작
             Spine_Ani(AniKind.RandomShot);
             Boss_Skill.instance.phase_01 = true;
+            phase_01 = true;
             phase_num = "Phase_02";
         }
     }
@@ -250,11 +269,12 @@ public class Boss : MonoBehaviour
         else
             //플레임 동작
             Spine_Ani(AniKind.Flame);
-        if (Boss_hp <= hp*0.3)
+        if (Boss_hp <= hp * 0.3)
         {
             //보스 화염탄 난사 애니메이션 동작
             Spine_Ani(AniKind.RandomShot);
             Boss_Skill.instance.phase_01 = false;
+            phase_01 = false;
             phase_num = "Phase_03";
         }
 
@@ -269,10 +289,10 @@ public class Boss : MonoBehaviour
         int range = Random.Range(0, 100);
         if (range < 20)
             Spine_Ani(AniKind.Flame);
-            //보스 플레임 강화 애니메이션 동작
+        //보스 플레임 강화 애니메이션 동작
         else if (20 <= range && range < 45)
             Spine_Ani(AniKind.BurningGround);
-            //보스 불타는 대지 애니메이션 동작
+        //보스 불타는 대지 애니메이션 동작
         else if (45 <= range && range < 70)
             //보스 브레스 강화 동작
             Spine_Ani(AniKind.Breath);
@@ -281,6 +301,7 @@ public class Boss : MonoBehaviour
             //보스 화염탄 난사 동작
             Spine_Ani(AniKind.RandomShot);
             Boss_Skill.instance.phase_01 = false;
+            phase_01 = false;
         }
         else
             //꼬리치기 강화 동작
@@ -300,7 +321,7 @@ public class Boss : MonoBehaviour
             Boss_hp -= 1;
         else Boss_hp -= damage;
 
-        if(Boss_hp>0)
+        if (Boss_hp > 0)
         {
             if (damage > 100)
             {
@@ -326,11 +347,15 @@ public class Boss : MonoBehaviour
         if (TimeManager.instance.GetTime())
             return;
         if (col.transform.tag.Contains("Player"))
-            col.transform.GetComponent<PlayerController>().Hit(atk,gameObject);
+            col.transform.GetComponent<PlayerController>().Hit(atk, gameObject);
     }
 
     void Spine_Ani(AniKind ani)
     {
+        if (TimeManager.instance.GetTime())
+        {
+            return;
+        }
         string aniName = "";
         switch (ani)
         {
@@ -376,7 +401,7 @@ public class Boss : MonoBehaviour
                 currentSpineName = aniName;
                 string[] Claw_name = { "Dragon_Claw_R", "Dragon_Claw_A", "Dragon_Claw_E" };
                 float[] Claw_time = { 1, 1, 1 };
-                StartCoroutine(setAni_Coroutine(Claw_name, Claw_time,"Claw"));
+                StartCoroutine(setAni_Coroutine(Claw_name, Claw_time, "Claw"));
                 break;
             case AniKind.FlameBomb:
                 aniName = "Dragon_FlameBomb";
@@ -385,7 +410,7 @@ public class Boss : MonoBehaviour
                 currentSpineName = aniName;
                 string[] FlameBomb_name = { "Dragon_FlameBomb_R", "Dragon_FlameBomb_A", "Dragon_FlameBomb_E" };
                 float[] FlameBomb_time = { 1, 1, 1 };
-                StartCoroutine(setAni_Coroutine(FlameBomb_name, FlameBomb_time,"FlameBomb"));
+                StartCoroutine(setAni_Coroutine(FlameBomb_name, FlameBomb_time, "FlameBomb"));
                 skeletonAnimation.timeScale = 1;
                 break;
             case AniKind.Flame:
@@ -395,7 +420,7 @@ public class Boss : MonoBehaviour
                 currentSpineName = aniName;
                 string[] Flame_name = { "Dragon_Flame_R", "Dragon_Flame_A", "Dragon_Flame_E" };
                 float[] Flame_time = { 1, 1, 1 };
-                StartCoroutine(setAni_Coroutine(Flame_name, Flame_time,"Flame"));
+                StartCoroutine(setAni_Coroutine(Flame_name, Flame_time, "Flame"));
                 break;
             case AniKind.RandomShot:
                 aniName = "Dragon_RandomShot";
@@ -404,7 +429,7 @@ public class Boss : MonoBehaviour
                 currentSpineName = aniName;
                 string[] RandomShot_name = { "Dragon_RandomShot_R", "Dragon_RandomShot_A", "Dragon_RandomShot_E" };
                 float[] RandomShot_time = { 1, 1, 1 };
-                StartCoroutine(setAni_Coroutine(RandomShot_name, RandomShot_time,"RandomShot"));
+                StartCoroutine(setAni_Coroutine(RandomShot_name, RandomShot_time, "RandomShot"));
                 break;
             case AniKind.Spin:
                 aniName = "Dragon_Spin";
@@ -413,31 +438,43 @@ public class Boss : MonoBehaviour
                 currentSpineName = aniName;
                 string[] Spin_name = { "Dragon_Spin_R", "Dragon_Spin_A", "Dragon_Spin_E" };
                 float[] Spin_time = { 1, 1, 0.5f };
-                StartCoroutine(setAni_Coroutine(Spin_name, Spin_time,"Spin"));
+                StartCoroutine(setAni_Coroutine(Spin_name, Spin_time, "Spin"));
                 break;
             default:
                 break;
         }
     }
 
+    bool isreflect;
+    Vector3 pos;
+    Vector3[] randpos = new Vector3[16];
     IEnumerator setAni_Coroutine(string[] name, float[] time, string type)
     {
-        for(int i = 0; i<name.Length; i++)
+        for (int i = 0; i < name.Length; i++)
         {
-            skeletonAnimation.AnimationState.SetAnimation(0,name[i],false);
+            skeletonAnimation.AnimationState.SetAnimation(0, name[i], false);
             skeletonAnimation.AnimationState.TimeScale = 1f;
 
 
-            if(i == 0)
+            if (i == 0)
             {
+                float randx = Random.Range(-0.7f, 0.7f);
+                pos = new Vector3(player.position.x + randx, player.position.y);
+
                 if (player.position.x - this.transform.position.x > 0)
+                {
                     this.GetComponent<Boss_Skill>().isreflect = true;
+                    isreflect = true;
+                }
                 else
+                {
                     this.GetComponent<Boss_Skill>().isreflect = false;
+                    isreflect = false;
+                }
+                StartCoroutine(SkillRangeCoroutine(type, isreflect));
             }
 
-            float randx = Random.Range(-2,2);
-            Vector3 pos = new Vector3(player.position.x+randx,player.position.y);
+
             if (i == 1)
             {
                 switch (type)
@@ -483,6 +520,30 @@ public class Boss : MonoBehaviour
                             GameManager.instance.audioManager.EnvironVolume_Play(flame);
                         }
                         break;
+                    case "RandomShot":
+                        if (phase_01)
+                        {
+                            for (int k = 0; k < 10; k++)
+                            {
+                                float randx = Random.Range(player.position.x - 8, player.position.x + 8);
+                                float randy = Random.Range(player.position.y - 8, player.position.y + 8);
+                                Vector3 pos1 = new Vector3(randx, randy);
+                                randpos[k] = pos1;
+                                StartCoroutine(RandomRangeCoroutine(pos1));
+                            }
+                        }
+                        else
+                        {
+                            for (int k = 0; k < 15; k++)
+                            {
+                                float randx = Random.Range(player.position.x - 8, player.position.x + 8);
+                                float randy = Random.Range(player.position.y - 8, player.position.y + 8);
+                                Vector3 pos1 = new Vector3(randx, randy);
+                                randpos[k] = pos1;
+                                StartCoroutine(RandomRangeCoroutine(pos1));
+                            }
+                        }
+                        break;
                     case "Spin":
                         if (phase_num == "Phase_03")
                         {
@@ -501,17 +562,109 @@ public class Boss : MonoBehaviour
             }
             if (i == 2 && type == "RandomShot")
             {
-                    Boss_Skill.instance.RandomShot();
-                if (phase_num == "Phase_01")
+                if (phase_01)
+                {
+                    Boss_Skill.instance.RandomShot(randpos);
                     GameManager.instance.audioManager.EnvironVolume_Play(randomshot);
+                }
                 else
+                {
+                    Boss_Skill.instance.RandomShot(randpos);
                     GameManager.instance.audioManager.EnvironVolume_Play(randomshot02);
+                }
             }
             yield return new WaitForSeconds(time[i]);
         }
     }
 
+    IEnumerator RandomRangeCoroutine(Vector3 pos)
+    {
+        GameObject randomshotR = Instantiate(randomshot_R, pos, Quaternion.identity);
+        yield return new WaitForSeconds(1.5f);
+        Destroy(randomshotR);
+    }
 
+    public IEnumerator SkillRangeCoroutine(string name, bool isreflect)
+    {
+        switch (name)
+        {
+            case "Breath":
+                if (isreflect)
+                    breath_R.transform.rotation = Quaternion.Euler(0, 180, 16);
+                else
+                    breath_R.transform.rotation = Quaternion.Euler(0, 0, 16);
+                breath_R.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                breath_R.SetActive(false);
+                break;
+            case "BreathBall":
+                if (isreflect)
+                    breathball_R.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    breathball_R.transform.rotation = Quaternion.Euler(0, 0, 0);
+                breathball_R.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                breathball_R.SetActive(false);
+                break;
+            case "BreathStrong":
+                GameObject breathstrongR = Instantiate(flamebomb_R, mouth.position, Quaternion.identity);
+                if (isreflect)
+                    breathstrongR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    breathstrongR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield return new WaitForSeconds(1f);
+                Destroy(breathstrongR);
+                break;
+            case "BurningGround":
+                if (isreflect)
+                    burningground_R.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    burningground_R.transform.rotation = Quaternion.Euler(0, 0, 0);
+                burningground_R.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                burningground_R.SetActive(false);
+                break;
+            case "Claw":
+                if (isreflect)
+                    claw_R.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    claw_R.transform.rotation = Quaternion.Euler(0, 0, 0);
+                claw_R.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                claw_R.SetActive(false);
+                break;
+            case "Flame":
+                GameObject flameR = Instantiate(flame_R, pos, Quaternion.identity);
+                if (isreflect)
+                    flameR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    flameR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield return new WaitForSeconds(1f);
+                Destroy(flameR);
+                break;
+            case "FlameBomb":
+                GameObject flamebombR = Instantiate(flamebomb_R, pos, Quaternion.identity);
+                if (isreflect)
+                    flamebombR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    flamebombR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield return new WaitForSeconds(1f);
+                Destroy(flamebombR);
+                break;
+            case "FlameStrong":
+                GameObject flamestrongR = Instantiate(flamestrong_R, pos, Quaternion.identity);
+                if (isreflect)
+                    flamestrongR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    flamestrongR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield return new WaitForSeconds(1f);
+                Destroy(flamestrongR);
+                break;
+            default:
+                break;
+        }
+        yield return new WaitForSeconds(0f);
+    }
     enum AniKind
     {
         move,
