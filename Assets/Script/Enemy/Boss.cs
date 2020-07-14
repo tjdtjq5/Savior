@@ -113,7 +113,7 @@ public class Boss : MonoBehaviour
         Boss_hp = hp;
         Boss_Skill.instance.phase_01 = true;
         bosshpbar.SetActive(true);
-        phase_num = "Phase_01";
+        phase_num = "Phase_03";
         countdown.time = 300;
         skill_start = false;
 
@@ -288,10 +288,10 @@ public class Boss : MonoBehaviour
         }
         int range = Random.Range(0, 100);
         if (range < 20)
-            Spine_Ani(AniKind.Flame);
+            Spine_Ani(AniKind.Breath);
         //보스 플레임 강화 애니메이션 동작
         else if (20 <= range && range < 45)
-            Spine_Ani(AniKind.BurningGround);
+            Spine_Ani(AniKind.Breath);
         //보스 불타는 대지 애니메이션 동작
         else if (45 <= range && range < 70)
             //보스 브레스 강화 동작
@@ -589,31 +589,36 @@ public class Boss : MonoBehaviour
         switch (name)
         {
             case "Breath":
-                if (isreflect)
-                    breath_R.transform.rotation = Quaternion.Euler(0, 180, 16);
+                if (phase_num == "Phase_01")
+                {
+                    if (isreflect)
+                        breath_R.transform.rotation = Quaternion.Euler(0, 180, 16);
+                    else
+                        breath_R.transform.rotation = Quaternion.Euler(0, 0, 16);
+                    breath_R.SetActive(true);
+                    yield return new WaitForSeconds(1f);
+                    breath_R.SetActive(false);
+                }
+                else if (phase_num == "Phase_02")
+                {
+                    if (isreflect)
+                        breathball_R.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    else
+                        breathball_R.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    breathball_R.SetActive(true);
+                    yield return new WaitForSeconds(1f);
+                    breathball_R.SetActive(false);
+                }
                 else
-                    breath_R.transform.rotation = Quaternion.Euler(0, 0, 16);
-                breath_R.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                breath_R.SetActive(false);
-                break;
-            case "BreathBall":
-                if (isreflect)
-                    breathball_R.transform.rotation = Quaternion.Euler(0, 180, 0);
-                else
-                    breathball_R.transform.rotation = Quaternion.Euler(0, 0, 0);
-                breathball_R.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                breathball_R.SetActive(false);
-                break;
-            case "BreathStrong":
-                GameObject breathstrongR = Instantiate(flamebomb_R, mouth.position, Quaternion.identity);
-                if (isreflect)
-                    breathstrongR.transform.rotation = Quaternion.Euler(0, 180, 0);
-                else
-                    breathstrongR.transform.rotation = Quaternion.Euler(0, 0, 0);
-                yield return new WaitForSeconds(1f);
-                Destroy(breathstrongR);
+                {
+                    GameObject breathstrongR = Instantiate(flamebomb_R, mouth.position, Quaternion.identity);
+                    if (isreflect)
+                        breathstrongR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    else
+                        breathstrongR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    yield return new WaitForSeconds(1f);
+                    Destroy(breathstrongR);
+                }
                 break;
             case "BurningGround":
                 if (isreflect)
@@ -634,13 +639,26 @@ public class Boss : MonoBehaviour
                 claw_R.SetActive(false);
                 break;
             case "Flame":
-                GameObject flameR = Instantiate(flame_R, pos, Quaternion.identity);
-                if (isreflect)
-                    flameR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                if (phase_num == "Phase_03")
+                {
+                    GameObject flamestrongR = Instantiate(flamestrong_R, pos, Quaternion.identity);
+                    if (isreflect)
+                        flamestrongR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    else
+                        flamestrongR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    yield return new WaitForSeconds(1f);
+                    Destroy(flamestrongR);
+                }
                 else
-                    flameR.transform.rotation = Quaternion.Euler(0, 0, 0);
-                yield return new WaitForSeconds(1f);
-                Destroy(flameR);
+                {
+                    GameObject flameR = Instantiate(flame_R, pos, Quaternion.identity);
+                    if (isreflect)
+                        flameR.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    else
+                        flameR.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    yield return new WaitForSeconds(1f);
+                    Destroy(flameR);
+                }
                 break;
             case "FlameBomb":
                 GameObject flamebombR = Instantiate(flamebomb_R, pos, Quaternion.identity);
@@ -650,15 +668,6 @@ public class Boss : MonoBehaviour
                     flamebombR.transform.rotation = Quaternion.Euler(0, 0, 0);
                 yield return new WaitForSeconds(1f);
                 Destroy(flamebombR);
-                break;
-            case "FlameStrong":
-                GameObject flamestrongR = Instantiate(flamestrong_R, pos, Quaternion.identity);
-                if (isreflect)
-                    flamestrongR.transform.rotation = Quaternion.Euler(0, 180, 0);
-                else
-                    flamestrongR.transform.rotation = Quaternion.Euler(0, 0, 0);
-                yield return new WaitForSeconds(1f);
-                Destroy(flamestrongR);
                 break;
             default:
                 break;
