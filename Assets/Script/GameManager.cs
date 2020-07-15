@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public AudioManager audioManager;
     public MonsterManager monsterManager;
     public DatabaseManager database;
+    public GoogleLogin googleLogin;
     void Awake()
     {
         instance = this;

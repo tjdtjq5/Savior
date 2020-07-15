@@ -46,6 +46,8 @@ public class GameEnd : MonoBehaviour
             this.transform.Find("사용 액티브 스킬").GetChild(0).GetChild(i).GetComponent<Image>().sprite = GetSkillIconSprite(playerSkill.player_skill[i]);
         }
         this.transform.Find("사망 스테이지").GetChild(0).GetComponent<Text>().text = "Stage 0"  + stageManager.currentStage;
+
+        GameManager.instance.googleLogin.SetLeaderBoard(playerController.currentPoint);
     }
 
     public void ReStart()
