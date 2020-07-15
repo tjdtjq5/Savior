@@ -45,6 +45,8 @@ public class Victory : MonoBehaviour
             this.transform.Find("사용 액티브 스킬").GetChild(0).GetChild(i).gameObject.SetActive(true);
             this.transform.Find("사용 액티브 스킬").GetChild(0).GetChild(i).GetComponent<Image>().sprite = GetSkillIconSprite(playerSkill.player_skill[i]);
         }
+
+        GameManager.instance.googleLogin.SetLeaderBoard(playerController.currentPoint);
     }
 
 
