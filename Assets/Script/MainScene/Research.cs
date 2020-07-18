@@ -12,7 +12,104 @@ public class Research : MonoBehaviour
     [Header("연구레벨_포인트")] public GameObject Research_Level_Point;
     [Header("설명")] public GameObject explanation;
     public ResearchManager researchManager;
-  
+
+    public void Start()
+    {
+        string name = gameObject.name;
+        switch (name)
+        {
+            case "최대체력":
+                if (GameManager.instance.userinfo.hp_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "공격력":
+                if (GameManager.instance.userinfo.atk_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "공격속도":
+                if (GameManager.instance.userinfo.atkspeed_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "이동속도":
+                if (GameManager.instance.userinfo.speed_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "아이템":
+                if (GameManager.instance.userinfo.item_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "방어력":
+                if (GameManager.instance.userinfo.shield_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "체력회복":
+                if (GameManager.instance.userinfo.recovery_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "스킬데미지":
+                if (GameManager.instance.userinfo.skilldamage_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "경험치":
+                if (GameManager.instance.userinfo.exp_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+            case "포인트":
+                if (GameManager.instance.userinfo.point_research)
+                {
+                    for (int i = 0; i < fill_image.Length; i++)
+                    {
+                        fill_image[i].fillAmount = 1;
+                    }
+                }
+                break;
+        }
+    }
 
 
     public bool circle_flag;
