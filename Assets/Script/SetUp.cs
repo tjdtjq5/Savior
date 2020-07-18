@@ -9,6 +9,7 @@ public class SetUp : MonoBehaviour
     public GameObject stopPannel;
     public GameObject blackPannel;
     public PlayerController PlayerController;
+    public PlayerSkill playerSkill;
     public void StopUIOpen()
     {
         if (!stopPannel.activeSelf)
@@ -109,6 +110,26 @@ public class SetUp : MonoBehaviour
         Setting();
         activeSkill_text.GetComponent<Text>().color = Color.white;
         activeSkill_pannel.SetActive(true);
+        activeSkill_pannel.transform.Find("분류").gameObject.SetActive(false);
+        activeSkill_pannel.transform.Find("스킬이름").gameObject.SetActive(false);
+        activeSkill_pannel.transform.Find("스킬설명").gameObject.SetActive(false);
+
+        Transform context = activeSkill_pannel.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0);
+        for (int i = 0; i < context.childCount; i++)
+        {
+            context.GetChild(i).gameObject.SetActive(false);
+            context.GetChild(i).GetComponent<Image>().color = new Color(192 / 255f, 192 / 255f, 192 / 255f, 186 / 255f);
+        }
+        for (int i = 0; i < playerSkill.player_skill.Count; i++)
+        {
+            for (int j = 0; j < context.childCount; j++)
+            {
+                if (playerSkill.player_skill[i] == context.GetChild(j).name)
+                {
+                    context.GetChild(j).gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
     public Text artifacts_text;
