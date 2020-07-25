@@ -31,6 +31,7 @@ public class ResearchManager : MonoBehaviour
                 circle[i].transform.GetChild(0).GetComponent<Image>().DOFade(0, 2f).OnComplete(()=> { circle[0].GetComponent<Research>().if_fill_flag = true; });
                 circle[i].GetComponent<Research>().if_fill_flag = false;
                 circle[i].transform.GetComponent<Image>().fillAmount = 0;
+                circle[i].GetComponent<Research>().circle_flag = false;
             }
             for (int i = 0; i < line.Length; i++)
             {

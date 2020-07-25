@@ -48,7 +48,7 @@ public class GameEnd : MonoBehaviour
         this.transform.Find("사망 스테이지").GetChild(0).GetComponent<Text>().text = "Stage 0"  + stageManager.currentStage;
 
         GameManager.instance.userinfo.point += playerController.currentPoint;
-        GameManager.instance.googleLogin.SetLeaderBoard(playerController.currentPoint);
+       GameManager.instance.googleLogin.SetLeaderBoard(playerController.currentPoint);
     }
 
     public void ReStart()

@@ -9,7 +9,7 @@ using GooglePlayGames.BasicApi;
 public class GoogleLogin : MonoBehaviour
 {
     bool bWait = false;
-
+    
     void Awake()
     {
         PlayGamesPlatform.InitializeInstance(new PlayGamesClientConfiguration.Builder().Build());
@@ -67,4 +67,5 @@ public class GoogleLogin : MonoBehaviour
         }
       );
     }
+    
 }
