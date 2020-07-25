@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Boss_Smoke : MonoBehaviour
 {
-    public void Destroy()
+    public void Smoke_Destroy()
     {
         Destroy(this.gameObject);
     }
+  
 }

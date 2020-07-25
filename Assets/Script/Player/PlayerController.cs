@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
         speed = MoveSpeed();
 
-        int tempMaxLv = 0;
+        int tempMaxLv = -1;
         for (int i = 0; i < GameManager.instance.database.skillCard_DB.GetLineSize(); i++)
         {
             tempMaxLv += int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(i)[1]);
@@ -696,9 +696,8 @@ public class PlayerController : MonoBehaviour
 
         float tempExpUp = up + (up * ExpUpPercent());
         player_exp += (int)tempExpUp;
-
-        int needExp = int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv-1)[0]);
-        Debug.Log(needExp);
+        //int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv-1)[0]);
+        int needExp = 1;
         if (player_exp >= needExp)
         {
             uI2_Manager.SkillSelect();
