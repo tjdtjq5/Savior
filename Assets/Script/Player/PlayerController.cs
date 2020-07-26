@@ -674,6 +674,8 @@ public class PlayerController : MonoBehaviour
 
         float tempRecovery = up + (up * Recovery());
 
+        Debug.Log("up" + up + "Recovery" + (up * Recovery()));
+
         current_hp += (int)tempRecovery;
         if (max_hp < current_hp)
             current_hp = max_hp;
@@ -696,8 +698,8 @@ public class PlayerController : MonoBehaviour
 
         float tempExpUp = up + (up * ExpUpPercent());
         player_exp += (int)tempExpUp;
-        //int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv-1)[0]);
-        int needExp = 1;
+        //
+        int needExp = int.Parse(GameManager.instance.database.exp_DB.GetRowData(player_lv - 1)[0]); 
         if (player_exp >= needExp)
         {
             uI2_Manager.SkillSelect();

@@ -794,6 +794,7 @@ MonoBehaviour:
   attack: orcA_attack
   hit_nomal_atk_AudioSource: {fileID: 24608935}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &24608937
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1761,6 +1762,7 @@ MonoBehaviour:
   attack: lionA_attack
   hit_nomal_atk_AudioSource: {fileID: 78144063}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &78144065
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7754,6 +7756,7 @@ MonoBehaviour:
   attack: wolfA_attack
   hit_nomal_atk_AudioSource: {fileID: 362112310}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &362112312
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9277,6 +9280,7 @@ MonoBehaviour:
   attack: wolfB_attack
   hit_nomal_atk_AudioSource: {fileID: 445256725}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &445256727
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11294,6 +11298,7 @@ MonoBehaviour:
   attack: orcC_attack
   hit_nomal_atk_AudioSource: {fileID: 514531298}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &514531300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19422,6 +19427,7 @@ MonoBehaviour:
   attack: golemA_attack
   hit_nomal_atk_AudioSource: {fileID: 645463266}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &645463268
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19822,6 +19828,7 @@ MonoBehaviour:
   attack: golemB_attack
   hit_nomal_atk_AudioSource: {fileID: 646734056}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &646734058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20703,6 +20710,7 @@ MonoBehaviour:
   attack: orcB_attack
   hit_nomal_atk_AudioSource: {fileID: 653590909}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &653590911
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23502,6 +23510,7 @@ MonoBehaviour:
   attack: goblineA_attack
   hit_nomal_atk_AudioSource: {fileID: 814743133}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &814743128
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33796,6 +33805,7 @@ MonoBehaviour:
   enemy_spawn: {fileID: 1313503990}
   spawn_time: 1
   bossstage: 0
+  enemyCount: 0
 --- !u!1 &1289057170
 GameObject:
   m_ObjectHideFlags: 0
@@ -35548,6 +35558,7 @@ MonoBehaviour:
   attack: goblineC_attack
   hit_nomal_atk_AudioSource: {fileID: 1358677392}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &1358677394
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36951,6 +36962,7 @@ MonoBehaviour:
   attack: lionB_attack
   hit_nomal_atk_AudioSource: {fileID: 1430825534}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &1430825536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38831,6 +38843,7 @@ MonoBehaviour:
   attack: goblineB_attack
   hit_nomal_atk_AudioSource: {fileID: 1500272138}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &1500272140
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39936,6 +39949,7 @@ MonoBehaviour:
   attack: wolfC_attack
   hit_nomal_atk_AudioSource: {fileID: 1531013198}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &1531013200
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -49083,6 +49097,7 @@ MonoBehaviour:
   attack: lionC_attack
   hit_nomal_atk_AudioSource: {fileID: 1891033137}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &1891033139
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -49842,6 +49857,7 @@ MonoBehaviour:
   attack: golemC_attack
   hit_nomal_atk_AudioSource: {fileID: 1907991299}
   gameEnd: {fileID: 1842997491}
+  enemyManager: {fileID: 1287904289}
 --- !u!61 &1907991301
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -84,7 +84,7 @@ public class ObjectPoolingManager : MonoBehaviour
             t_object.SetActive(false);
         }
         // nomal_damage
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 250; i++)
         {
             GameObject t_object = Instantiate(nomal_damage_prefab, new Vector2(3000, 3000), Quaternion.identity, instantiate_pos);
             nomal_damage_queue.Enqueue(t_object);

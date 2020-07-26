@@ -28,7 +28,7 @@ public class Ob_nomal : MonoBehaviour
 
         if (!atk_sound_flag)
         {
-            nomal_atk_AudioSource.Play();
+            GameManager.instance.audioManager.EnvironVolume_Play(nomal_atk_AudioSource);
             atk_sound_flag = true;
         }
 

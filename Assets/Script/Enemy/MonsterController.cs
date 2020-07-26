@@ -30,6 +30,7 @@ public class MonsterController : MonoBehaviour
     public AudioSource hit_nomal_atk_AudioSource;
     [Header("게임오버")]
     public GameEnd gameEnd;
+    public EnemyManager enemyManager;
 
     Rigidbody2D rigidbody2D;
 
@@ -121,6 +122,10 @@ public class MonsterController : MonoBehaviour
             smoke.transform.position = this.transform.position;
             ObjectPoolingManager.instance.InsertQueue(this.gameObject, (ObjectKind)Enum.Parse(typeof(ObjectKind), objectKind_string));
             player_transform.GetComponent<PlayerController>().deadMonsterNum++;
+            enemyManager.enemyCount--;
+
+            this.transform.position = new Vector2(2000, 2000);
+           
         }
 
         else
@@ -137,7 +142,7 @@ public class MonsterController : MonoBehaviour
 
             if (sound_flag)
             {
-                hit_nomal_atk_AudioSource.Play();
+                GameManager.instance.audioManager.EnvironVolume_Play(hit_nomal_atk_AudioSource);
             }
         }
     }

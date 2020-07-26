@@ -18,8 +18,7 @@ public class EnemyManager : MonoBehaviour
     [HideInInspector] public bool bossstage;
 
     int currentStage;
-
-
+    public int enemyCount = 0;
 
     private void Start()
     {
@@ -39,17 +38,11 @@ public class EnemyManager : MonoBehaviour
         }
 
         // 플레이어 주위 150m 이내에 몬스터수 50마리 이상일경우 반환 
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(player_transform.position, 150, Vector2.zero);
-        int enemyCount = 0;
-        for (int i = 0; i < hit.Length; i++)
-        {
-            if (hit[i] && hit[i].transform.tag == "Enemy")
-            {
-                enemyCount++;
-            }
-        }
+
+        enemyCount++;
         if (enemyCount > 50)
         {
+            Invoke("Spawn", spawn_time);
             return;
         }
        
@@ -159,7 +152,7 @@ public class EnemyManager : MonoBehaviour
     {
         currentStage++;
         RaycastHit2D[] enemy_hit_list = Physics2D.CircleCastAll(player_transform.position, 100, Vector2.zero);
-
+        enemyCount = 0;
         for (int i = 0; i < enemy_hit_list.Length; i++)
         {
             if (enemy_hit_list[i] && enemy_hit_list[i].transform.tag.Contains("Enemy"))

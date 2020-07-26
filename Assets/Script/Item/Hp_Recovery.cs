@@ -30,7 +30,7 @@ public class Hp_Recovery : MonoBehaviour
             }
             if (StageManager.instance.currentStageInt == 6)
                 Boss_Hpmarble.instance.marble_num--;
-            collision.GetComponent<PlayerController>().Hp_Recovery((int)(collision.GetComponent<PlayerController>().max_hp * recovery_amount));
+            collision.GetComponent<PlayerController>().Hp_Recovery((int)(collision.GetComponent<PlayerController>().max_hp * recovery_amount / 100));
             if (this.gameObject.name.Contains("large"))
             {
                 ObjectPoolingManager.instance.InsertQueue(this.gameObject, ObjectKind.hp_marble_large);
