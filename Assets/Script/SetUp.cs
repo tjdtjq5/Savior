@@ -84,6 +84,7 @@ public class SetUp : MonoBehaviour
         status_pannel.transform.Find("공격력").GetChild(0).GetComponent<Text>().text = PlayerController.Atk().ToString();
         status_pannel.transform.Find("공격속도").GetChild(0).GetComponent<Text>().text = PlayerController.AtkSpeed().ToString() + "S";
         status_pannel.transform.Find("공격 객체수").GetChild(0).GetComponent<Text>().text = PlayerController.attack_lv_count.ToString();
+        PlayerController.MaxHpSetting();
         status_pannel.transform.Find("체력").GetChild(0).GetComponent<Text>().text = PlayerController.max_hp.ToString();
         status_pannel.transform.Find("스킬 슬롯").GetChild(0).GetComponent<Text>().text = PlayerController.skill_lv_getcount.ToString();
         status_pannel.transform.Find("스킬 공격력").GetChild(0).GetComponent<Text>().text = ((int)(PlayerController.SkillDamage() * 100)).ToString() + "%";

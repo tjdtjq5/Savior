@@ -30,8 +30,8 @@ public class ActiveSkill : MonoBehaviour
             if (target.activeSelf == true)
             {
                 if (StageManager.instance.currentStage == "Boss")
-                    target.GetComponent<Boss>().Hit((int)( skillDamage));
-                else target.GetComponent<MonsterController>().Hit((int)( skillDamage));
+                    target.GetComponent<Boss>().Hit((int)( skillDamage * playerInfo.SkillDamage() + skillDamage));
+                else target.GetComponent<MonsterController>().Hit((int)(skillDamage * playerInfo.SkillDamage() + skillDamage));
                 yield return new WaitForSeconds(0.1f);
             }
         }

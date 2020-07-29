@@ -159,7 +159,11 @@ public class PlayerController : MonoBehaviour
     {
         List<string> masic_db = GameManager.instance.database.masic_circle_DB.GetRowData(0);
         List<string> skillcard_db = GameManager.instance.database.skillCard_DB.GetRowData(0);
-        max_hp = (int)(max_hp + (max_hp * masic_maxhp * float.Parse(masic_db[1]) / 100) + (max_hp * character_lv_hp * float.Parse(skillcard_db[2]) / 100));
+        Debug.Log(float.Parse(masic_db[1]));
+        Debug.Log(masic_maxhp);
+        Debug.Log(float.Parse(skillcard_db[2]));
+        Debug.Log(character_lv_hp);
+        max_hp = (int)(300 + (300 * masic_maxhp * float.Parse(masic_db[1]) / 100) + (300 * character_lv_hp * float.Parse(skillcard_db[2]) / 100));
     }
 
     public float AtkSpeed()

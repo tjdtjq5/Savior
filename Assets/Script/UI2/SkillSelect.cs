@@ -40,11 +40,11 @@ public class SkillSelect : MonoBehaviour
     private void Start()
     {
         maxLv_character_lv_hp = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(0)[1]);
-        maxLv_character_lv_speed = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(1)[1]);
-        maxLv_character_lv_exp = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(2)[1]);
-        maxLv_attack_lv_atk = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(3)[1]);
-        maxLv_attack_lv_speed = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(4)[1]);
-        maxLv_attack_lv_count = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(5)[1]);
+        maxLv_character_lv_speed = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(3)[1]);
+        maxLv_character_lv_exp = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(5)[1]);
+        maxLv_attack_lv_atk = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(1)[1]);
+        maxLv_attack_lv_speed = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(2)[1]);
+        maxLv_attack_lv_count = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(4)[1]);
         maxLv_skill_lv_atk = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(6)[1]);
         maxLv_skill_lv_cooltime = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(7)[1]);
         maxLv_skill_lv_getcount = int.Parse(GameManager.instance.database.skillCard_DB.GetRowData(8)[1]);
@@ -242,7 +242,6 @@ public class SkillSelect : MonoBehaviour
                     case 1:
                         if (maxLv_character_lv_hp == playerController.character_lv_hp)
                             return;
-                        
                         playerController.character_lv_hp++;
                         playerController.Chracter_LvUp_MaxHp();
                         break;

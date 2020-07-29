@@ -38,14 +38,13 @@ public class EnemyManager : MonoBehaviour
         }
 
         // 플레이어 주위 150m 이내에 몬스터수 50마리 이상일경우 반환 
-
-        enemyCount++;
         if (enemyCount > 50)
         {
             Invoke("Spawn", spawn_time);
             return;
         }
-       
+        enemyCount++;
+
 
         MonsterType monsterType = MonsterType.약한객체;
         int random = Random.RandomRange(0, 100);

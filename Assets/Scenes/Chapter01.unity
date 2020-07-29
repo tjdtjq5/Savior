@@ -6856,7 +6856,7 @@ MonoBehaviour:
   atk: 50
   max_hp: 300
   atkspeed: 1
-  speed: 0.05
+  speed: 0.04
   item_range: 1.48
   sheild: 10
   range: 6.4

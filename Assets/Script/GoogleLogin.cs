@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 // Text UI 사용
-using UnityEngine.UI;
 // 구글 플레이 연동
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
@@ -54,7 +51,7 @@ public class GoogleLogin : MonoBehaviour
 
     public void SetLeaderBoard(int score)
     {
-        Social.ReportScore(score, GPGSIds.leaderboard, (bool bSuccess) =>
+        Social.ReportScore(score, GPGSIds.leaderboard_savior, (bool bSuccess) =>
         {
             if (bSuccess)
             {

@@ -247,6 +247,7 @@ public class Research : MonoBehaviour
             }
 
             researchManager.CheckFillAmount();
+            GameManager.instance.userinfo.SaveResearch();
         }
 
         if (if_fill_image != null && if_fill_image.fillAmount == 1 && !if_fill_flag)

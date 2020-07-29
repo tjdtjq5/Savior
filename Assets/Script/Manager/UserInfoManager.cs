@@ -39,7 +39,7 @@ public class UserInfoManager : MonoBehaviour
 
     }
 
-    private void OnApplicationQuit()
+    public void SaveResearch()
     {
         PlayerPrefs.SetFloat("point", point);
         PlayerPrefs.SetInt("research_level", research_level);
